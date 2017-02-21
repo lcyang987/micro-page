@@ -1,0 +1,33 @@
+[dragContainer=true]{
+	position:relative;
+}
+[current=true] .actions,[active=true] .actions{
+	display:block;
+}
+[select=true]{
+	opacity:0.8;
+}
+[relative=true]{
+	position:relative;
+	user-select:none;
+	width:100%;
+}
+[drag=true]{
+	position:absolute;
+	left:0;
+	z-index:9;
+}
+[drag=true] .actions{
+	display:block;
+	cursor:-webkit-grabbing;
+}
+[select=true] .actions{
+	border-color:red;
+}
+.actions{
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	border:2px dashed orange;
+}
