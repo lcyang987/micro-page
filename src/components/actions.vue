@@ -35,6 +35,7 @@ export default {
 			},0);
 		},
 		deleteClick(){
+			console.log(this.$store.state.index.data)
 			if(confirm('是否删除')){
 				this.$store.state.index.isDelete=true;
 				setTimeout(()=>{
