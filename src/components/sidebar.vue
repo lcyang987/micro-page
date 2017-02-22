@@ -1,6 +1,6 @@
 <template>
-	<div class="sidebar" :class="{isHidden : isHidden,isRegion:isRegion}" v-if="result" :style="[{top:this.$store.state.sidebar.top+'px'}]">
-		<div v-if="isRegion">
+	<div class="sidebar" :class="{isHidden : $store.state.sidebar.isHidden,isRegion:$store.state.sidebar.isRegion}" v-if="result" :style="[{top:this.$store.state.sidebar.top+'px'}]">
+		<div v-if="$store.state.sidebar.isRegion">
 			<regionComponent ref="region" :data="data"></regionComponent>
 		</div>
 		<div v-else>
@@ -27,13 +27,6 @@ export default {
 		searchComponent,
 		titleComponent,
 		textNavComponent
-	},
-	data(){
-		return {
-			top:this.$store.state.sidebar.top,
-			isHidden:this.$store.state.sidebar.isHidden,
-			isRegion:this.$store.state.sidebar.isRegion
-		}
 	}
 }
 </script>

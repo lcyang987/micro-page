@@ -16,26 +16,13 @@ export default {
 			this.sideBarShow();
 			if(this.$store.state.sidebar)
 				this.$store.state.sidebar.isRegion=false;
-				
 		},
 		addClick(){
-			console.log(this.index)
-			this.$store.state.index.notEdit=true;
+			this.$store.state.sidebar.isRegion=true;
 			this.$store.state.index.active=this.index;
-			setTimeout(()=>{
-				this.sideBarShow();
-				if(this.$store.state.sidebar)
-					this.$store.state.sidebar.isRegion=true;
-				this.$store.state.sidebar.top=this.$parent.$parent.$refs.list.querySelector('[item="'+this.index+'"]').offsetTop;
-				this.$store.state.index.notEdit=false;
-				setTimeout(()=>{
-					this.$parent.$parent.setActive(this.index);
-					this.$store.state.region.active=parseInt(this.$parent.$parent.$refs.list.querySelector("[item='"+this.index+"'").getAttribute('index'));
-				},0);
-			},0);
+			console.log(this.index)
 		},
 		deleteClick(){
-			console.log(this.$store.state.index.data)
 			if(confirm('是否删除')){
 				this.$store.state.index.isDelete=true;
 				setTimeout(()=>{
@@ -44,7 +31,6 @@ export default {
 					this.$store.state.index.data.splice(this.index,1);
 				},0);
 			}
-			
 		},
 		sideBarShow(){
 			if(this.$store.state.sidebar)

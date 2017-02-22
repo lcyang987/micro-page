@@ -8,7 +8,8 @@
 				</div>
 				<div>
 					<span>链接到：</span>
-					<input type="text" v-model="item.link.url"  />
+					<!--<input type="text" v-model="item.link.url"  />-->
+					<dialogComponent></dialogComponent>
 				</div>
 				<button class="insert" v-on:click="insert(i)">+</button>
 				<button class="remove" v-on:click="remove(i)">×</button>
@@ -20,11 +21,13 @@
 <script>
 import _ from 'lodash';
 import originData from 'assets/originData.js';
+import dialogComponent from 'components/dialog';
 export default {
   	name: 'textNavSidebar',
 	props: ["result","active"],
 	components:{
-		originData
+		originData,
+		dialogComponent
 	},
 	methods:{
 		insert(i){

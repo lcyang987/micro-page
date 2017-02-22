@@ -27,7 +27,6 @@ const store = new Vuex.Store({
 			data,
 			active: null,
 			state: true,
-			
 			notEdit:false,
 			isDelete:false
 		},

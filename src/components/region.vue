@@ -2,7 +2,7 @@
 	<section class="region">
 		<h4>添加内容</h4>
 		<ul>
-			<li v-for="item in regionData" :class="{isTrue:item.type}" v-text="item.text" v-on:click="click(item)"></li>
+			<li v-for="item in $store.state.region.regionData" :class="{isTrue:item.type}" v-text="item.text" v-on:click="click(item)"></li>
 		</ul>
 	</section>
 </template>
@@ -13,20 +13,13 @@ import _ from 'lodash';
 export default {
   	name: 'region',
   	props:["data"],
-  	data(){
-  		return {
-  			regionData:this.$store.state.region.regionData,
-  			originData:this.$store.state.region.originData,
-  			active:this.$store.state.region.active,
-  		}
-  	},
   	methods:{
   		click(item){
 			if(item.type){
-				if(this.active!=null){
-					this.data.splice(this.active+1,0,_.cloneDeep(this.originData[item.type]));
+				if(/sidebar/.test(this.$parent.$el.className) && this.$store.state.index.active>=0){
+					this.data.splice(this.$store.state.index.active+1,0,_.cloneDeep(this.$store.state.region.originData[item.type]));
 				}else{
-					let json = _.cloneDeep(this.originData[item.type]);
+					let json = _.cloneDeep(this.$store.state.region.originData[item.type]);
 					this.data.push(json);
 				}
 			}

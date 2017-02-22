@@ -1,20 +1,19 @@
 <template>
 	<div class="design">
 		<section ref="list">
-			<template v-for="(item,i) in $store.state.index.data" v-if="state">
+			<template v-for="(item,i) in $store.state.index.data" v-if="$store.state.index.state">
 				<div @click="click(item,i)" :item="i" @mousedown="mousedown(item,i)" >
 					<component :is="item.type+'Component'" data="$store.state.index.data" :item="i" :result="item" :index="i"></component>
 				</div>
 			</template>
 		</section>
 		<regionComponent :data="$store.state.index.data"></regionComponent>
-		<sidebarComponent :data="$store.state.index.data" v-if="$store.state.index.active !== null" ref="sidebar" :result="data[$store.state.index.active]" :active="$store.state.index.active"></sidebarComponent>
+		<sidebarComponent :data="$store.state.index.data" v-if="$store.state.index.active !== null" ref="sidebar" :result="$store.state.index.data[$store.state.index.active]" :active="$store.state.index.active"></sidebarComponent>
 		<div v-on:click="returnData" style="text-align:center">return data</div>
 	</div>
 </template>
 <script>
 import DragDrop from 'assets/js/dragDrop.js';
-//import data from 'assets/data.js';
 import sidebarComponent from './sidebar';
 import regionComponent from './region';
 import lineComponent from './line/index';
@@ -36,24 +35,16 @@ export default {
 		titleComponent,
 		textNavComponent
 	},
-  	data () {
-  	  	return {
-  	  		data:this.$store.state.index.data,
-  	  		active:this.$store.state.index.active,
-  	  		state:this.$store.state.index.state,
-  	  		isMove:false
-  	  	}
-  	},
   	methods:{
   		returnData(){
-  			console.log(this.data)
+  			console.log(this.$store.state.index.data)
   		},
   		setMove(opt){
 			setTimeout(()=>{
-				this.dragDrop=new DragDrop({
+				new DragDrop({
 					eles:this.$refs.list.children
 				})
-			},1)
+			},0)
   		},
   		mousedown(item,i){
   			var obj=this.$refs.list.querySelector('[item="'+i+'"]');
@@ -65,83 +56,43 @@ export default {
   			}
   		},
   		mousemove(){
-//			console.log(this.isMove,'move')
-  			this.isMove=true;
+  			this.$store.state.index.isMove=true;
   		},
   		click(item,i){
-			this.$store.commit('showSidebar',{					
-					list:this.$refs.list,
-					i:i,
-					ower:this
-				});
-//			this.$store.state.index.active=i;
-//			setTimeout(()=>{	
-//              this.$store.state.sidebar.isHidden=false;
-//				this.$store.state.sidebar.top=this.$refs.list.querySelector('[item="'+i+'"]').offsetTop;
-//				var eles=this.$refs.list.children;
-//				for(var ii=0;ii<eles.length;ii++){
-//					if(ii!=eles[ii].getAttribute('item')){
-//			  			if(this.isMove===true){
-//			  				this.refreshData();
-//			  				this.isMove=false;
-//			  				return;
-//			  			}
-//			  		}
-//				}
-//			},0);
-			
-  		},
-  		setActive(index){
-  			if(!this.$refs.list)
-  				return;
-  			if(this.$refs.list.querySelector('[active="true"]'))
-  				this.$refs.list.querySelector('[active="true"]').removeAttribute('active');
-			this.$refs.list.children[index].setAttribute('active',true);
-			DragDrop.prototype.actionHeight(this.$refs.list.children[index],this.$refs.list.children[index].querySelector('.actions'))					
-			this.active=index;
-  		},
-  		refreshData(isTrue){
-  			if(!this.$refs.list.querySelector('[active="true"]')){
-				this.setMove();
-				if(!this.isDelete)
-  					return;
-  			}
-  			var active=this.$refs.list.querySelector('[active="true"]');
-  			var eles=this.$refs.list.children;
-  			for(var i=0;i<eles.length;i++){
-  				eles[i].setAttribute('index',i);
-  			}
-  			if(this.isDelete){
-  				if(active)
-  					active.removeAttribute('active');
-  			}else{
-  				if(active){
-		  			var item=active.getAttribute('item');
-		  			var index=active.getAttribute('index');
-		  		}
-				this.$refs.list.style.height=this.$refs.list.offsetHeight+'px';
-				var result=_.cloneDeep(this.data[item]);
-				this.data.splice(item,1)
-				this.data.splice(index,0,result);
-				this.state=false;
-  			}
+  			setTimeout(()=>{
+				this.$store.commit('showSidebar',{
+						list:this.$refs.list,
+						i:i,
+						ower:this
+					});
+  			},0);
+			var result=_.cloneDeep(this.$store.state.index.data[i]);
+			this.$store.state.index.data.splice(i,1)
+			this.$store.state.index.data.splice(i,0,result);
+			this.setMove();
 			setTimeout(()=>{
-				this.state=true;
-				setTimeout(()=>{
-					this.setMove();
-					this.$refs.list.style.height='';
-					if(!this.isDelete)
-						this.setActive(index);
-					else
-						this.isDelete=false
-				},0);
+				this.$store.state.index.active=this.$refs.list.querySelector('[item="'+i+'"]').getAttribute('index');
+				console.log(this.$store.state.index.active)
 			},0);
   		}
 	},
 	watch:{
-		data(){
-			if(this.state)
-				this.refreshData();
+		'$store.state.index.data'(){
+ 			this.setMove(); 			
+		},
+		'$store.state.index.active'(){
+  			setTimeout(()=>{
+				if(this.$refs.list.querySelector('[active="true"]'))
+					this.$refs.list.querySelector('[active="true"]').removeAttribute('active');
+				this.$refs.list.querySelector('[index="'+this.$store.state.index.active+'"]').setAttribute('active',true);
+//	  			setTimeout(()=>{
+//					this.$store.commit('showSidebar',{
+//							list:this.$refs.list,
+//							i:this.$store.state.index.active,
+//							ower:this
+//						});
+//	  			},0);
+  			},0);
 		}
 	},
  	mounted(){
