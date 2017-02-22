@@ -1,7 +1,12 @@
 <template>
 	<div class="title" :style="{backgroundColor:backgroundColor,textAlign: textAlign}">
 	<!--<div class="title" :class="{normal:result.attr.type==='normal'}">-->
-		<div class="text" v-text="title"></div>
+		<div>
+			<h3 class="text" v-text="title"></h3>
+			<a v-show="result.attr.type==='normal'">
+				<span v-show="result.attr.normal.textNav.isShow" v-text="'- ' + this.result.attr.normal.textNav.text"></span>
+			</a>
+		</div>
 		<div v-show="result.attr.type==='normal'">
 			<span v-text="result.attr.normal.subtitle"></span>
 		</div>
@@ -42,6 +47,8 @@ export default {
 		.text{
 		    font-size: 18px;
 		    line-height: 22px;
+	    	margin:0;
+	    	display:inline-block;
 		}
 		a{
 			color:#07d;

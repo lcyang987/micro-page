@@ -4,24 +4,7 @@
 			<regionComponent ref="region" :data="data"></regionComponent>
 		</div>
 		<div v-else>
-			<div v-if="result.type==='line'">
-				<lineComponent :result="result"></lineComponent>
-			</div>
-			<div v-if="result.type==='white'">			
-				<whiteComponent :result="result" :active="active"></whiteComponent>
-			</div>
-			<div v-if="result.type==='notice'">			
-				<noticeComponent :result="result" :active="active"></noticeComponent>
-			</div>
-			<div v-if="result.type==='search'">			
-				<searchComponent :result="result" :active="active"></searchComponent>
-			</div>
-			<div v-if="result.type==='title'">			
-				<titleComponent :result="result" :active="active"></titleComponent>
-			</div>
-			<div v-if="result.type==='textNav'">			
-				<textNavComponent :result="result" :active="active"></textNavComponent>
-			</div>
+			<component :is="result.type+'Component'" :result="result" :active="active"></component>
 		</div>
 	</div>
 </template>

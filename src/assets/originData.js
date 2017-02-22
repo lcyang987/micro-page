@@ -21,7 +21,15 @@ export default {
 			"normal":{
 				"subtitle":"",
 				"textAlign":"left",
-				"backgroundColor":"#ffffff"
+				"backgroundColor":"#ffffff",
+				"textNav":{
+					"text":"",
+					"isShow":false,
+					"link":{
+						"id":"",
+						"url":""
+					}
+				}
 			},
 			"wechat":{
 				"date":"",
