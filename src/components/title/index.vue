@@ -19,13 +19,9 @@
 	</div>
 </template>
 <script>
-import actionsComponent from '../actions';
 export default {
   	name: 'title',
-	props: ["result","index","data"],
-	components:{
-		actionsComponent
-	},
+	props: ["result","index","data"],	
 	computed:{
 		title(){
 			return this.result.attr.title || '点击编辑『标题』';

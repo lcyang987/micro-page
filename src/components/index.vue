@@ -14,7 +14,7 @@
 </template>
 <script>
 import DragDrop from 'assets/js/dragDrop.js';
-import data from 'assets/data.js';
+//import data from 'assets/data.js';
 import sidebarComponent from './sidebar';
 import regionComponent from './region';
 import lineComponent from './line/index';
@@ -38,10 +38,10 @@ export default {
 	},
   	data () {
   	  	return {
-  	  		data,
-  	  		active:null,
-  	  		state:true,
-  	  		isMove:false
+  	  		data:this.$store.state.index.data,
+  	  		active:this.$store.state.index.active,
+  	  		state:this.$store.state.index.state,
+  	  		isMove:this.$store.state.index.isMove
   	  	}
   	},
   	methods:{
@@ -69,10 +69,15 @@ export default {
   			this.isMove=true;
   		},
   		click(item,i){
+  			
   			this.active=i;
 			setTimeout(()=>{
-				this.$refs.sidebar.isHidden=false;
-				this.$refs.sidebar.top=this.$refs.list.querySelector('[item="'+i+'"]').offsetTop;
+//				this.$store.commit('showSidebar',{
+//					offsetTop:this.$refs.list.querySelector('[item="'+i+'"]').offsetTop,
+//					list:this.$refs.list
+//				});
+                this.$store.state.sidebar.isHidden=false;
+				this.$store.state.sidebar.top=this.$refs.list.querySelector('[item="'+i+'"]').offsetTop;
 				var eles=this.$refs.list.children;
 				for(var ii=0;ii<eles.length;ii++){
 					if(ii!=eles[ii].getAttribute('item')){
