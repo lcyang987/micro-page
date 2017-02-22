@@ -2,9 +2,16 @@
 	<div class="textNavSidebar" v-if="result" >
 		<template v-for="(item,i) of result.attr.list">
 			<section>
-				<div>导航名称：<input type="text" v-model="item.text"  /></div>
-				<div>链接到：<input type="text" v-model="item.link.url"  /></div>
-				<button class="remove" v-on:click="remove(i)">x</button>
+				<div>
+					<span>导航名称：</span>
+					<input type="text" v-model="item.text"  />
+				</div>
+				<div>
+					<span>链接到：</span>
+					<input type="text" v-model="item.link.url"  />
+				</div>
+				<button class="insert" v-on:click="insert(i)">+</button>
+				<button class="remove" v-on:click="remove(i)">×</button>
 			</section>
 		</template>
 		<button class="push" v-on:click="push">添加一个文本导航</button>
@@ -20,6 +27,11 @@ export default {
 		originData
 	},
 	methods:{
+		insert(i){
+			var json=_.cloneDeep(originData.textNav.attr.list[0]);
+			this.result.attr.list.splice(i+1,0,json);
+			this.setHeight();
+		},
 		push(){
 			var json=_.cloneDeep(originData.textNav.attr.list[0]);
 			this.result.attr.list.push(json);
@@ -47,10 +59,9 @@ export default {
 	}
 	section{
 		position:relative;
-		.remove{
+		button{
 		    position: absolute;
-		    top: 0;
-		    right: -14px;
+			right: -14px;
 		    background: gray;
 		    color: white;
 		    border-radius: 50%;
@@ -59,6 +70,19 @@ export default {
 		    height: 12px;
 		    line-height: 12px;
 		    border: none;
+		    opacity:0.4;
+		    &:hover{
+		    	opacity:0.8;
+		    }
+		    &:active{
+		    	opacity:1;
+		    }
+		}
+		.insert{
+			top:3px;
+		}
+		.remove{
+    		top: 30px;
 		}
 	}
 	button.push{
@@ -80,4 +104,9 @@ export default {
 		}
 	}
 		
+	span{
+		display:inline-block;
+		width:70px;
+		text-align:right;
+	}
 </style>

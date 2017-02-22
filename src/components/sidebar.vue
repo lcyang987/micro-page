@@ -74,6 +74,9 @@ export default {
 			left:-12px;
 			top:8px;
 		}
+		section{
+			margin-bottom:8px;
+		}
 	}
 	.isHidden{
 		display:none;
@@ -81,5 +84,12 @@ export default {
 	.isRegion{
 		width:100%;
 		padding:0;
+	}
+</style>
+<style lang="less">
+	.sidebar{
+		section{
+			margin-bottom:8px;
+		}
 	}
 </style>
