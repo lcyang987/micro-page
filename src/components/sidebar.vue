@@ -1,5 +1,5 @@
 <template>
-	<div class="sidebar" :class="{isHidden : isHidden,isRegion:isRegion}" v-if="result" :style="[{top:top+'px'}]">
+	<div class="sidebar" :class="{isHidden : isHidden,isRegion:isRegion}" v-if="result" :style="[{top:this.$store.state.sidebar.top+'px'}]">
 		<div v-if="isRegion">
 			<regionComponent ref="region" :data="data"></regionComponent>
 		</div>
@@ -37,8 +37,10 @@ export default {
 	},
 	methods:{
 		click(top){
+			
 //			this.$store.commit('sidebarTop')
 			top+=10
+			
 		}
 	}
 }

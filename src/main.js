@@ -27,7 +27,7 @@ const store = new Vuex.Store({
 			data,
 			active: null,
 			state: true,
-			isMove: false,
+			
 			notEdit:false,
 			isDelete:false
 		},
@@ -41,20 +41,21 @@ const store = new Vuex.Store({
 		//  sidebarTop (state) {
 		//    state.sidebar.top+=10
 		//  },
-		//  showSidebar(state,opt){
-		//  	state.sidebar.isHidden=false;
-		//  	state.sidebar.top=opt.offsetTop
-		//  	var eles=opt.list.children;
-		//  	for(var ii=0;ii<eles.length;ii++){
-		//					if(ii!=eles[ii].getAttribute('item')){
-		//			  			if(state.index.isMove===true){
-		//			  				state.index.refreshData();
-		//			  				state.index.isMove=false;
-		//			  				return;
-		//			  			}
-		//			  		}
-		//				}
-		//  }
+		  showSidebar(state,opt){		  	
+		  	state.index.active=opt.i;
+		  	state.sidebar.isHidden=false;
+		  	state.sidebar.top=opt.list.querySelector('[item="'+opt.i+'"]').offsetTop
+		  	var eles=opt.list.children;		  
+		  	for(var ii=0;ii<eles.length;ii++){
+							if(ii!=eles[ii].getAttribute('item')){
+					  			if(opt.ower.isMove===true){
+					  				opt.ower.refreshData();
+					  				opt.ower.isMove=false;
+					  				return;
+					  			}
+					  		}
+						}
+		  }
 	}
 
 })

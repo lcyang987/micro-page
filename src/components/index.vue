@@ -1,14 +1,14 @@
 <template>
 	<div class="design">
 		<section ref="list">
-			<template v-for="(item,i) in data" v-if="state">
-				<div v-on:click="click(item,i)" :item="i" v-on:mousedown="mousedown(item,i)" >
-					<component :is="item.type+'Component'" :data="data" :item="i" :result="item" :index="i"></component>
+			<template v-for="(item,i) in $store.state.index.data" v-if="state">
+				<div @click="click(item,i)" :item="i" @mousedown="mousedown(item,i)" >
+					<component :is="item.type+'Component'" data="$store.state.index.data" :item="i" :result="item" :index="i"></component>
 				</div>
 			</template>
 		</section>
-		<regionComponent :data="data"></regionComponent>
-		<sidebarComponent :data="data" v-if="active !== null" ref="sidebar" :result="data[active]" :active="active"></sidebarComponent>
+		<regionComponent :data="$store.state.index.data"></regionComponent>
+		<sidebarComponent :data="$store.state.index.data" v-if="$store.state.index.active !== null" ref="sidebar" :result="data[$store.state.index.active]" :active="$store.state.index.active"></sidebarComponent>
 		<div v-on:click="returnData" style="text-align:center">return data</div>
 	</div>
 </template>
@@ -41,7 +41,7 @@ export default {
   	  		data:this.$store.state.index.data,
   	  		active:this.$store.state.index.active,
   	  		state:this.$store.state.index.state,
-  	  		isMove:this.$store.state.index.isMove
+  	  		isMove:false
   	  	}
   	},
   	methods:{
@@ -69,26 +69,27 @@ export default {
   			this.isMove=true;
   		},
   		click(item,i){
-  			
-  			this.active=i;
-			setTimeout(()=>{
-//				this.$store.commit('showSidebar',{
-//					offsetTop:this.$refs.list.querySelector('[item="'+i+'"]').offsetTop,
-//					list:this.$refs.list
-//				});
-                this.$store.state.sidebar.isHidden=false;
-				this.$store.state.sidebar.top=this.$refs.list.querySelector('[item="'+i+'"]').offsetTop;
-				var eles=this.$refs.list.children;
-				for(var ii=0;ii<eles.length;ii++){
-					if(ii!=eles[ii].getAttribute('item')){
-			  			if(this.isMove===true){
-			  				this.refreshData();
-			  				this.isMove=false;
-			  				return;
-			  			}
-			  		}
-				}
-			},0);
+			this.$store.commit('showSidebar',{					
+					list:this.$refs.list,
+					i:i,
+					ower:this
+				});
+//			this.$store.state.index.active=i;
+//			setTimeout(()=>{	
+//              this.$store.state.sidebar.isHidden=false;
+//				this.$store.state.sidebar.top=this.$refs.list.querySelector('[item="'+i+'"]').offsetTop;
+//				var eles=this.$refs.list.children;
+//				for(var ii=0;ii<eles.length;ii++){
+//					if(ii!=eles[ii].getAttribute('item')){
+//			  			if(this.isMove===true){
+//			  				this.refreshData();
+//			  				this.isMove=false;
+//			  				return;
+//			  			}
+//			  		}
+//				}
+//			},0);
+			
   		},
   		setActive(index){
   			if(!this.$refs.list)
