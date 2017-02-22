@@ -18,7 +18,6 @@ export default {
 	},
 	methods:{
 		heightMousedown(ev){
-			let setHeight=this.$parent.$parent.dragDrop.constructor.prototype.actionHeight;
 			let active=this.$parent.$parent.$refs.list.querySelector("[item='"+this.active+"']");
 			let oEvent=ev||window.event;
 			const disX=oEvent.clientX;
@@ -34,7 +33,6 @@ export default {
 				else 
 					l=oldOpacity+(oEvent.clientX-disX);
 				this.result.attr.height=l;
-				setHeight(active)
 			}
 			window.onmouseup=ev=>{
 				window.onmousemove=window.onmouseup=null;

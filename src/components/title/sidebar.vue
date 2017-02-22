@@ -10,18 +10,18 @@
 		<div>
 			<span>标题模版：</span>
 			<label for="normal">
-				<input type="radio" id="normal" value="normal" v-model="result.attr.type" v-on:click="setHeight">
+				<input type="radio" id="normal" value="normal" v-model="result.attr.type">
 				传统样式
 			</label>
 			<label for="wechat">
-				<input type="radio" id="wechat" value="wechat" v-model="result.attr.type" v-on:click="setHeight">
+				<input type="radio" id="wechat" value="wechat" v-model="result.attr.type">
 				微信图文页样式
 			</label>
 		</div>
 		<div v-show="result.attr.type=='normal'">
 			<div>
 				<span>副标题：</span>
-				<input type="text" v-model="result.attr.normal.subtitle" v-on:keydown="setHeight">
+				<input type="text" v-model="result.attr.normal.subtitle">
 				<a class="time">
 				日期
 					<input v-on:change="subtitleChange" type="datetime-local" />
@@ -59,16 +59,15 @@
 		<div v-show="result.attr.type=='wechat'">
 			<div>
 				<span>日期： </span>
-				<!--<input type="text" v-model="result.attr.wechat.date" v-on:keydown="setHeight">-->
 				<input v-on:change="dateChange" type="date" />
 			</div>
 			<div>
 				<span>作者： </span>
-				<input type="text" v-model="result.attr.wechat.author" v-on:keydown="setHeight">
+				<input type="text" v-model="result.attr.wechat.author">
 			</div>
 			<div>
 				<span>链接标题： </span>
-				<input type="text" v-model="result.attr.wechat.link.title" v-on:keydown="setHeight">
+				<input type="text" v-model="result.attr.wechat.link.title">
 			</div>
 			<div>
 				<span>链接地址： </span>
@@ -100,26 +99,15 @@ export default {
 	methods:{
 		subtitleChange(ev){
 			this.result.attr.normal.subtitle=ev.target.value.replace('T',' ');
-			this.setHeight();
 		},
 		dateChange(ev){
 			this.result.attr.wechat.date=ev.target.value.replace('T',' ');
-			this.setHeight();
-		},
-		setHeight(){
-			setTimeout(()=>{
-				let setHeight=this.$parent.$parent.dragDrop.constructor.prototype.actionHeight;
-				let active=this.$parent.$parent.$refs.list.querySelector("[item='"+this.active+"']");
-				setHeight(active);
-			},0)
 		},
 		show(){
 			this.result.attr.normal.textNav.isShow=true;
-			this.setHeight();
 		},
 		hide(){
 			this.result.attr.normal.textNav.isShow=false;
-			this.setHeight();
 		}
 	}
 }

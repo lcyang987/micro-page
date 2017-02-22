@@ -31,25 +31,13 @@ export default {
 	},
 	methods:{
 		insert(i){
-			var json=_.cloneDeep(originData.textNav.attr.list[0]);
-			this.result.attr.list.splice(i+1,0,json);
-			this.setHeight();
+			this.result.attr.list.splice(i+1,0,_.cloneDeep(originData.textNav.attr.list[0]));
 		},
 		push(){
-			var json=_.cloneDeep(originData.textNav.attr.list[0]);
-			this.result.attr.list.push(json);
-			this.setHeight();
+			this.result.attr.list.push(_.cloneDeep(originData.textNav.attr.list[0]));
 		},
 		remove(i){
 			this.result.attr.list.splice(i,1);
-			this.setHeight();
-		},
-		setHeight(){
-			setTimeout(()=>{
-				let setHeight=this.$parent.$parent.dragDrop.constructor.prototype.actionHeight;
-				let active=this.$parent.$parent.$refs.list.querySelector("[item='"+this.active+"']");
-				setHeight(active);
-			},0)
 		}
 	}
 }

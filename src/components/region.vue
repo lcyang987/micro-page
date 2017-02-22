@@ -12,15 +12,15 @@ import _ from 'lodash';
 //import regionData from 'assets/regionData.js';
 export default {
   	name: 'region',
-  	props:["data"],
   	methods:{
   		click(item){
 			if(item.type){
 				if(/sidebar/.test(this.$parent.$el.className) && this.$store.state.index.active>=0){
-					this.data.splice(this.$store.state.index.active+1,0,_.cloneDeep(this.$store.state.region.originData[item.type]));
+					var json=_.cloneDeep(this.$store.state.region.originData[item.type]);
+					this.$store.state.index.data.splice(this.$store.state.index.active+1,0,json);
 				}else{
-					let json = _.cloneDeep(this.$store.state.region.originData[item.type]);
-					this.data.push(json);
+					var json = _.cloneDeep(this.$store.state.region.originData[item.type]);
+					this.$store.state.index.data.push(json);
 				}
 			}
   		}
