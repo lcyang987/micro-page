@@ -5,13 +5,9 @@
 	</div>
 </template>
 <script>
-import actionsComponent from '../actions';
 export default {
   	name: 'search',
-	props: ["result","index","data"],
-	components:{
-		actionsComponent
-	},
+	props: ["result","index","data"],	
 	computed:{
 		backgroundColor(){
 			return this.result.attr.backgroundColor;

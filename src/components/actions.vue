@@ -14,38 +14,40 @@ export default {
 	methods:{
 		editClick(){
 			this.sideBarShow();
-			if(this.$parent.$parent.$refs.sidebar)
-				this.$parent.$parent.$refs.sidebar.isRegion=false;
+			if(this.$store.state.sidebar)
+				this.$store.state.sidebar.isRegion=false;
+				
 		},
 		addClick(){
 			console.log(this.index)
-			this.$parent.$parent.notEdit=true;
-			this.$parent.$parent.active=this.index;
+			this.$store.state.index.notEdit=true;
+			this.$store.state.index.active=this.index;
 			setTimeout(()=>{
 				this.sideBarShow();
-				if(this.$parent.$parent.$refs.sidebar)
-					this.$parent.$parent.$refs.sidebar.isRegion=true;
-				this.$parent.$parent.$refs.sidebar.top=this.$parent.$parent.$refs.list.querySelector('[item="'+this.index+'"]').offsetTop;
-				this.$parent.$parent.notEdit=false;
+				if(this.$store.state.sidebar)
+					this.$store.state.sidebar.isRegion=true;
+				this.$store.state.sidebar.top=this.$parent.$parent.$refs.list.querySelector('[item="'+this.index+'"]').offsetTop;
+				this.$store.state.index.notEdit=false;
 				setTimeout(()=>{
 					this.$parent.$parent.setActive(this.index);
-					this.$parent.$parent.$refs.sidebar.$refs.region.active=parseInt(this.$parent.$parent.$refs.list.querySelector("[item='"+this.index+"'").getAttribute('index'));
+					this.$store.state.region.active=parseInt(this.$parent.$parent.$refs.list.querySelector("[item='"+this.index+"'").getAttribute('index'));
 				},0);
 			},0);
 		},
 		deleteClick(){
 			if(confirm('是否删除')){
-				this.$parent.$parent.isDelete=true;
+				this.$store.state.index.isDelete=true;
 				setTimeout(()=>{
-					if(this.$parent.$parent.$refs.sidebar)
-						this.$parent.$parent.$refs.sidebar.isHidden=true;
-					this.$parent.$parent.data.splice(this.index,1);
+					if(this.$store.state.sidebar)
+						this.$store.state.sidebar.isHidden=true;
+					this.$store.state.index.data.splice(this.index,1);
 				},0);
 			}
+			
 		},
 		sideBarShow(){
-			if(this.$parent.$parent.$refs.sidebar)
-				this.$parent.$parent.$refs.sidebar.isHidden=false;
+			if(this.$store.state.sidebar)
+				this.$store.state.sidebar.isHidden=false;
 		}
 	}
 }

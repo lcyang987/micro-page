@@ -8,16 +8,16 @@
 </template>
 <script>
 import _ from 'lodash';
-import originData from 'assets/originData.js';
-import regionData from 'assets/regionData.js';
+//import originData from 'assets/originData.js';
+//import regionData from 'assets/regionData.js';
 export default {
   	name: 'region',
   	props:["data"],
   	data(){
   		return {
-  			regionData,
-  			originData,
-  			active:null,
+  			regionData:this.$store.state.region.regionData,
+  			originData:this.$store.state.region.originData,
+  			active:this.$store.state.region.active,
   		}
   	},
   	methods:{

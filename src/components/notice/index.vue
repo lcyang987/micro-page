@@ -5,7 +5,7 @@
 	</div>
 </template>
 <script>
-import actionsComponent from '../actions';
+
 export default {
   	name: 'white',
 	props: ["result","index","data"],
@@ -14,9 +14,6 @@ export default {
 			let text="公告：";
 			return this.result.attr.content?text+this.result.attr.content:text+"请填写内容，如果过长，将会在手机上滚动显示";
 		}
-	},
-	components:{
-		actionsComponent
 	}
 }
 </script>

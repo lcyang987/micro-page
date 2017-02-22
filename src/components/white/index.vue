@@ -5,13 +5,9 @@
 	</div>
 </template>
 <script>
-import actionsComponent from '../actions';
 export default {
   	name: 'white',
-	props: ["result","index","data"],
-	components:{
-		actionsComponent
-	}
+	props: ["result","index","data"]	
 }
 </script>
 

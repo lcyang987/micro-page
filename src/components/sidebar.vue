@@ -30,13 +30,14 @@ export default {
 	},
 	data(){
 		return {
-			top:0,
-			isHidden:true,
-			isRegion:false
+			top:this.$store.state.sidebar.top,
+			isHidden:this.$store.state.sidebar.isHidden,
+			isRegion:this.$store.state.sidebar.isRegion
 		}
 	},
 	methods:{
 		click(top){
+//			this.$store.commit('sidebarTop')
 			top+=10
 		}
 	}
