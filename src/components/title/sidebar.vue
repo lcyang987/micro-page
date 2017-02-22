@@ -1,12 +1,14 @@
 <template>
 	<div class="titleSidebar" v-if="result" :class="">
 		<div>
-			<label for="title"> <em>*</em>标题名：
+			<label for="title">
+				
+				<span><em>*</em>标题名：</span>
 				<input type="text" id="title" v-model="result.attr.title">
 			</label>
 		</div>
 		<div>
-			标题模版：
+			<span>标题模版：</span>
 			<label for="normal">
 				<input type="radio" id="normal" value="normal" v-model="result.attr.type" v-on:click="setHeight">
 				传统样式
@@ -18,64 +20,66 @@
 		</div>
 		<div v-show="result.attr.type=='normal'">
 			<div>
-				副标题：
+				<span>副标题：</span>
 				<input type="text" v-model="result.attr.normal.subtitle" v-on:keydown="setHeight">
 				<a class="time">
-					日期
+				日期
 					<input v-on:change="subtitleChange" type="datetime-local" />
 				</a>
 			</div>
 			<div>
-				显示:
+				<span>显示：</span>
 				<label for="left">
 					<input type="radio" id="left" value="left" v-model="result.attr.normal.textAlign">
-					居左显示
+					居左
 				</label>
 				<label for="center">
 					<input type="radio" id="center" value="center" v-model="result.attr.normal.textAlign">
-					居中显示
+					居中
 				</label>
 				<label for="right">
 					<input type="radio" id="right" value="right" v-model="result.attr.normal.textAlign">
-					居右显示
+					居右
 				</label>
 			</div>
 			<div>
-				背景颜色： 
+				<span>背景颜色： </span>
 				<input type="color" v-model="result.attr.normal.backgroundColor">
 			</div>
 			<button class="hide" v-show="!result.attr.normal.textNav.isShow" v-on:click="show">添加一个文本导航</button>
 			<div v-show="result.attr.normal.textNav.isShow" class="textNav">
 				<div>导航名称：<input type="text" v-model="result.attr.normal.textNav.text"  /></div>
 				<div>链接到：<input type="text" v-model="result.attr.normal.textNav.link.id"  /></div>
-				<button class="remove" v-on:click="hide">x</button>
+				<button class="remove" v-on:click="hide">×</button>
 			</div>			
 		</div>
 		<div v-show="result.attr.type=='wechat'">
 			<div>
-				日期：
+				<span>日期： </span>
 				<!--<input type="text" v-model="result.attr.wechat.date" v-on:keydown="setHeight">-->
 				<input v-on:change="dateChange" type="date" />
 			</div>
 			<div>
-				作者：
+				<span>作者： </span>
 				<input type="text" v-model="result.attr.wechat.author" v-on:keydown="setHeight">
 			</div>
 			<div>
-				链接标题：
+				<span>链接标题： </span>
 				<input type="text" v-model="result.attr.wechat.link.title" v-on:keydown="setHeight">
 			</div>
 			<div>
-				链接地址：
-				<label for="focusOn">
-					<input type="radio" id="focusOn" value="focusOn" v-model="result.attr.wechat.type">
-					引导关注
-				</label>
-				<br>
-				<label for="other">
-					<input type="radio" id="other" value="other" v-model="result.attr.wechat.type">
-					其他链接
-				</label>
+				<span>链接地址： </span>
+				<div class="linkBlock">
+					<label for="focusOn">
+						<input type="radio" id="focusOn" value="focusOn" v-model="result.attr.wechat.type">
+						引导关注
+					</label>
+					<br>
+					<label for="other">
+						<input type="radio" id="other" value="other" v-model="result.attr.wechat.type">
+						其他链接
+					</label>
+				</div>
 			</div>
 		</div>
 		
@@ -125,7 +129,7 @@ em{
 .time{
 	position:relative;
 	display:inline-block;
-	padding-right:20px;
+	padding-right:8px;
 	&:hover{
 		input{
 			display:block;
@@ -143,6 +147,16 @@ em{
 			}
 		}
 	}
+}
+.linkBlock{
+    width: 214px;
+    display: inline-block;
+    vertical-align: top;
+}
+span{
+	display:inline-block;
+	width:70px;
+	text-align:right;
 }
 .textNav{
 	position:relative;
