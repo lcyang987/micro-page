@@ -1,5 +1,5 @@
 <template>
-	<div class="sidebar" :class="{isHidden : $store.state.sidebar.isHidden,isRegion:$store.state.sidebar.isRegion}" v-if="result" :style="[{top:this.$store.state.sidebar.top+'px'}]">
+	<div class="sidebar" :class="{isHidden : $store.state.sidebar.isHidden,isRegion:$store.state.sidebar.isRegion}" v-if="result" :style="[{top:$store.state.sidebar.top+'px'}]">
 		<div v-if="$store.state.sidebar.isRegion">
 			<regionComponent ref="region" :data="data"></regionComponent>
 		</div>

@@ -1,7 +1,7 @@
 <template>
-	<div class="actions">
+	<div ref="actions" class="actions">
 		<ul>
-			<li v-on:click.stop="editClick" v-on:mousedown.stop>编辑</li>
+			<li>编辑</li>
 			<li v-on:click.stop="addClick" v-on:mousedown.stop>加内容</li>
 			<li v-on:click.stop="deleteClick" v-on:mousedown.stop>删除</li>
 		</ul>
@@ -12,30 +12,21 @@ export default {
   	name: 'actions',
 	props: ["result","index","data"],
 	methods:{
-		editClick(){
-			this.$store.state.index.active=this.index;
-			this.sideBarShow();
-			if(this.$store.state.sidebar)
-				this.$store.state.sidebar.isRegion=false;
-		},
 		addClick(){
-			this.sideBarShow();
+			this.$store.state.sidebar.isHidden=false;
 			this.$store.state.sidebar.isRegion=true;
 			this.$store.state.index.active=this.index;
+			this.$store.state.sidebar.top=this.$refs.actions.parentNode.parentNode.offsetTop;
 		},
 		deleteClick(){
 			if(confirm('是否删除')){
 				this.$store.state.index.isDelete=true;
 				setTimeout(()=>{
-					if(this.$store.state.sidebar)
-						this.$store.state.sidebar.isHidden=true;
+					this.$store.state.sidebar.isHidden=true;
 					this.$store.state.index.data.splice(this.index,1);
+					this.$store.state.index.active=null;
 				},0);
 			}
-		},
-		sideBarShow(){
-			if(this.$store.state.sidebar)
-				this.$store.state.sidebar.isHidden=false;
 		}
 	}
 }

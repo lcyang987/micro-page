@@ -44,11 +44,16 @@ export default {
   			console.log(this.$store.state.index.data)
   		},
   		mousedown(ev){
+  			var isActive;
+  			if(this.$store.state.index.active==this.active)
+  				isActive=true;
+  			else
+				this.$store.state.index.active=null
 			var oEvent=ev || window.event;
 			var list=this.$refs.list.querySelectorAll('.list');
 			var obj=this.$refs.list.children[this.active];
 			var disY=oEvent.clientY-obj.offsetTop;
-			var downY=oEvent.clientY;
+//			var downY=oEvent.clientY;
 			var placeholder=document.createElement('div');
 			this.$refs.list.insertBefore(placeholder,obj);
 			placeholder.style.height=obj.offsetHeight+'px';		
@@ -62,6 +67,8 @@ export default {
 				opt.obj.removeAttribute('style');
 				opt.obj=opt.list[opt.i];
 				opt.obj.style=nowStyle;
+				if(isActive)
+					opt._this.$store.state.index.active=opt.i;
 				opt._this.$refs.list.insertBefore(placeholder,opt.list[opt.i]);
 				return opt.obj
 			}
@@ -98,15 +105,19 @@ export default {
 	  			}
 			}
 			window.onmouseup=ev=>{
-	  			var oEvent=ev || window.event;
-				var upY=oEvent.clientY;
+//	  			var oEvent=ev || window.event;
+//				var upY=oEvent.clientY;
 				obj.removeAttribute('style');
 				this.$refs.list.removeChild(placeholder);
 				document.body.style.userSelect='';
 				window.onmousemove=window.onmouseup=null;
-				if(Math.abs(downY-upY)<2){
-					this.$store.state.index.active=this.active;
-				}
+				this.$store.state.index.active=this.active;
+				this.$store.state.sidebar.isHidden=false;
+				this.$store.state.sidebar.isRegion=false;
+				this.$store.state.sidebar.top=obj.offsetTop;
+//				if(Math.abs(downY-upY)<2){
+//					this.$store.state.index.active=this.active;
+//				}
 			}
   		},
   		mouseenter(item,i){
