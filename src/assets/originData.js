@@ -62,18 +62,21 @@ export default {
 				"text":"",
 				"link":{
 					"id":"",
+					"label":"",
 					"url":""
 				}
 			},{
 				"text":"",
 				"link":{
 					"id":"",
+					"label":"",
 					"url":""
 				}
 			},{
 				"text":"",
 				"link":{
 					"id":"",
+					"label":"",
 					"url":""
 				}
 			}]

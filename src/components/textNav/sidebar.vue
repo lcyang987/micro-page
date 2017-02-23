@@ -3,14 +3,9 @@
 		<template v-for="(item,i) of result.attr.list">
 			<section>
 				<div>
-					<span>导航名称：</span>
-					<input type="text" v-model="item.text"  />
+					<mu-text-field hintText="导航名称" v-model="item.text"/>
 				</div>
-				<div>
-					<span>链接到：</span>
-					<!--<input type="text" v-model="item.link.url"  />-->
-					<dialogComponent></dialogComponent>
-				</div>
+				<dropdownComponent :result="item"></dropdownComponent>
 				<button class="insert" v-on:click="insert(i)">+</button>
 				<button class="remove" v-on:click="remove(i)">×</button>
 			</section>
@@ -21,13 +16,11 @@
 <script>
 import _ from 'lodash';
 import originData from 'assets/originData.js';
-import dialogComponent from 'components/dialog';
 export default {
   	name: 'textNavSidebar',
 	props: ["result","active"],
 	components:{
-		originData,
-		dialogComponent
+		originData
 	},
 	methods:{
 		insert(i){

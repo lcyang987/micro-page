@@ -16,11 +16,9 @@ export default {
   		click(item){
 			if(item.type){
 				if(/sidebar/.test(this.$parent.$el.className) && this.$store.state.index.active>=0){
-					var json=_.cloneDeep(this.$store.state.region.originData[item.type]);
-					this.$store.state.index.data.splice(this.$store.state.index.active+1,0,json);
+					this.$store.state.index.data.splice(this.$store.state.index.active+1,0,_.cloneDeep(this.$store.state.region.originData[item.type]));
 				}else{
-					var json = _.cloneDeep(this.$store.state.region.originData[item.type]);
-					this.$store.state.index.data.push(json);
+					this.$store.state.index.data.push(_.cloneDeep(this.$store.state.region.originData[item.type]));
 				}
 			}
   		}

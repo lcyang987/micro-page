@@ -21,11 +21,9 @@ export default {
 		deleteClick(){
 			if(confirm('是否删除')){
 				this.$store.state.index.isDelete=true;
-				setTimeout(()=>{
-					this.$store.state.sidebar.isHidden=true;
-					this.$store.state.index.data.splice(this.index,1);
-					this.$store.state.index.active=null;
-				},0);
+				this.$store.state.sidebar.isHidden=true;
+				this.$store.state.index.data.splice(this.index,1);
+				this.$store.state.index.active=null;
 			}
 		}
 	}

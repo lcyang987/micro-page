@@ -6,12 +6,16 @@ import router from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import Vuex from 'vuex'
-import actionsComponent from 'components/actions';
 import originData from 'assets/originData.js';
 import regionData from 'assets/regionData.js';
 import data from 'assets/data.js';
 //Vue.use(actionsComponent)
+import actionsComponent from 'components/actions';
 Vue.component('actionsComponent', actionsComponent)
+import dialogComponent from 'components/dialog';
+Vue.component('dialogComponent', dialogComponent)
+import dropdownComponent from 'components/dropdown';
+Vue.component('dropdownComponent', dropdownComponent)
 Vue.use(Vuex)
 Vue.use(MuseUI)
 // ..
@@ -34,27 +38,31 @@ const store = new Vuex.Store({
 			regionData,
 			originData,
 			active: null
+		},
+		dialog:{
+			state:false,
+			title:''
 		}
 	},
 	mutations: {
 		//  sidebarTop (state) {
 		//    state.sidebar.top+=10
 		//  },
-		  showSidebar(state,opt){		  	
-		  	state.index.active=opt.i;
-		  	state.sidebar.isHidden=false;
-		  	state.sidebar.top=opt.list.querySelector('[item="'+opt.i+'"]').offsetTop
-		  	var eles=opt.list.children;		  
-		  	for(var ii=0;ii<eles.length;ii++){
-							if(ii!=eles[ii].getAttribute('item')){
-					  			if(opt.ower.isMove===true){
-					  				opt.ower.refreshData();
-					  				opt.ower.isMove=false;
-					  				return;
-					  			}
-					  		}
-						}
-		  }
+//		  showSidebar(state,opt){		  	
+//		  	state.index.active=opt.i;
+//		  	state.sidebar.isHidden=false;
+//		  	state.sidebar.top=opt.list.querySelector('[item="'+opt.i+'"]').offsetTop
+//		  	var eles=opt.list.children;		  
+//		  	for(var ii=0;ii<eles.length;ii++){
+//							if(ii!=eles[ii].getAttribute('item')){
+//					  			if(opt.ower.isMove===true){
+//					  				opt.ower.refreshData();
+//					  				opt.ower.isMove=false;
+//					  				return;
+//					  			}
+//					  		}
+//						}
+//		  }
 	}
 
 })

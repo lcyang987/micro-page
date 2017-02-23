@@ -7,9 +7,10 @@
 				</div>
 			</template>
 		</section>
-		<regionComponent :data="$store.state.index.data"></regionComponent>
-		<sidebarComponent :data="$store.state.index.data" v-if="$store.state.index.active !== null" ref="sidebar" :result="$store.state.index.data[$store.state.index.active]" :active="$store.state.index.active"></sidebarComponent>
+		<regionComponent></regionComponent>
+		<sidebarComponent v-if="$store.state.index.active !== null" ref="sidebar" :result="$store.state.index.data[$store.state.index.active]"></sidebarComponent>
 		<div v-on:click="returnData" style="text-align:center">return data</div>
+		<dialogComponent></dialogComponent>
 	</div>
 </template>
 <script>
@@ -41,7 +42,7 @@ export default {
 	},
   	methods:{
   		returnData(){
-  			console.log(this.$store.state.index.data)
+  			console.log(JSON.stringify(this.$store.state.index.data))
   		},
   		mousedown(ev){
   			var isActive;
@@ -53,7 +54,6 @@ export default {
 			var list=this.$refs.list.querySelectorAll('.list');
 			var obj=this.$refs.list.children[this.active];
 			var disY=oEvent.clientY-obj.offsetTop;
-//			var downY=oEvent.clientY;
 			var placeholder=document.createElement('div');
 			this.$refs.list.insertBefore(placeholder,obj);
 			placeholder.style.height=obj.offsetHeight+'px';		
@@ -105,8 +105,6 @@ export default {
 	  			}
 			}
 			window.onmouseup=ev=>{
-//	  			var oEvent=ev || window.event;
-//				var upY=oEvent.clientY;
 				obj.removeAttribute('style');
 				this.$refs.list.removeChild(placeholder);
 				document.body.style.userSelect='';
@@ -115,9 +113,6 @@ export default {
 				this.$store.state.sidebar.isHidden=false;
 				this.$store.state.sidebar.isRegion=false;
 				this.$store.state.sidebar.top=obj.offsetTop;
-//				if(Math.abs(downY-upY)<2){
-//					this.$store.state.index.active=this.active;
-//				}
 			}
   		},
   		mouseenter(item,i){
