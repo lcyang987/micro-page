@@ -52,8 +52,8 @@ export default {
 		}
 	}
 	.actions{
-		width:calc(~'100% - 2px');
-		height:calc(~'100% - 2px');
+		width:calc(~'100% - 4px');
+		height:calc(~'100% - 4px');
 		ul{
 			position: absolute;
 		    bottom: 0;

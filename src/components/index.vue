@@ -48,6 +48,7 @@ export default {
 			var list=this.$refs.list.querySelectorAll('.list');
 			var obj=this.$refs.list.children[this.active];
 			var disY=oEvent.clientY-obj.offsetTop;
+			var downY=oEvent.clientY;
 			var placeholder=document.createElement('div');
 			this.$refs.list.insertBefore(placeholder,obj);
 			placeholder.style.height=obj.offsetHeight+'px';		
@@ -55,6 +56,15 @@ export default {
 			obj.style.top=oEvent.clientY-disY+'px';
 			obj.style.zIndex='123';
 			document.body.style.userSelect='none';
+			function elementsChange(opt){
+				opt._this.active=opt.i;
+				var nowStyle=opt.obj.getAttribute('style');
+				opt.obj.removeAttribute('style');
+				opt.obj=opt.list[opt.i];
+				opt.obj.style=nowStyle;
+				opt._this.$refs.list.insertBefore(placeholder,opt.list[opt.i]);
+				return opt.obj
+			}
 			window.onmousemove=ev=>{
 	  			var oEvent=ev || window.event;
 	  			var y=oEvent.clientY;
@@ -64,42 +74,39 @@ export default {
 					if(i+1==this.active || i-1==this.active)
 					if(i>this.active){
 						if(list[i].offsetTop<obj.offsetTop){
-							this.$store.state.index.data.splice(this.active+2,0,this.$store.state.index.data[this.active])
-							this.$store.state.index.data.splice(this.active,1)
-							this.active=i;
-							obj.style.position='';
-							obj.style.top='';
-							obj.style.zIndex='';
-							obj=list[i]
-							obj.style.position='absolute';
-							obj.style.top=y-disY+'px';
-							obj.style.zIndex='123';
-							this.$refs.list.insertBefore(placeholder,list[i]);
+							this.$store.state.index.data.splice(this.active+2,0,this.$store.state.index.data[this.active]);
+							this.$store.state.index.data.splice(this.active,1);
+							obj=elementsChange({
+								_this:this,
+								list:list,
+								i:i,
+								obj:obj
+							})
 						}
 					}else{
 						if(list[i].offsetTop>obj.offsetTop){
-							this.$store.state.index.data.splice(this.active-1,0,this.$store.state.index.data[this.active])
-							this.$store.state.index.data.splice(this.active+1,1)
-							this.active=i;
-							obj.style.position='';
-							obj.style.top='';
-							obj.style.zIndex='';
-							obj=list[i];
-							obj.style.position='absolute';
-							obj.style.top=y-disY+'px';
-							obj.style.zIndex='123';
-							this.$refs.list.insertBefore(placeholder,list[i]);
+							this.$store.state.index.data.splice(this.active-1,0,this.$store.state.index.data[this.active]);
+							this.$store.state.index.data.splice(this.active+1,1);
+							obj=elementsChange({
+								_this:this,
+								list:list,
+								i:i,
+								obj:obj
+							})
 						}
 					}
 	  			}
 			}
-			window.onmouseup=()=>{
-				obj.style.position='';
-				obj.style.top='';
-				obj.style.zIndex='';
+			window.onmouseup=ev=>{
+	  			var oEvent=ev || window.event;
+				var upY=oEvent.clientY;
+				obj.removeAttribute('style');
 				this.$refs.list.removeChild(placeholder);
 				document.body.style.userSelect='';
 				window.onmousemove=window.onmouseup=null;
+				if(Math.abs(downY-upY)<2){
+					this.$store.state.index.active=this.active;
+				}
 			}
   		},
   		mouseenter(item,i){
