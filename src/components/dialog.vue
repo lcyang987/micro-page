@@ -1,11 +1,12 @@
 <template>
 <div>
   <!--<mu-raised-button :label="text" @click="open" style="width:100%" />-->
-  <mu-dialog :open="$store.state.dialog.state" :title="$store.state.dialog.title" dialogClass="dialog" scrollable>
-    <mu-menu>
-      <mu-menu-item :title="'menu item ' + menu" v-for="menu in menus"/>
-    </mu-menu>
-  	<paginationComponent slot="actions"></paginationComponent>
+  <mu-dialog :open="$store.state.dialog.state" :title="$store.state.dialog.title" dialogClass="dialog">
+    <!--<mu-menu>
+      <mu-menu-item :title="' [' + i + '] ' + list.text + ' , ' + list.time" v-for="(list,i) in $store.state.dialog.data"/>
+    </mu-menu>-->
+    <tableComponent></tableComponent>
+  	<paginationComponent v-if="$store.state.dialog.state" slot="actions"></paginationComponent>
     <mu-flat-button primary label="关闭" @click="close" slot="actions"/>
   </mu-dialog>
 </div>
@@ -13,23 +14,17 @@
 
 <script>
 import paginationComponent from 'components/pagination';
+import tableComponent from 'components/table';
 export default {
 	props:["text"],
 	components:{
-		paginationComponent
+		paginationComponent,
+		tableComponent
 	},
-  data () {
-    const menus = []
-    for (let i = 0; i < 30; i++) {
-      menus.push(i + 1)
-    }
-    return {
-      menus
-    }
-  },
   methods: {
     close () {
       this.$store.state.dialog.state=false;
+ 			this.$store.state.dialog.loading=false;
     }
   }
 }

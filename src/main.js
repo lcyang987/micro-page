@@ -18,6 +18,11 @@ import dropdownComponent from 'components/dropdown';
 Vue.component('dropdownComponent', dropdownComponent)
 Vue.use(Vuex)
 Vue.use(MuseUI)
+import VueResource from 'vue-resource';
+
+//开启debug模式
+Vue.config.debug = true;
+Vue.use(VueResource);
 // ..
 
 const store = new Vuex.Store({
@@ -41,7 +46,9 @@ const store = new Vuex.Store({
 		},
 		dialog:{
 			state:false,
-			title:''
+			loading:false,
+			title:'',
+			data:''
 		}
 	},
 	mutations: {

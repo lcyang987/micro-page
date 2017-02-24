@@ -46,11 +46,11 @@
 				<span>背景颜色： </span>
 				<input type="color" v-model="result.attr.normal.backgroundColor">
 			</div>
-			<button class="hide" v-show="!result.attr.normal.textNav.isShow" v-on:click="show">添加一个文本导航</button>
-			<div v-show="result.attr.normal.textNav.isShow" class="textNav">
+			<button class="hide" v-if="!result.attr.normal.textNav.isShow" v-on:click="show">添加一个文本导航</button>
+			<div v-if="result.attr.normal.textNav.isShow" class="textNav">
 				<div>
 					<span>导航名称： </span>
-					<input type="text" v-model="result.attr.normal.textNav.text"  /></div>
+					<input type="text" v-model="result.attr.normal.textNav.text" /></div>
 				<div>
 					<span>链接到： </span>
 					<dropdownComponent></dropdownComponent>
