@@ -27,7 +27,8 @@ export default {
   	name: 'index',
   	data(){
   		return {
-  			active:null
+  			active:null,
+  			isMove:false
   		}
   	},
 	components: {
@@ -45,81 +46,85 @@ export default {
   			console.log(JSON.stringify(this.$store.state.index.data))
   		},
   		mousedown(ev){
+  			this.isMove=true;
   			var isActive;
   			if(this.$store.state.index.active==this.active)
   				isActive=true;
   			else
-				this.$store.state.index.active=null
+				this.$store.state.index.active=null;
+			var downScrollTop=document.body.scrollTop;
 			var oEvent=ev || window.event;
 			var list=this.$refs.list.querySelectorAll('.list');
 			var obj=this.$refs.list.children[this.active];
 			var disY=oEvent.clientY-obj.offsetTop;
 			var placeholder=document.createElement('div');
+			var moveY=oEvent.clientY;
 			this.$refs.list.insertBefore(placeholder,obj);
 			placeholder.style.height=obj.offsetHeight+'px';		
 			obj.style.position='absolute';
 			obj.style.top=oEvent.clientY-disY+'px';
 			obj.style.zIndex='123';
 			document.body.style.userSelect='none';
-			function elementsChange(opt){
-				opt._this.active=opt.i;
-				var nowStyle=opt.obj.getAttribute('style');
-				opt.obj.removeAttribute('style');
-				opt.obj=opt.list[opt.i];
-				opt.obj.style=nowStyle;
-				if(isActive)
-					opt._this.$store.state.index.active=opt.i;
-				opt._this.$refs.list.insertBefore(placeholder,opt.list[opt.i]);
-				return opt.obj
-			}
-			window.onmousemove=ev=>{
-	  			var oEvent=ev || window.event;
-	  			var y=oEvent.clientY;
-	  			obj.style.top=y-disY+'px';
+			var elementsFor=()=>{
 	  			for(var i=0;i<list.length;i++){
 	  				if(list[i]!=obj)
 					if(i+1==this.active || i-1==this.active)
 					if(i>this.active){
-						if(list[i].offsetTop<obj.offsetTop){
+						if(list[i].offsetTop+list[i].offsetHeight/2<obj.offsetTop+obj.offsetHeight/2){
 							this.$store.state.index.data.splice(this.active+2,0,this.$store.state.index.data[this.active]);
 							this.$store.state.index.data.splice(this.active,1);
-							obj=elementsChange({
-								_this:this,
-								list:list,
-								i:i,
-								obj:obj
-							})
+							elementsChange(i);
 						}
 					}else{
-						if(list[i].offsetTop>obj.offsetTop){
+						if(list[i].offsetTop+list[i].offsetHeight/2>obj.offsetTop+obj.offsetHeight/2){
 							this.$store.state.index.data.splice(this.active-1,0,this.$store.state.index.data[this.active]);
 							this.$store.state.index.data.splice(this.active+1,1);
-							obj=elementsChange({
-								_this:this,
-								list:list,
-								i:i,
-								obj:obj
-							})
+							elementsChange(i);
 						}
 					}
 	  			}
+			}
+			var elementsChange=(i)=>{
+				this.active=i;
+				var nowStyle=obj.getAttribute('style');
+				obj.removeAttribute('style');
+				obj=list[i];
+				obj.style=nowStyle;
+				if(isActive)
+					this.$store.state.index.active=i;
+				this.$refs.list.insertBefore(placeholder,list[i]);
+			}
+			window.onscroll=()=>{
+				disY-=document.body.scrollTop-downScrollTop;
+	  			obj.style.top=moveY-disY+'px';
+	  			elementsFor();
+				downScrollTop=document.body.scrollTop;
+			}
+			window.onmousemove=ev=>{
+	  			var oEvent=ev || window.event;
+	  			moveY=oEvent.clientY;
+	  			obj.style.top=moveY-disY+'px';
+	  			elementsFor();
 			}
 			window.onmouseup=ev=>{
 				obj.removeAttribute('style');
 				this.$refs.list.removeChild(placeholder);
 				document.body.style.userSelect='';
-				window.onmousemove=window.onmouseup=null;
+				window.onmousemove=window.onmouseup=window.onscroll=null;
 				this.$store.state.index.active=this.active;
 				this.$store.state.sidebar.isHidden=false;
 				this.$store.state.sidebar.isRegion=false;
 				this.$store.state.sidebar.top=obj.offsetTop;
+				this.isMove=false;
 			}
   		},
   		mouseenter(item,i){
-  			this.active=i;
+  			if(!this.isMove)
+  				this.active=i;
   		},
   		mouseleave(item,i){
-  			this.active=null;
+  			if(!this.isMove)
+  				this.active=null;
   		}
 	}
 }

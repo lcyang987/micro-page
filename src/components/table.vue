@@ -29,6 +29,7 @@ export default {
   data () {
     return {
       fixedHeader: true,
+      fixedFooter:true,
       selectable: true,
       multiSelectable: true,
       enableSelectAll: false,
