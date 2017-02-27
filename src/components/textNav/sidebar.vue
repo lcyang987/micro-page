@@ -5,12 +5,13 @@
 				<div>
 					<mu-text-field hintText="导航名称" v-model="item.text"/>
 				</div>
-				<dropdownComponent :result="item"></dropdownComponent>
-				<button class="insert" v-on:click="insert(i)">+</button>
-				<button class="remove" v-on:click="remove(i)">×</button>
+				<mu-raised-button v-if="item.link.id" style="width:59%;float:left" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
+				<bottomSheetComponent :width="item.link.id?'31%':'90%'" :link="item.link"></bottomSheetComponent>
+  				<mu-icon-button tooltipPosition="top-center" tooltip="插入新文本导航" class="insert" icon="add" v-on:click="insert(i)"/>
+  				<mu-icon-button tooltipPosition="top-center" tooltip="删除" class="remove" icon="close" v-on:click="remove(i)"/>
 			</section>
 		</template>
-		<button class="push" v-on:click="push">添加一个文本导航</button>
+		<mu-raised-button class="demo-raised-button push" label="添加一个文本导航" icon="add" primary v-on:click="push"/>
 	</div>
 </template>
 <script>
@@ -43,7 +44,11 @@ export default {
 	}
 	section{
 		position:relative;
-		button{
+			/*border:1px solid transparent;
+		&:hover{
+			border:1px solid gray;
+		}*/
+		/*button{
 		    position: absolute;
 			right: -14px;
 		    background: gray;
@@ -61,15 +66,19 @@ export default {
 		    &:active{
 		    	opacity:1;
 		    }
+		}*/
+		.insert,.remove{
+			right: -14px;
+			position:absolute;
 		}
 		.insert{
-			top:3px;
+    		top: 50px;
 		}
 		.remove{
-    		top: 30px;
+			top: 0px;
 		}
 	}
-	button.push{
+	/*button.push{
 		width:100%;
 		height:45px;
 		text-indent:35px;
@@ -86,6 +95,9 @@ export default {
 		&:active{
 			background-color:#eee;
 		}
+	}*/
+	.push{
+		width:100%;
 	}
 		
 	span{

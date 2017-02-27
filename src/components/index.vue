@@ -44,6 +44,7 @@ export default {
   	methods:{
   		returnData(){
   			console.log(JSON.stringify(this.$store.state.index.data))
+  			console.log(JSON.stringify(this.$store.state.dialog))
   		},
   		mousedown(ev){
   			this.isMove=true;
@@ -136,10 +137,14 @@ export default {
 </style>
 <style lang="less" scoped>
 	.design{
-		position:relative;
 		width:320px;
+		/*position:relative;
 		margin:0 auto;
-		margin-top:20px;
+		margin-top:20px;*/
+		position:absolute;
+		top:20px;
+		left:calc(~'50% - 160px');
+		
 		box-shadow: 0 0 0 1px #c5c5c5;
 		section{
 			width:320px;

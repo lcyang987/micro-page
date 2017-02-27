@@ -13,7 +13,7 @@
 		<div v-show="result.attr.type==='wechat'">
 			<span v-text="result.attr.wechat.date"></span>
 			<span v-text="result.attr.wechat.author"></span>
-			<a :href="result.attr.wechat.link.url" v-text="result.attr.wechat.link.title"></a>
+			<a :href="result.attr.wechat.textNav.link.url" v-text="result.attr.wechat.textNav.text"></a>
 		</div>
 		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
 	</div>

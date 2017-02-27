@@ -3,12 +3,13 @@
 		<div>
 			<label for="title">
 				
-				<span><em>*</em>标题名：</span>
-				<input type="text" id="title" v-model="result.attr.title">
+				<!--<span><em>*</em>标题名：</span>
+				<input type="text" id="title" v-model="result.attr.title">-->
+				<mu-text-field hintText="" labelFloat label="标题名" fullWidth v-model="result.attr.title"/>
 			</label>
 		</div>
-		<div>
-			<span>标题模版：</span>
+		<div class="demo-tip-setting">
+			<!--<span>标题模版：</span>
 			<label for="normal">
 				<input type="radio" id="normal" value="normal" v-model="result.attr.type">
 				传统样式
@@ -16,18 +17,26 @@
 			<label for="wechat">
 				<input type="radio" id="wechat" value="wechat" v-model="result.attr.type">
 				微信图文页样式
-			</label>
+			</label>-->
+			<p>
+				标题模版：
+				<mu-radio label="传统" nativeValue="normal" v-model="result.attr.type" class="demo-radio"/>
+				<mu-radio label="微信图文" nativeValue="wechat" v-model="result.attr.type" class="demo-radio"/>
+			</p>
 		</div>
 		<div v-show="result.attr.type=='normal'">
 			<div>
-				<span>副标题：</span>
-				<input type="text" v-model="result.attr.normal.subtitle">
-				<a class="time">
+				<!--<span>副标题：</span>
+				<input type="text" v-model="result.attr.normal.subtitle">-->
+				
+				<mu-text-field hintText="" labelFloat label="副标题" fullWidth v-model="result.attr.normal.subtitle"/>
+				<mu-date-picker autoOk v-on:change="subtitleChange" mode="landscape" hintText="日期"/>
+				<!--<a class="time">
 				日期
 					<input v-on:change="subtitleChange" type="datetime-local" />
-				</a>
+				</a>-->
 			</div>
-			<div>
+			<!--<div>
 				<span>显示：</span>
 				<label for="left">
 					<input type="radio" id="left" value="left" v-model="result.attr.normal.textAlign">
@@ -41,37 +50,52 @@
 					<input type="radio" id="right" value="right" v-model="result.attr.normal.textAlign">
 					居右
 				</label>
+			</div>-->
+			<div class="demo-tip-setting">
+				<p>
+					显示：
+				</p>
+				<p>
+					<mu-radio label="居左" nativeValue="left" v-model="result.attr.normal.textAlign" class="demo-radio"/>
+					<mu-radio label="居中" nativeValue="center" v-model="result.attr.normal.textAlign" class="demo-radio"/>
+					<mu-radio label="居右" nativeValue="right" v-model="result.attr.normal.textAlign" class="demo-radio"/>
+				</p>
 			</div>
-			<div>
-				<span>背景颜色： </span>
-				<input type="color" v-model="result.attr.normal.backgroundColor">
+			<div class="demo-tip-setting">
+				<p>
+					背景颜色：
+					<input type="color" style="width:210px;height:36px;" v-model="result.attr.normal.backgroundColor">
+				</p>				
 			</div>
-			<button class="hide" v-if="!result.attr.normal.textNav.isShow" v-on:click="show">添加一个文本导航</button>
+			<mu-raised-button v-if="!result.attr.normal.textNav.isShow" class="demo-raised-button push" label="添加一个文本导航" icon="add" primary v-on:click="show"/>
 			<div v-if="result.attr.normal.textNav.isShow" class="textNav">
 				<div>
-					<span>导航名称： </span>
-					<input type="text" v-model="result.attr.normal.textNav.text" /></div>
-				<div>
-					<span>链接到： </span>
-					<dropdownComponent></dropdownComponent>
+					<mu-text-field hintText="导航名称" v-model="result.attr.normal.textNav.text"/>
 				</div>
-				<button class="remove" v-on:click="hide">×</button>
+				<mu-raised-button v-if="result.attr.normal.textNav.link.id" style="width:59%;float:left" class="demo-raised-button" :label="result.attr.normal.textNav.link.text" :href="result.attr.normal.textNav.link.url" target="_blank" primary />
+				<bottomSheetComponent v-if="result.attr.normal.textNav.link" :width="result.attr.normal.textNav.link.id?'31%':'90%'" :link="result.attr.normal.textNav.link"></bottomSheetComponent>
+  				<mu-icon-button tooltipPosition="top-center" tooltip="关闭" class="hide" icon="close" v-on:click="hide"/>
 			</div>
 		</div>
 		<div v-show="result.attr.type=='wechat'">
-			<div>
-				<span>日期： </span>
-				<input v-on:change="dateChange" type="date" />
+			<div class="demo-tip-setting">
+				<!--<span>日期： </span>
+				<input v-on:change="dateChange" type="date" />-->
+				<p>
+					<mu-date-picker labelFloat label="日期" v-model="result.attr.wechat.date" autoOk v-on:change="subtitleChange" mode="landscape" hintText="日期"/>
+				</p>
 			</div>
 			<div>
-				<span>作者： </span>
-				<input type="text" v-model="result.attr.wechat.author">
+				<!--<span>作者： </span>
+				<input type="text" v-model="result.attr.wechat.author">-->
+				<mu-text-field hintText="" labelFloat label="作者" fullWidth v-model="result.attr.wechat.author"/>
 			</div>
 			<div>
-				<span>链接标题： </span>
-				<input type="text" v-model="result.attr.wechat.link.title">
+				<!--<span>链接标题： </span>
+				<input type="text" v-model="result.attr.wechat.link.title">-->					
+				<mu-text-field hintText="" labelFloat label="链接标题" fullWidth v-model="result.attr.wechat.textNav.text"/>
 			</div>
-			<div>
+			<!--<div>
 				<span>链接地址： </span>
 				<div class="linkBlock">
 					<label for="focusOn">
@@ -84,6 +108,22 @@
 						其他链接
 					</label>
 				</div>
+			</div>-->
+			<div class="demo-tip-setting">
+				<p>
+					链接地址：
+				</p>
+				<p>
+					<mu-radio label="引导关注" nativeValue="focusOn" v-model="result.attr.wechat.type" class="demo-radio"/>
+					<mu-radio label="其他链接" nativeValue="other" v-model="result.attr.wechat.type" class="demo-radio"/>
+				</p>
+			</div>
+			<div v-if="result.attr.wechat.type==='other'" class="textNav">
+				<!--<div>
+					<mu-text-field hintText="导航名称" v-model="result.attr.wechat.textNav.text"/>
+				</div>-->
+				<mu-raised-button v-if="result.attr.wechat.textNav.link.id" style="width:59%;float:left" class="demo-raised-button" :label="result.attr.wechat.textNav.link.text" :href="result.attr.wechat.textNav.link.url" target="_blank" primary />
+				<bottomSheetComponent v-if="result.attr.wechat.textNav.link" :width="result.attr.wechat.textNav.link.id?'31%':'90%'" :link="result.attr.wechat.textNav.link"></bottomSheetComponent>
 			</div>
 		</div>
 	</div>
@@ -97,12 +137,12 @@ export default {
 		originData
 	},
 	methods:{
-		subtitleChange(ev){
-			this.result.attr.normal.subtitle=ev.target.value.replace('T',' ');
+		subtitleChange(value){
+			this.result.attr.normal.subtitle=value;
 		},
-		dateChange(ev){
-			this.result.attr.wechat.date=ev.target.value.replace('T',' ');
-		},
+//		dateChange(ev){
+//			this.result.attr.wechat.date=ev.target.value.replace('T',' ');
+//		},
 		show(){
 			this.result.attr.normal.textNav.isShow=true;
 		},
@@ -152,7 +192,7 @@ span{
 }
 .textNav{
 	position:relative;
-	.remove{
+	/*.remove{
 	    position: absolute;
 	    top: 0;
 	    right: -14px;
@@ -164,17 +204,17 @@ span{
 	    height: 12px;
 	    line-height: 12px;
 	    border: none;
-	}
+	}*/
 }
 button.hide{
-	width:100%;
+	/*width:100%;
 	height:45px;
 	text-indent:35px;
 	padding:0;
 	text-align:left;
 	border: 1px solid #e5e5e5;
 	background:white;
-	background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjdEQjk5OEE2RkRERDExRTM4RDY0OTI0RDg2RjJCOEE4IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjdEQjk5OEE3RkRERDExRTM4RDY0OTI0RDg2RjJCOEE4Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6N0RCNzIwN0ZGREREMTFFMzhENjQ5MjREODZGMkI4QTgiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6N0RCNzIwODBGREREMTFFMzhENjQ5MjREODZGMkI4QTgiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6AJc34AAAA4ElEQVR42mJ02c2ADESAuAiIfYBYDSp2A4g3AfEkIH4DU8iCpCkYiOcCMT8DKtCH4nwgTgLitSBBJiRNq7FoQgZ8UDXBMI2iQDwPiBmRVe12+Q/GaIARqlYMpDEXahqxAKS2AKTRj4F04AMKHA1k56EDZDHXPXDfqDMxkAd+sUDjSR/NRLhNyGJI4B4TNHJJBVtBGqcA8ScSNIHUTgA59RUoRTAyMK75z4A1IJDBf2jqeQULnLVATaFA+jMem0ByoehJDgTWALESELcD8RUg/g3EX4H4PBC3QOXWwhQDBBgAUkU1FNOZJvUAAAAASUVORK5CYII=);
+	
 	background-repeat:no-repeat;
 	background-position:10px center;
 	&:focus{
@@ -182,6 +222,9 @@ button.hide{
 	}
 	&:active{
 		background-color:#eee;
-	}
+	}*/
+	position:absolute;
+	top:0;
+	right:0;
 }
 </style>

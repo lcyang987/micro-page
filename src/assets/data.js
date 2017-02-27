@@ -1,1 +1,84 @@
-export default [{"type":"search","attr":{"placeholder":"搜索商品","backgroundColor":"#ffffff"}},{"type":"line","attr":{"type":"solid","color":"#000000","padding":true}},{"type":"white","attr":{"height":30}},{"type":"textNav","attr":{"list":[{"text":"","link":{"id":"","label":"","url":""}},{"text":"","link":{"id":"","label":"","url":""}},{"text":"","link":{"id":"","label":"","url":""}}]}},{"type":"textNav","attr":{"list":[{"text":"苏打粉阿斯蒂芬阿斯蒂芬阿斯蒂芬","link":{"id":"1","label":"","url":""}},{"text":"阿萨德发射点发","link":{"id":"","label":"","url":""}},{"text":"撒旦法撒旦法","link":{"id":"3","label":"","url":""}},{"text":"123123123123123123","link":{"id":"","label":"","url":""}}]}},{"type":"notice","attr":{"content":""}}]
+export default [{
+	"type": "search",
+	"attr": {
+		"placeholder": "搜索商品",
+		"backgroundColor": "#ffffff"
+	}
+}, {
+	"type": "textNav",
+	"attr": {
+		"list": [{
+			"text": "lhb",
+			"link": {
+				"id": 6,
+				"text": "666",
+				"url": "https://www.baidu.com"
+			}
+		}, {
+			"text": "lbb",
+			"link": {
+				"id": 1,
+				"text": "111",
+				"url": "https://www.baidu.com"
+			}
+		}, {
+			"text": "",
+			"link": {
+				"id": "",
+				"text": "",
+				"url": ""
+			}
+		}]
+	}
+}, {
+	"type": "title",
+	"attr": {
+		"title": "",
+		"type": "normal",
+		"normal": {
+			"subtitle": "",
+			"textAlign": "left",
+			"backgroundColor": "#ffffff",
+			"textNav": {
+				"isShow": true,
+				"link": {
+					"id": "",
+					"text": "",
+					"url": ""
+				},
+				"text": "撒旦法阿斯蒂芬"
+			}
+		},
+		"wechat": {
+			"date": "",
+			"author": "",
+			"type": "focusOn",
+			"textNav": {
+				"isShow": true,
+				"link": {
+					"id": "",
+					"text": "",
+					"url": ""
+				},
+				"text": ""
+			}
+		}
+	}
+}, {
+	"type": "line",
+	"attr": {
+		"type": "solid",
+		"color": "#000000",
+		"padding": true
+	}
+}, {
+	"type": "white",
+	"attr": {
+		"height": 30
+	}
+}, {
+	"type": "notice",
+	"attr": {
+		"content": ""
+	}
+}]

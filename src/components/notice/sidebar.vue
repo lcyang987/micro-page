@@ -1,6 +1,8 @@
 <template>
 	<div class="noticeSidebar" v-if="result" :class="">
-		公告：<input type="text" :placeholder="result.attr.placeholder" v-model="result.attr.content"  />
+		<!--公告：<input type="text" :placeholder="result.attr.placeholder" v-model="result.attr.content"  />-->
+		
+		<mu-text-field labelFloat label="公告" fullWidth v-model="result.attr.content"/>
 	</div>
 </template>
 <script>

@@ -1,9 +1,7 @@
 <template>
-<div style="position:relative;">
-	<mu-circular-progress :size="90" color="red" style="position:absolute;top:50%;left:50%;margin:-45px 0 0 -45px;box-sizing: border-box;" />
-  <mu-table :fixedFooter="fixedFooter" :fixedHeader="fixedHeader" :height="height"
-    :enableSelectAll="enableSelectAll" :multiSelectable="multiSelectable"
-    :selectable="selectable" :showCheckbox="showCheckbox">
+<div style="position:relative;" :style="{height:height}" >
+	<mu-circular-progress v-show="!this.$store.state.dialog.loading" :size="90" color="red" style="position:absolute;top:50%;left:50%;margin:-45px 0 0 -45px;" />
+  	<mu-table v-show="this.$store.state.dialog.loading" :fixedHeader="fixedHeader" :showCheckbox="showCheckbox">
     <mu-thead slot="header">
       <mu-tr>
         <mu-th tooltip="序号">序号</mu-th>
@@ -17,7 +15,7 @@
         <mu-td>{{index + 1}}</mu-td>
         <mu-td>{{item.text}}</mu-td>
         <mu-td>{{item.time}}</mu-td>
-        <mu-td><mu-raised-button label="选取" class="demo-raised-button" primary  @click="click({id:item.id,text:item.text})"/></mu-td>
+        <mu-td><mu-raised-button label="选取" class="demo-raised-button" primary  @click="click(item)"/></mu-td>
       </mu-tr>
     </mu-tbody>
   </mu-table>
@@ -29,21 +27,22 @@ export default {
   data () {
     return {
       fixedHeader: true,
-      fixedFooter:true,
-      selectable: true,
-      multiSelectable: true,
-      enableSelectAll: false,
       showCheckbox: false,
       height:document.documentElement.clientHeight/2+'px',
     }
  },
  methods:{
- 	click(opt){
- 		console.log(opt)
+ 	click(item){
+// 		console.log(item)
+// 		console.log(this.$store.state.dialog.link);
+ 		for(var i in this.$store.state.dialog.link){
+ 			if(item[i])
+ 				this.$store.state.dialog.link[i]=item[i];
+ 		}
  		setTimeout(()=>{
  			this.$store.state.dialog.state=false;
- 			this.$store.state.dialog.loading=false;
- 		},300);
+			this.$store.state.dialog.loading=false;
+ 		},200);
  	}
  }
 }

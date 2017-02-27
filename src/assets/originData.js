@@ -23,10 +23,11 @@ export default {
 				"textAlign":"left",
 				"backgroundColor":"#ffffff",
 				"textNav":{
-					"text":"",
 					"isShow":false,
+					"text":"",
 					"link":{
 						"id":"",
+						"text":"",
 						"url":""
 					}
 				}
@@ -35,9 +36,13 @@ export default {
 				"date":"",
 				"author":"",
 				"type":"focusOn",
-				"link":{
-					"title":"",
-					"url":""
+				"textNav":{
+					"text":"",
+					"link":{
+						"id":"",
+						"text": "",
+						"url": ""
+					}
 				}
 			}
 		}
@@ -62,21 +67,21 @@ export default {
 				"text":"",
 				"link":{
 					"id":"",
-					"label":"",
+					"text":"",
 					"url":""
 				}
 			},{
 				"text":"",
 				"link":{
 					"id":"",
-					"label":"",
+					"text":"",
 					"url":""
 				}
 			},{
 				"text":"",
 				"link":{
 					"id":"",
-					"label":"",
+					"text":"",
 					"url":""
 				}
 			}]

@@ -16,6 +16,8 @@ import dialogComponent from 'components/dialog';
 Vue.component('dialogComponent', dialogComponent)
 import dropdownComponent from 'components/dropdown';
 Vue.component('dropdownComponent', dropdownComponent)
+import bottomSheetComponent from 'components/bottomSheet';
+Vue.component('bottomSheetComponent', bottomSheetComponent)
 Vue.use(Vuex)
 Vue.use(MuseUI)
 import VueResource from 'vue-resource';
@@ -46,9 +48,11 @@ const store = new Vuex.Store({
 		},
 		dialog:{
 			state:false,
+			timer:null,
 			loading:false,
-			title:'',
-			data:''
+			title:null,
+			data:null,
+			link:null
 		}
 	},
 	mutations: {

@@ -41,8 +41,10 @@ export default {
 		}
 	}
 	.actions{
-		width:calc(~'100% - 4px');
-		height:calc(~'100% - 4px');
+		/*width:calc(~'100% - 4px');
+		height:calc(~'100% - 4px');*/
+		width:100%;
+		height:100%;
 		ul{
 			position: absolute;
 		    bottom: 0;

@@ -39,7 +39,8 @@ export default {
 		border:1px solid #c5c5c5;
 		position:absolute;
 		right:-100%;
-		width:90%;
+		/*width:90%;*/
+		width:100%;
 		padding:3% 5%;
 		margin-top:-1px;
 		margin-right:-12px;
