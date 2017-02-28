@@ -5,7 +5,8 @@ export default [{
 },{
 	text:'商品列表'
 },{
-	text:'图片广告'
+	text:'图片广告',
+	type:'imageAd'
 },{
 	text:'魔方'
 },{
@@ -15,7 +16,8 @@ export default [{
 	text:'文本导航',
 	type:'textNav'
 },{
-	text:'图片导航'
+	text:'图片导航',
+	type:'picNav'
 },{
 	text:'关联链接'
 },{

@@ -22,6 +22,8 @@ import noticeComponent from './notice/index';
 import searchComponent from './search/index';
 import titleComponent from './title/index';
 import textNavComponent from './textNav/index';
+import picNavComponent from './picNav/index';
+import imageAdComponent from './imageAd/index';
 import _ from 'lodash';
 export default {
   	name: 'index',
@@ -39,7 +41,9 @@ export default {
 		noticeComponent,
 		searchComponent,
 		titleComponent,
-		textNavComponent
+		textNavComponent,
+		picNavComponent,
+		imageAdComponent
 	},
   	methods:{
   		returnData(){

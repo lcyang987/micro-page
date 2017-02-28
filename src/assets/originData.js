@@ -86,5 +86,59 @@ export default {
 				}
 			}]
 		}
+	},
+	"picNav":{
+		"type": "picNav",
+		"attr":{
+			"list":[{
+				"text":"",
+				"img":"",
+				"link":{
+					"id":"",
+					"text":"",
+					"url":""
+				}
+			},{
+				"text":"",
+				"img":"",
+				"link":{
+					"id":"",
+					"text":"",
+					"url":""
+				}
+			},{
+				"text":"",
+				"img":"",
+				"link":{
+					"id":"",
+					"text":"",
+					"url":""
+				}
+			},{
+				"text":"",
+				"img":"",
+				"link":{
+					"id":"",
+					"text":"",
+					"url":""
+				}
+			}]
+		}
+	},
+	"imageAd":{
+		"type": "imageAd",
+		"attr":{
+			"type":"carousel",
+			"separate":"big",
+			"list":[{
+				"text":"",
+				"img":"",
+				"link":{
+					"id":"",
+					"text":"",
+					"url":""
+				}
+			}]
+		}
 	}
 }

@@ -3,14 +3,24 @@
 		<ul>
 			<li>编辑</li>
 			<li v-on:click.stop="addClick" v-on:mousedown.stop>加内容</li>
-			<li v-on:click.stop="deleteClick" v-on:mousedown.stop>删除</li>
+			<li v-on:click="open">删除</li>
 		</ul>
+	    <mu-dialog :open="dialog" title="提示" @close="close">
+	    	是否确定删除？
+		    <mu-flat-button slot="actions" primary @click="confirm" label="确定"/>
+		    <mu-flat-button slot="actions" @click="close" primary label="取消"/>
+	    </mu-dialog>
 	</div>
 </template>
 <script>
 export default {
   	name: 'actions',
 	props: ["result","index","data"],
+	data(){
+		return {
+			dialog: false
+		}
+	},
 	methods:{
 		addClick(){
 			this.$store.state.sidebar.isHidden=false;
@@ -18,14 +28,19 @@ export default {
 			this.$store.state.index.active=this.index;
 			this.$store.state.sidebar.top=this.$refs.actions.parentNode.parentNode.offsetTop;
 		},
-		deleteClick(){
-			if(confirm('是否删除')){
-				this.$store.state.index.isDelete=true;
-				this.$store.state.sidebar.isHidden=true;
-				this.$store.state.index.data.splice(this.index,1);
-				this.$store.state.index.active=null;
-			}
-		}
+	    open(){
+	      this.dialog = true
+	    },
+	    close(){
+	      this.dialog = false
+	    },
+	    confirm(){
+			this.$store.state.index.isDelete=true;
+			this.$store.state.sidebar.isHidden=true;
+			this.$store.state.index.data.splice(this.index,1);
+			this.$store.state.index.active=null;
+			this.dialog = false
+	    }
 	}
 }
 </script>

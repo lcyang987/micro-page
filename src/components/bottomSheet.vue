@@ -1,6 +1,6 @@
 <template>
 <div>
-  <mu-raised-button @click="openBottomSheet" :label="link.id?'修改':'设置链接到页面的地址'" :style="{width:width}" />
+  <mu-raised-button @click="openBottomSheet" :label="link.id?'修改':'设置链接地址'" :style="{width:width}" />
   <mu-bottom-sheet :open="bottomSheet" @close="closeBottomSheet">
     <mu-list @itemClick="closeBottomSheet">
       <mu-sub-header>
@@ -21,16 +21,20 @@ export default {
     return {
     	data:[{
     		id:1,
-    		title:'阴阳师'
+    		title:'阴阳师',
+    		url:'textNav.txt'
     	},{
     		id:2,
-    		title:'贪吃蛇大作战'
+    		title:'贪吃蛇大作战',
+    		url:'textNav.txt'
     	},{
     		id:3,
-    		title:'一划到底'
+    		title:'一划到底',
+    		url:'textNav.txt'
     	},{
     		id:4,
-    		title:'全民斗地主'
+    		title:'全民斗地主',
+    		url:'textNav.txt'
     	}],
       bottomSheet: false
     }
@@ -38,12 +42,12 @@ export default {
   methods: {
   	click(item){
 //		console.log(item)
-  		console.log(this.link)
-  		this.$store.state.dialog.link=this.link;
+//		console.log(this.link)
     	if(!item.id)
     		return;
+  		this.$store.state.dialog.link=this.link;
     	var _this=this;
-    	this.$http.get('json.txt',{a:1,b:2},{emulateJSON:true}).then(
+    	this.$http.get(item.url,{a:1,b:2},{emulateJSON:true}).then(
     		function(response){
     			if(response.data.success){
     				var data=response.data.data;

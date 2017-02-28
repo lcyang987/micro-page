@@ -1,15 +1,11 @@
 <template>
 	<div class="lineSidebar" v-if="result" :class="">
-		<!--<div>
-			<label for="Color"> 背景色： 
-				<input type="color" id="Color" v-model="result.attr.backgroundColor">
-			</label>
-			<button v-on:click="click">重置</button>
-		</div>-->
 		<div class="demo-tip-setting">
 			<p>
 				背景色：
-				<input type="color" style="width:120px;height:36px;margin-right:20px" id="color" v-model="result.attr.backgroundColor">
+				<input type="color" style="width:210px;height:24px;margin-right:20px" id="color" v-model="result.attr.backgroundColor" />
+			</p>
+			<p>
 				<mu-raised-button class="demo-raised-button push" label="重置" primary v-on:click="click"/>
 			</p>
 		</div>
