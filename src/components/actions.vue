@@ -10,6 +10,7 @@
 		    <mu-flat-button slot="actions" primary @click="confirm" label="确定"/>
 		    <mu-flat-button slot="actions" @click="close" primary label="取消"/>
 	    </mu-dialog>
+	    <div class="modal"></div>
 	</div>
 </template>
 <script>
@@ -53,6 +54,12 @@ export default {
 		}
 		.hover{
 			display:block;
+		}
+		.modal{			
+			width:100%;
+			height:100%;
+			background:gray;
+			opacity:0.1;
 		}
 	}
 	.actions{

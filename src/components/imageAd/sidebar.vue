@@ -24,7 +24,6 @@
 				<mu-raised-button v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
 				<bottomSheetComponent :width="'100%'" :link="item.link"></bottomSheetComponent>
 			</div>
-			<mu-icon-button class="insert" icon="add" v-on:click="insert(i)"/>
 			<mu-icon-button class="remove" icon="close" v-on:click="remove(i)"/>
 		</section>
 		<mu-raised-button fullWidth v-show="!result.attr.list.length || (result.attr.list && result.attr.list.length<10 && result.attr.list[result.attr.list.length-1] && result.attr.list[result.attr.list.length-1].img)" class="demo-raised-button push" label="添加一个图片广告" icon="add" primary v-on:click="push"/>

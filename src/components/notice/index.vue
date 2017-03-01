@@ -23,10 +23,12 @@ export default {
 	.notice{
 		padding:10px;
 		overflow:hidden;
+		background:#ffc;
 		p{
 			margin:0;
 			padding:0;
 			white-space:nowrap;
+			color:#f90;
 		}
 	}
 </style>

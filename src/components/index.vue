@@ -141,6 +141,7 @@ export default {
 				if(Math.abs(mouseDown.x-mouseUp.x)<3 && Math.abs(mouseDown.y-mouseUp.y)<3){
 					this.$store.state.index.active=this.active;
 					this.$store.state.sidebar.isHidden=false;
+					this.$store.state.sidebar.isRegion=false;
 				}
 				if(!this.$store.state.sidebar.isHidden)
 					this.$store.state.sidebar.top=list[this.$store.state.index.active].offsetTop;
