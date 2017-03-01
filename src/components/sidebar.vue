@@ -18,6 +18,7 @@ import titleComponent from './title/sidebar';
 import textNavComponent from './textNav/sidebar';
 import picNavComponent from './picNav/sidebar';
 import imageAdComponent from './imageAd/sidebar';
+import showcaseComponent from './showcase/sidebar';
 export default {
   	name: 'sidebar',
 	props: ["result","active","data"],
@@ -30,7 +31,8 @@ export default {
 		titleComponent,
 		textNavComponent,
 		picNavComponent,
-		imageAdComponent
+		imageAdComponent,
+		showcaseComponent
 	}
 }
 </script>

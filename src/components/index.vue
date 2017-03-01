@@ -24,6 +24,7 @@ import titleComponent from './title/index';
 import textNavComponent from './textNav/index';
 import picNavComponent from './picNav/index';
 import imageAdComponent from './imageAd/index';
+import showcaseComponent from './showcase/index';
 import _ from 'lodash';
 export default {
   	name: 'index',
@@ -43,7 +44,8 @@ export default {
 		titleComponent,
 		textNavComponent,
 		picNavComponent,
-		imageAdComponent
+		imageAdComponent,
+		showcaseComponent
 	},
   	methods:{
   		returnData(){
@@ -55,17 +57,22 @@ export default {
   			var isActive;
   			if(this.$store.state.index.active==this.active)
   				isActive=true;
-  			else
-				this.$store.state.index.active=null;
+//			else
+//				this.$store.state.index.active=null;
 			var downScrollTop=document.body.scrollTop;
 			var oEvent=ev || window.event;
 			var list=this.$refs.list.querySelectorAll('.list');
 			var obj=this.$refs.list.children[this.active];
+			var mouseDown={
+				x:oEvent.clientX+document.body.scrollLeft,
+				y:oEvent.clientY+document.body.scrollTop
+			}
 			var disY=oEvent.clientY-obj.offsetTop;
 			var placeholder=document.createElement('div');
 			var moveY=oEvent.clientY;
+			var directionTop;
 			this.$refs.list.insertBefore(placeholder,obj);
-			placeholder.style.height=obj.offsetHeight+'px';		
+			placeholder.style.height=Math.floor(obj.offsetHeight)+'px';		
 			obj.style.position='absolute';
 			obj.style.top=oEvent.clientY-disY+'px';
 			obj.style.zIndex='123';
@@ -75,51 +82,68 @@ export default {
 	  				if(list[i]!=obj)
 					if(i+1==this.active || i-1==this.active)
 					if(i>this.active){
-						if(list[i].offsetTop+list[i].offsetHeight/2<obj.offsetTop+obj.offsetHeight/2){
+						if(!directionTop && list[i].offsetTop+list[i].offsetHeight/2<obj.offsetTop+obj.offsetHeight-obj.offsetParent.offsetTop){
 							this.$store.state.index.data.splice(this.active+2,0,this.$store.state.index.data[this.active]);
 							this.$store.state.index.data.splice(this.active,1);
 							elementsChange(i);
+							directionTop=!directionTop;
+							if(!isActive && i===this.$store.state.index.active)
+								this.$store.state.index.active--;
 						}
 					}else{
-						if(list[i].offsetTop+list[i].offsetHeight/2>obj.offsetTop+obj.offsetHeight/2){
+						if(directionTop && list[i].offsetTop+list[i].offsetHeight/2>obj.offsetTop+obj.offsetHeight/2-obj.offsetParent.offsetTop){
 							this.$store.state.index.data.splice(this.active-1,0,this.$store.state.index.data[this.active]);
 							this.$store.state.index.data.splice(this.active+1,1);
 							elementsChange(i);
+							if(!isActive && i===this.$store.state.index.active)
+								this.$store.state.index.active++;
 						}
 					}
 	  			}
 			}
 			var elementsChange=(i)=>{
-				this.active=i;
 				var nowStyle=obj.getAttribute('style');
 				obj.removeAttribute('style');
+				this.active=i;
 				obj=list[i];
 				obj.style=nowStyle;
 				if(isActive)
 					this.$store.state.index.active=i;
-				this.$refs.list.insertBefore(placeholder,list[i]);
+				this.$refs.list.insertBefore(placeholder,obj);
 			}
 			window.onscroll=()=>{
 				disY-=document.body.scrollTop-downScrollTop;
+				directionTop=document.body.scrollTop<downScrollTop;
 	  			obj.style.top=moveY-disY+'px';
 	  			elementsFor();
 				downScrollTop=document.body.scrollTop;
 			}
 			window.onmousemove=ev=>{
 	  			var oEvent=ev || window.event;
+	  			directionTop=moveY>oEvent.clientY;
 	  			moveY=oEvent.clientY;
 	  			obj.style.top=moveY-disY+'px';
 	  			elementsFor();
 			}
 			window.onmouseup=ev=>{
+	  			var oEvent=ev || window.event;
 				obj.removeAttribute('style');
 				this.$refs.list.removeChild(placeholder);
 				document.body.style.userSelect='';
 				window.onmousemove=window.onmouseup=window.onscroll=null;
-				this.$store.state.index.active=this.active;
-				this.$store.state.sidebar.isHidden=false;
-				this.$store.state.sidebar.isRegion=false;
-				this.$store.state.sidebar.top=obj.offsetTop;
+//				this.$store.state.index.active=this.active;
+//				this.$store.state.sidebar.isHidden=false;
+//				this.$store.state.sidebar.isRegion=false;
+				var mouseUp={
+					x:oEvent.clientX+document.body.scrollLeft,
+					y:oEvent.clientY+document.body.scrollTop
+				}
+				if(Math.abs(mouseDown.x-mouseUp.x)<3 && Math.abs(mouseDown.y-mouseUp.y)<3){
+					this.$store.state.index.active=this.active;
+					this.$store.state.sidebar.isHidden=false;
+				}
+				if(!this.$store.state.sidebar.isHidden)
+					this.$store.state.sidebar.top=list[this.$store.state.index.active].offsetTop;
 				this.isMove=false;
 			}
   		},

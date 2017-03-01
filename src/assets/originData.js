@@ -140,5 +140,37 @@ export default {
 				}
 			}]
 		}
+	},
+	"showcase":{
+		"type": "showcase",
+		"attr":{
+			"title":"",
+			"type":"default",
+			"space":"keep",
+			"contentTitle":"",
+			"contentDescription":"",
+			"list":[{
+				"img":"",
+				"link":{
+					"id":"",
+					"text":"",
+					"url":""
+				}
+			},{
+				"img":"",
+				"link":{
+					"id":"",
+					"text":"",
+					"url":""
+				}
+			},{
+				"img":"",
+				"link":{
+					"id":"",
+					"text":"",
+					"url":""
+				}
+			}]
+		}
 	}
 }

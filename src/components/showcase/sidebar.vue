@@ -1,40 +1,39 @@
 <template>
-	<div class="imageAdSidebar" v-if="result" >
+	<div class="showcaseSidebar" v-if="result" >
+		<mu-text-field labelFloat label="橱窗标题" hintText="" v-model="result.attr.title"/>
 		<div class="demo-tip-setting">
 			<p>
 				显示方式：
-				<mu-radio label="轮播" nativeValue="carousel" v-model="result.attr.type" class="demo-radio"/>
-				<mu-radio label="分开" nativeValue="separate" v-model="result.attr.type" class="demo-radio"/>
+				<mu-radio label="默认" nativeValue="default" v-model="result.attr.type" class="demo-radio"/>
+				<mu-radio label="3列" nativeValue="3" v-model="result.attr.type" class="demo-radio"/>
 			</p>
 		</div>
-		<div class="demo-tip-setting" v-show="result.attr.type==='separate'">
+		<div class="demo-tip-setting">
 			<p>
-				显示大小：
-				<mu-radio label="大图" nativeValue="big" v-model="result.attr.separate" class="demo-radio"/>
-				<mu-radio label="小图" nativeValue="small" v-model="result.attr.separate" class="demo-radio"/>
+				图片间隙：
+				<mu-radio label="保留" nativeValue="keep" v-model="result.attr.space" class="demo-radio"/>
+				<mu-radio label="清除" nativeValue="clear" v-model="result.attr.space" class="demo-radio"/>
 			</p>
 		</div>
+		<mu-text-field labelFloat label="内容标题" hintText="" v-model="result.attr.contentTitle"/>
+  		<mu-text-field labelFloat label="内容说明" hintText="50字以内" multiLine :rows="3" :rowsMax="6" :maxLength="50" v-model="result.attr.contentDescription"/>
 		<section v-for="(item,i) of result.attr.list">
 			<div>
 				<img width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
 				<mu-raised-button @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
 			</div>
 			<div>
-				<mu-text-field labelFloat label="导航名称" hintText="" v-model="item.text" style="width:100%"/>
 				<mu-raised-button v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
 				<bottomSheetComponent :width="'100%'" :link="item.link"></bottomSheetComponent>
 			</div>
-			<mu-icon-button class="insert" icon="add" v-on:click="insert(i)"/>
-			<mu-icon-button class="remove" icon="close" v-on:click="remove(i)"/>
 		</section>
-		<mu-raised-button fullWidth v-show="!result.attr.list.length || (result.attr.list && result.attr.list.length<10 && result.attr.list[result.attr.list.length-1] && result.attr.list[result.attr.list.length-1].img)" class="demo-raised-button push" label="添加一个图片广告" icon="add" primary v-on:click="push"/>
 	</div>
 </template>
 <script>
 import _ from 'lodash';
 import originData from 'assets/originData.js';
 export default {
-  	name: 'imageAdSidebar',
+  	name: 'showcaseSidebar',
 	props: ["result","active"],
 	components:{
 		originData

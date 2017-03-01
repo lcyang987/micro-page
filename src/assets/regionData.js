@@ -24,7 +24,8 @@ export default [{
 	text:'商品搜索',
 	type:'search'
 },{
-	text:'橱窗'
+	text:'橱窗',
+	type:'showcase'
 },{
 	text:'辅助线',
 	type:'line'

@@ -14,6 +14,9 @@ export default {
 body{
 	margin:0;
 }
+img{
+	display:block;
+}
 /*body, html {
     overflow-x: initial !important;
     overflow-y: initial !important;

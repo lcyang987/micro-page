@@ -1,21 +1,27 @@
 <template>
 	<div class="imageAd" v-if="result.attr.list">
-		<div v-if="result.attr.type==='separate'" :class="{small:result.attr.separate==='small',big:result.attr.separate==='big'}">
-			<template v-for="item of result.attr.list">
-				<div class="imgBox" :class="{visibility:!item.img}">
-					<img :src="item.img" />
-					<p v-show="item.text" v-text="item.text"></p>
-				</div>
-			</template>
-		</div>
-		<div v-else>
-			<div class="imgBox carousel" v-if="result.attr.list[0] && result.attr.list[0].img">
-				<img :src="result.attr.list[0].img" />
-				<p v-show="result.attr.list[0].text" v-text="result.attr.list[0].text"></p>
-				<div class="pointer">
-					<span v-for="item of result.attr.list"></span>
+		<div v-if="result.attr.type==='carousel'">
+			<div class="imgBox carousel">
+				<img :src="cpdcarousel" />
+				
+				<div v-if="result.attr.list[0]">
+					<div v-if="result.attr.list[0].img">
+						<p v-show="result.attr.list[0].text" v-text="result.attr.list[0].text"></p>
+						<div class="pointer">
+							<span v-for="item of result.attr.list"></span>
+						</div>
+					</div>
 				</div>
 			</div>
+		</div>
+		<div v-if="result.attr.type==='separate'" :class="{small:result.attr.separate==='small',big:result.attr.separate==='big'}">
+			<img :src="cpdSeparate" />
+			<template v-for="item of result.attr.list">
+				<div class="imgBox">
+					<img v-show="item.img" :src="item.img" />
+					<p v-show="item.img,item.text" v-text="item.text"></p>
+				</div>
+			</template>
 		</div>
 		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
 	</div>
@@ -23,7 +29,31 @@
 <script>
 export default {
   	name: 'imageAd',
-	props: ["result","index","data"]	
+	props: ["result","index","data"],
+	data(){
+		return {
+			imgs:{
+				carousel:require('assets/images/carousel.jpg'),
+				separate:require('assets/images/separate.jpg')
+			}
+		}
+	},
+	computed:{
+		cpdcarousel(){
+			var img='';
+			if(this.result.attr.list[0] && this.result.attr.list[0].img)
+				img=this.result.attr.list[0].img;
+			else
+				img=this.imgs.carousel;
+			return img
+		},
+		cpdSeparate(){
+			var img='';
+			if(!this.result.attr.list[0] || !this.result.attr.list[0].img)
+				img=this.imgs.separate;
+			return img
+		}
+	}
 }
 </script>
 
@@ -40,7 +70,6 @@ export default {
 			}
 			img{
 				width:100%;
-				display:block;
 				margin:0 auto;
 			}
 		}
@@ -53,9 +82,6 @@ export default {
 				width:100%;
 				text-align:center;
 			}
-		}
-		.visibility{
-			visibility: hidden;
 		}
 		.imgBox{
 			position:relative;
@@ -74,7 +100,6 @@ export default {
 		.carousel{
 			img{
 				width:100%;
-				height:100%
 			}
 			.pointer{
 				position:absolute;
