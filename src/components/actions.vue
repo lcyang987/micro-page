@@ -1,5 +1,6 @@
 <template>
 	<div ref="actions" class="actions">
+	    <div class="modal"></div>
 		<ul>
 			<li>编辑</li>
 			<li v-on:click.stop="addClick" v-on:mousedown.stop>加内容</li>
@@ -10,7 +11,6 @@
 		    <mu-flat-button slot="actions" primary @click="confirm" label="确定"/>
 		    <mu-flat-button slot="actions" @click="close" primary label="取消"/>
 	    </mu-dialog>
-	    <div class="modal"></div>
 	</div>
 </template>
 <script>
