@@ -34,7 +34,7 @@
 		</div>
 		<div class="demo-tip-setting">
 			<p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && (!/^(easy)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && !/^(list)$/.test(result.attr.type)">
-				<mu-checkbox label="显示商品名" v-model="result.attr.display.name" class="demo-checkbox"/>
+				<mu-checkbox :label="result.attr.type==='12'?'显示商品名(小图不显示名称)':'显示商品名'" v-model="result.attr.display.name" class="demo-checkbox"/>
 			</p>
 			<p v-show="/^(big)$/.test(result.attr.type)">
 				<mu-checkbox label="显示简介" v-model="result.attr.display.info" class="demo-checkbox"/>
@@ -87,12 +87,15 @@ export default {
 		change(){
 			if(/falls|sale/.test(this.result.attr.style))
 				this.result.attr.style='card';
+			setTimeout(()=>{
+				if(/^(easy)$/.test(this.result.attr.style) && /^(list)$/.test(this.result.attr.type))
+					this.btnChange();
+			},0);
 		},
 		btnChange(){
 			if(/^(3)$/.test(this.result.attr.btnStyle) && /^(list)$/.test(this.result.attr.type))
 				this.result.attr.btnStyle='1';
 		}
-			
 	}
 }
 </script>

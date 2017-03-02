@@ -39,7 +39,7 @@ export default {
 		originData
 	},
 	methods:{
-		click(item){			
+		click(item){
   			this.$store.state.dialog.link=item;
 	    	var _this=this;
 	    	this.$http.get('picNav.txt',{a:1,b:2},{emulateJSON:true}).then(

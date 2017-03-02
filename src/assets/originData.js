@@ -145,7 +145,7 @@ export default {
 		"type": "showcase",
 		"attr":{
 			"title":"",
-			"type":"default",
+			"type":"prominent",
 			"space":"keep",
 			"contentTitle":"",
 			"contentDescription":"",

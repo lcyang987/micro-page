@@ -1,7 +1,7 @@
 <template>
 	<div class="showCase" v-if="result.attr.list">
 		<h3 v-text="result.attr.title" v-show="result.attr.title"></h3>
-		<div :class="{prominent:/^(default)$/.test(result.attr.type),column:/^(3)$/.test(result.attr.type)}">
+		<div :class="result.attr.type">
 			<template v-for="item,i of result.attr.list">
 				<div class="imgBox" :class="{keep:/^(keep)$/.test(result.attr.space),clear:/^(clear)$/.test(result.attr.space)}">
 					<img :src="item.img||imgs[i]" :class="{visibility:!item.img}"/>

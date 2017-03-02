@@ -85,7 +85,7 @@ export default [{
 	"type": "showcase",
 	"attr": {
 		"title": "title",
-		"type": "default",
+		"type": "prominent",
 		"space": "keep",
 		"contentTitle": "contentitle",
 		"contentDescription": "description",

@@ -14,7 +14,7 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="/^(separate)$/.test(result.attr.type)" :class="{small:/^(small)$/.test(result.attr.separate),big:/^(big)$/.test(result.attr.separate)}">
+		<div v-if="/^(separate)$/.test(result.attr.type)" :class="result.attr.separate">
 			<img :src="cpdSeparate" />
 			<template v-for="item of result.attr.list">
 				<div class="imgBox">

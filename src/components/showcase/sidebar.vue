@@ -6,8 +6,8 @@
 			</p>
 			<p>
 				显示方式：
-				<mu-radio label="默认" nativeValue="default" v-model="result.attr.type" class="demo-radio"/>
-				<mu-radio label="3列" nativeValue="3" v-model="result.attr.type" class="demo-radio"/>
+				<mu-radio label="默认" nativeValue="prominent" v-model="result.attr.type" class="demo-radio"/>
+				<mu-radio label="3列" nativeValue="column" v-model="result.attr.type" class="demo-radio"/>
 			</p>
 			<p>
 				图片间隙：
