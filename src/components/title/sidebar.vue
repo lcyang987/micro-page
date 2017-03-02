@@ -10,7 +10,7 @@
 				<mu-radio label="微信图文" nativeValue="wechat" v-model="result.attr.type" class="demo-radio"/>
 			</p>
 		</div>
-		<div v-show="result.attr.type=='normal'">
+		<div v-show="/^(normal)$/.test(result.attr.type)">
 			<div>
 				<mu-text-field hintText="" labelFloat label="副标题" fullWidth v-model="result.attr.normal.subtitle"/>
 				<mu-date-picker autoOk v-on:change="subtitleChange" mode="landscape" hintText="日期"/>
@@ -41,7 +41,7 @@
   				<mu-icon-button tooltipPosition="top-center" tooltip="关闭" class="hide" icon="close" v-on:click="hide"/>
 			</div>
 		</div>
-		<div v-show="result.attr.type=='wechat'">
+		<div v-show="/^(wechat)$/.test(result.attr.type)">
 			<div class="demo-tip-setting">
 				<p>
 					<mu-date-picker labelFloat label="日期" v-model="result.attr.wechat.date" autoOk v-on:change="subtitleChange" mode="landscape" hintText="日期"/>
@@ -62,7 +62,7 @@
 					<mu-radio label="其他链接" nativeValue="other" v-model="result.attr.wechat.type" class="demo-radio"/>
 				</p>
 			</div>
-			<div v-if="result.attr.wechat.type==='other'" class="textNav">
+			<div v-if="/^(other)$/.test(result.attr.wechat.type)" class="textNav">
 				<mu-raised-button v-if="result.attr.wechat.textNav.link.id" style="width:69%;float:left" class="demo-raised-button" :label="result.attr.wechat.textNav.link.text" :href="result.attr.wechat.textNav.link.url" target="_blank" primary />
 				<bottomSheetComponent v-if="result.attr.wechat.textNav.link" :width="result.attr.wechat.textNav.link.id?'31%':'100%'" :link="result.attr.wechat.textNav.link"></bottomSheetComponent>
 			</div>

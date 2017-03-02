@@ -7,7 +7,7 @@
 				<mu-radio label="分开" nativeValue="separate" v-model="result.attr.type" class="demo-radio"/>
 			</p>
 		</div>
-		<div class="demo-tip-setting" v-show="result.attr.type==='separate'">
+		<div class="demo-tip-setting" v-show="/^(separate)$/.test(result.attr.type)">
 			<p>
 				显示大小：
 				<mu-radio label="大图" nativeValue="big" v-model="result.attr.separate" class="demo-radio"/>

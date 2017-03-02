@@ -1,22 +1,26 @@
 <template>
 	<div class="showcaseSidebar" v-if="result" >
-		<mu-text-field labelFloat label="橱窗标题" hintText="" v-model="result.attr.title"/>
 		<div class="demo-tip-setting">
+			<p>
+				<mu-text-field labelFloat label="橱窗标题" hintText="" v-model="result.attr.title"/>
+			</p>
 			<p>
 				显示方式：
 				<mu-radio label="默认" nativeValue="default" v-model="result.attr.type" class="demo-radio"/>
 				<mu-radio label="3列" nativeValue="3" v-model="result.attr.type" class="demo-radio"/>
 			</p>
-		</div>
-		<div class="demo-tip-setting">
 			<p>
 				图片间隙：
 				<mu-radio label="保留" nativeValue="keep" v-model="result.attr.space" class="demo-radio"/>
 				<mu-radio label="清除" nativeValue="clear" v-model="result.attr.space" class="demo-radio"/>
 			</p>
+			<p>
+				<mu-text-field labelFloat label="内容标题" hintText="" v-model="result.attr.contentTitle"/>
+			</p>
+			<p>
+		  		<mu-text-field labelFloat label="内容说明" hintText="50字以内" multiLine :rows="3" :rowsMax="6" :maxLength="50" v-model="result.attr.contentDescription"/>
+			</p>
 		</div>
-		<mu-text-field labelFloat label="内容标题" hintText="" v-model="result.attr.contentTitle"/>
-  		<mu-text-field labelFloat label="内容说明" hintText="50字以内" multiLine :rows="3" :rowsMax="6" :maxLength="50" v-model="result.attr.contentDescription"/>
 		<section v-for="(item,i) of result.attr.list">
 			<div>
 				<img width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
@@ -47,9 +51,7 @@ export default {
 	    			if(response.data.success){
 	    				var data=response.data.data;
 	    				var dialog=_this.$store.state.dialog;
-	    				dialog.state=true;
-	    				dialog.title=data.title;
-	    				dialog.data=data.list;
+	    				[dialoge.state,dialog.title,dialog.data]=[true,data.title,data.list];
 	    				dialog.timer=setTimeout(()=>{
 	    					dialog.loading=true;
 	    				},500);

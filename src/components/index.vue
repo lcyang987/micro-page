@@ -25,6 +25,7 @@ import textNavComponent from './textNav/index';
 import picNavComponent from './picNav/index';
 import imageAdComponent from './imageAd/index';
 import showcaseComponent from './showcase/index';
+import goodsComponent from './goods/index';
 import _ from 'lodash';
 export default {
   	name: 'index',
@@ -45,7 +46,8 @@ export default {
 		textNavComponent,
 		picNavComponent,
 		imageAdComponent,
-		showcaseComponent
+		showcaseComponent,
+		goodsComponent
 	},
   	methods:{
   		returnData(){
@@ -57,8 +59,7 @@ export default {
   			var isActive;
   			if(this.$store.state.index.active==this.active)
   				isActive=true;
-//			else
-//				this.$store.state.index.active=null;
+			var state=this.$store.state;
 			var downScrollTop=document.body.scrollTop;
 			var oEvent=ev || window.event;
 			var list=this.$refs.list.querySelectorAll('.list');
@@ -72,10 +73,8 @@ export default {
 			var moveY=oEvent.clientY;
 			var directionTop;
 			this.$refs.list.insertBefore(placeholder,obj);
-			placeholder.style.height=Math.floor(obj.offsetHeight)+'px';		
-			obj.style.position='absolute';
-			obj.style.top=oEvent.clientY-disY+'px';
-			obj.style.zIndex='123';
+			placeholder.style.height=Math.floor(obj.offsetHeight)+'px';
+			[obj.style.position,obj.style.top,obj.style.zIndex]=['absolute',oEvent.clientY-disY+'px','123'];
 			document.body.style.userSelect='none';
 			var elementsFor=()=>{
 	  			for(var i=0;i<list.length;i++){
@@ -83,20 +82,20 @@ export default {
 					if(i+1==this.active || i-1==this.active)
 					if(i>this.active){
 						if(!directionTop && list[i].offsetTop+list[i].offsetHeight/2<obj.offsetTop+obj.offsetHeight-obj.offsetParent.offsetTop){
-							this.$store.state.index.data.splice(this.active+2,0,this.$store.state.index.data[this.active]);
-							this.$store.state.index.data.splice(this.active,1);
+							state.index.data.splice(this.active+2,0,state.index.data[this.active]);
+							state.index.data.splice(this.active,1);
 							elementsChange(i);
 							directionTop=!directionTop;
-							if(!isActive && i===this.$store.state.index.active)
-								this.$store.state.index.active--;
+							if(!isActive && i===state.index.active)
+								state.index.active--;
 						}
 					}else{
 						if(directionTop && list[i].offsetTop+list[i].offsetHeight/2>obj.offsetTop+obj.offsetHeight/2-obj.offsetParent.offsetTop){
-							this.$store.state.index.data.splice(this.active-1,0,this.$store.state.index.data[this.active]);
-							this.$store.state.index.data.splice(this.active+1,1);
+							state.index.data.splice(this.active-1,0,state.index.data[this.active]);
+							state.index.data.splice(this.active+1,1);
 							elementsChange(i);
-							if(!isActive && i===this.$store.state.index.active)
-								this.$store.state.index.active++;
+							if(!isActive && i===state.index.active)
+								state.index.active++;
 						}
 					}
 	  			}
@@ -108,7 +107,7 @@ export default {
 				obj=list[i];
 				obj.style=nowStyle;
 				if(isActive)
-					this.$store.state.index.active=i;
+					state.index.active=i;
 				this.$refs.list.insertBefore(placeholder,obj);
 			}
 			window.onscroll=()=>{
@@ -131,20 +130,17 @@ export default {
 				this.$refs.list.removeChild(placeholder);
 				document.body.style.userSelect='';
 				window.onmousemove=window.onmouseup=window.onscroll=null;
-//				this.$store.state.index.active=this.active;
-//				this.$store.state.sidebar.isHidden=false;
-//				this.$store.state.sidebar.isRegion=false;
 				var mouseUp={
 					x:oEvent.clientX+document.body.scrollLeft,
 					y:oEvent.clientY+document.body.scrollTop
 				}
 				if(Math.abs(mouseDown.x-mouseUp.x)<3 && Math.abs(mouseDown.y-mouseUp.y)<3){
-					this.$store.state.index.active=this.active;
-					this.$store.state.sidebar.isHidden=false;
-					this.$store.state.sidebar.isRegion=false;
+					state.index.active=this.active;
+					state.sidebar.isHidden=false;
+					state.sidebar.isRegion=false;
 				}
-				if(!this.$store.state.sidebar.isHidden)
-					this.$store.state.sidebar.top=list[this.$store.state.index.active].offsetTop;
+				if(!state.sidebar.isHidden)
+					state.sidebar.top=list[state.index.active].offsetTop;
 				this.isMove=false;
 			}
   		},

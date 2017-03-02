@@ -1,7 +1,8 @@
 export default [{
 	text:'富文本'
 },{
-	text:'商品'
+	text:'商品',
+	type:'goods'
 },{
 	text:'商品列表'
 },{

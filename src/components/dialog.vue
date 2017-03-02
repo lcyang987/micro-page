@@ -23,9 +23,9 @@ export default {
 	},
   methods: {
     close () {
-    	clearTimeout(this.$store.state.dialog.timer);
-      this.$store.state.dialog.state=false;
- 			this.$store.state.dialog.loading=false;
+    	let dialog=this.$store.state.dialog;
+    	clearTimeout(dialog.timer);
+ 			[dialog.state,dialog.loading]=[false,false];
     }
   }
 }

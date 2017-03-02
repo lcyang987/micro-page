@@ -51,11 +51,10 @@ export default {
     		function(response){
     			if(response.data.success){
     				var data=response.data.data;
-    				_this.$store.state.dialog.state=true;
-    				_this.$store.state.dialog.title=data.title;
-    				_this.$store.state.dialog.data=data.list;
-    				_this.$store.state.dialog.timer=setTimeout(()=>{
-    					_this.$store.state.dialog.loading=true;
+    				var dialog=_this.$store.state.dialog;
+    				[dialog.state,dialog.title,dialog.data]=[true,data.title,data.list];
+    				dialog.timer=setTimeout(()=>{
+							dialog.loading=true;
     				},500);
     			}else{
     				

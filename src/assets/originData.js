@@ -172,5 +172,27 @@ export default {
 				}
 			}]
 		}
-	}
+	},
+	"goods":{
+		"type": "goods",
+		"attr":{
+			"type":"big",
+			"style":"card",
+			"btnStyle":"1",
+			"display":{
+				"btn":true,
+				"name":true,
+				"price":true
+			},
+			"list":[{
+				"text":"",
+				"img":"",
+				"link":{
+					"id":"",
+					"text":"",
+					"url":""
+				}
+			}]
+		}
+	},
 }

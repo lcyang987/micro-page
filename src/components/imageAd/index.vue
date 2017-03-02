@@ -1,6 +1,6 @@
 <template>
 	<div class="imageAd" v-if="result.attr.list">
-		<div v-if="result.attr.type==='carousel'">
+		<div v-if="/^(carousel)$/.test(result.attr.type)">
 			<div class="imgBox carousel">
 				<img :src="cpdcarousel" />
 				
@@ -14,7 +14,7 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="result.attr.type==='separate'" :class="{small:result.attr.separate==='small',big:result.attr.separate==='big'}">
+		<div v-if="/^(separate)$/.test(result.attr.type)" :class="{small:/^(small)$/.test(result.attr.separate),big:/^(big)$/.test(result.attr.separate)}">
 			<img :src="cpdSeparate" />
 			<template v-for="item of result.attr.list">
 				<div class="imgBox">

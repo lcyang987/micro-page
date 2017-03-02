@@ -31,6 +31,7 @@ img{
 .demo-tip-setting p{
   display: flex;
   align-items: center;
+  white-space:nowrap;
 }
 .demo-tip-setting .mu-radio {
   margin-left: 32px;

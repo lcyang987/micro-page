@@ -24,10 +24,9 @@ export default {
 	},
 	methods:{
 		addClick(){
-			this.$store.state.sidebar.isHidden=false;
-			this.$store.state.sidebar.isRegion=true;
-			this.$store.state.index.active=this.index;
-			this.$store.state.sidebar.top=this.$refs.actions.parentNode.parentNode.offsetTop;
+			let sidebar=this.$store.state.sidebar;
+			let index=this.$store.state.index;
+			[sidebar.isHidden,sidebar.isRegion,index.active,sidebar.top]=[false,true,this.index,this.$refs.actions.parentNode.parentNode.offsetTop];
 		},
 	    open(){
 	      this.dialog = true
@@ -36,11 +35,10 @@ export default {
 	      this.dialog = false
 	    },
 	    confirm(){
-			this.$store.state.index.isDelete=true;
-			this.$store.state.sidebar.isHidden=true;
-			this.$store.state.index.data.splice(this.index,1);
-			this.$store.state.index.active=null;
-			this.dialog = false
+			let sidebar=this.$store.state.sidebar;
+			let index=this.$store.state.index;
+			index.data.splice(this.index,1);
+			[sidebar.isHidden,index.isDelete,index.active,this.dialog]=[true,true,null,false];
 	    }
 	}
 }

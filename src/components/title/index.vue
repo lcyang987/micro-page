@@ -3,14 +3,14 @@
 	<!--<div class="title" :class="{normal:result.attr.type==='normal'}">-->
 		<div>
 			<h3 class="text" v-text="title"></h3>
-			<a v-show="result.attr.type==='normal'">
+			<a v-show="/^(normal)$/.test(result.attr.type)">
 				<span v-show="result.attr.normal.textNav.isShow" v-text="'- ' + this.result.attr.normal.textNav.text"></span>
 			</a>
 		</div>
-		<div v-show="result.attr.type==='normal'">
+		<div v-show="/^(normal)$/.test(result.attr.type)">
 			<span v-text="result.attr.normal.subtitle"></span>
 		</div>
-		<div v-show="result.attr.type==='wechat'">
+		<div v-show="/^(wechat)$/.test(result.attr.type)">
 			<span v-text="result.attr.wechat.date"></span>
 			<span v-text="result.attr.wechat.author"></span>
 			<a :href="result.attr.wechat.textNav.link.url" v-text="result.attr.wechat.textNav.text"></a>

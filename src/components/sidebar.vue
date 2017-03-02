@@ -19,6 +19,7 @@ import textNavComponent from './textNav/sidebar';
 import picNavComponent from './picNav/sidebar';
 import imageAdComponent from './imageAd/sidebar';
 import showcaseComponent from './showcase/sidebar';
+import goodsComponent from './goods/sidebar';
 export default {
   	name: 'sidebar',
 	props: ["result","active","data"],
@@ -32,7 +33,8 @@ export default {
 		textNavComponent,
 		picNavComponent,
 		imageAdComponent,
-		showcaseComponent
+		showcaseComponent,
+		goodsComponent
 	}
 }
 </script>
@@ -44,9 +46,10 @@ export default {
 		font-size:14px;
 		border:1px solid #c5c5c5;
 		position:absolute;
-		right:-100%;
+		left:105%;
+		/*right:-100%;*/
 		/*width:90%;*/
-		width:100%;
+		min-width:100%;
 		padding:3% 5%;
 		margin-top:-1px;
 		margin-right:-12px;

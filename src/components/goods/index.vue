@@ -1,9 +1,9 @@
 <template>
-	<div class="showCase" v-if="result.attr.list">
+	<div class="goods" v-if="result.attr.list">
 		<h3 v-text="result.attr.title" v-show="result.attr.title"></h3>
-		<div :class="{prominent:/^(default)$/.test(result.attr.type),column:/^(3)$/.test(result.attr.type)}">
+		<div :class="{prominent:result.attr.type==='default',column:result.attr.type==='3'}">
 			<template v-for="item,i of result.attr.list">
-				<div class="imgBox" :class="{keep:/^(keep)$/.test(result.attr.space),clear:/^(clear)$/.test(result.attr.space)}">
+				<div class="imgBox" :class="{keep:result.attr.space==='keep',clear:result.attr.space==='clear'}">
 					<img :src="item.img||imgs[i]" :class="{visibility:!item.img}"/>
 				</div>
 			</template>
@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-  	name: 'showCase',
+  	name: 'goods',
 	props: ["result","index","data"],
 	data(){
 		return {
@@ -33,7 +33,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
-	.showCase{
+	.goods{
 		h3,h4,article{
 			margin:0;
 			padding:6px 10px;
