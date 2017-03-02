@@ -33,13 +33,13 @@
 			</p>
 		</div>
 		<div class="demo-tip-setting">
-			<p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && (!/^(easy)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type))">
+			<p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && (!/^(easy)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && !/^(list)$/.test(result.attr.type)">
 				<mu-checkbox label="显示商品名" v-model="result.attr.display.name" class="demo-checkbox"/>
 			</p>
 			<p v-show="/^(big)$/.test(result.attr.type)">
 				<mu-checkbox label="显示简介" v-model="result.attr.display.info" class="demo-checkbox"/>
 			</p>
-			<p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type))">
+			<p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && !/^(list)$/.test(result.attr.type)">
 				<mu-checkbox label="显示价格" v-model="result.attr.display.price" class="demo-checkbox"/>
 			</p>
 		</div>
