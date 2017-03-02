@@ -3,8 +3,8 @@
 	    <div class="modal"></div>
 		<ul>
 			<li>编辑</li>
-			<li v-on:click.stop="addClick" v-on:mousedown.stop>加内容</li>
-			<li v-on:click="open">删除</li>
+			<li v-on:click="addClick" v-on:mousedown.stop>加内容</li>
+			<li v-on:click="open" v-on:mousedown.stop>删除</li>
 		</ul>
 	    <mu-dialog :open="dialog" title="提示" @close="close">
 	    	是否确定删除？
