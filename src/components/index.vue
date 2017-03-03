@@ -81,7 +81,7 @@ export default {
 	  				if(list[i]!=obj)
 					if(i+1==this.active || i-1==this.active)
 					if(i>this.active){
-						if(!directionTop && list[i].offsetTop+list[i].offsetHeight/2<obj.offsetTop+obj.offsetHeight-obj.offsetParent.offsetTop){
+						if(!directionTop && list[i].offsetTop+list[i].offsetHeight/2<obj.offsetTop+obj.offsetHeight){
 							state.index.data.splice(this.active+2,0,state.index.data[this.active]);
 							state.index.data.splice(this.active,1);
 							elementsChange(i);
@@ -90,7 +90,7 @@ export default {
 								state.index.active--;
 						}
 					}else{
-						if(directionTop && list[i].offsetTop+list[i].offsetHeight/2>obj.offsetTop+obj.offsetHeight/2-obj.offsetParent.offsetTop){
+						if(directionTop && list[i].offsetTop+list[i].offsetHeight/2>obj.offsetTop){
 							state.index.data.splice(this.active-1,0,state.index.data[this.active]);
 							state.index.data.splice(this.active+1,1);
 							elementsChange(i);
@@ -167,7 +167,7 @@ export default {
 		margin:0 auto;
 		margin-top:20px;*/
 		position:absolute;
-		top:20px;
+		top:100px;
 		left:calc(~'50% - 160px');
 		
 		box-shadow: 0 0 0 1px #c5c5c5;

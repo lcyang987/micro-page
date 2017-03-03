@@ -11,6 +11,7 @@
 						<p :class="{show:result.attr.display.info}" v-text="item.info||'此处显示商品简介'"></p>
 						<b :class="{show:result.attr.display.price}" v-text="item.price||'￥9999.00'"></b>
 						<span :class="['btn'+result.attr.btn,{show:result.attr.display.btn}]"></span>
+						<strong class="sale'}">我要<br/>抢购</strong>
 					</div>
 				</div>
 			</div>
@@ -77,6 +78,34 @@ export default {
 						border-radius:3px;
 					}
 				}
+			}
+			.goodsBox.sale{
+				border:1px solid #e5e5e5;
+				img{
+					position:relative;
+					z-index: 2;
+				}
+				.other{
+					&>*{
+						display:none;
+					}
+					b{
+						display:block;
+						padding-bottom:11px;
+						text-indent:5px;
+					}
+					strong{
+						display:block;
+						position:absolute;
+						padding:3px 8px;
+						background:red;
+						color:white;
+						bottom:0;
+						right:0;
+						line-height:16px;
+					}
+				}
+				
 			}
 		}
 		.arrange12{
@@ -190,9 +219,9 @@ export default {
 			}
 			&.card{
 				border:1px solid #e5e5e5;
+				padding:5px;
 			}
 			position:relative;
-			padding:5px;
 			.imgBox{
 				img{
 					width:100%;
@@ -215,27 +244,27 @@ export default {
 				span{
 					position:absolute;
 					background-image: url(~assets/images/goods_btn.png);
-					&.btn1{						
+					&.btn1{
 						width:30px;
 						height:25px;
 						bottom:7px;
 						right:6px;
 					}
-					&.btn2{						
+					&.btn2{
 						width:20px;
 						height:20px;
 						bottom:10px;
 						right:10px;
 						background-position-y:-24px;
 					}
-					&.btn3{						
+					&.btn3{
 						width:40px;
 						height:23px;
 						bottom:5px;
 						right:-5px;
 						background-position-y:-45px;
 					}
-					&.btn4{						
+					&.btn4{
 						width:37px;
 						height:20px;
 						bottom:8px;

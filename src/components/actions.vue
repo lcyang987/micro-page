@@ -58,6 +58,9 @@ export default {
 			height:100%;
 			background:gray;
 			opacity:0.1;
+	    position: absolute;
+	    left: 0;
+	    top: 0;
 		}
 	}
 	.actions{
