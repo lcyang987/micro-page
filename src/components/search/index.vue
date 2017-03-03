@@ -1,5 +1,5 @@
 <template>
-	<div class="search" :style="{backgroundColor:backgroundColor}">
+	<div class="search" :style="{backgroundColor:result.attr.backgroundColor}">
 		<input type="text" :placeholder="result.attr.placeholder"  />
 		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
 	</div>
@@ -7,12 +7,7 @@
 <script>
 export default {
   	name: 'search',
-	props: ["result","index","data"],	
-	computed:{
-		backgroundColor(){
-			return this.result.attr.backgroundColor;
-		}
-	}
+	props: ["result","index","data"]
 }
 </script>
 

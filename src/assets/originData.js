@@ -178,15 +178,18 @@ export default {
 		"attr":{
 			"type":"big",
 			"style":"card",
-			"btnStyle":"1",
 			"display":{
 				"btn":true,
-				"name":true,
+				"text":true,
+				"info":true,
 				"price":true
 			},
+			"btn":"1",
 			"list":[{
 				"text":"",
 				"img":"",
+				"info":"",
+				"price":"",
 				"link":{
 					"id":"",
 					"text":"",

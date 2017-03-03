@@ -4,7 +4,7 @@
 		<div :class="result.attr.type">
 			<template v-for="item,i of result.attr.list">
 				<div class="imgBox" :class="{keep:/^(keep)$/.test(result.attr.space),clear:/^(clear)$/.test(result.attr.space)}">
-					<img :src="item.img||imgs[i]" :class="{visibility:!item.img}"/>
+					<img :src="item.img||require('assets/images/p'+(i+1)+'.jpg')" :class="{visibility:!item.img}"/>
 				</div>
 			</template>
 		</div>
@@ -18,16 +18,7 @@
 <script>
 export default {
   	name: 'showCase',
-	props: ["result","index","data"],
-	data(){
-		return {
-			imgs:[
-				require('assets/images/p1.jpg'),
-				require('assets/images/p2.jpg'),
-				require('assets/images/p3.jpg')
-			]
-		}
-	}
+	props: ["result","index","data"]
 }
 </script>
 

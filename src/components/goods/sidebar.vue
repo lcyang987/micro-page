@@ -11,7 +11,7 @@
 			<p>
 				<mu-radio label="大图" nativeValue="big" v-model="result.attr.type" class="demo-radio" @change="change"/>
 				<mu-radio label="小图" nativeValue="small" v-model="result.attr.type" class="demo-radio"/>
-				<mu-radio label="1大2小" nativeValue="12" v-model="result.attr.type" class="demo-radio" @change="change"/>
+				<mu-radio label="1大2小" nativeValue="arrange12" v-model="result.attr.type" class="demo-radio" @change="change"/>
 				<mu-radio label="列表" nativeValue="list" v-model="result.attr.type" class="demo-radio" @change="change"/>
 			</p>
 		</div>
@@ -23,24 +23,24 @@
 				<mu-radio label="促销" nativeValue="sale" v-model="result.attr.style" v-show="/^(small)$/.test(result.attr.type)" class="demo-radio"/>
 			</p>
 		</div>
-		<div class="demo-tip-setting" v-show="(((!/^(sale)$/.test(result.attr.style) && /^(small)$/.test(result.attr.type)) || (!/^(easy)$/.test(result.attr.style) && /^(big)$/.test(result.attr.type))) && (!/^(easy)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type))) || (!/^(easy)$/.test(result.attr.style) && /^(12)$/.test(result.attr.type)) || /^(list)$/.test(result.attr.type)">
-			<mu-checkbox label="显示购买按钮" v-model="result.attr.display.btn" class="demo-checkbox"/>
-			<p v-show="result.attr.display.btn && !/^(sale)$/.test(result.attr.style)">
-				<mu-radio label="样式1" nativeValue="1" v-model="result.attr.btnStyle" class="demo-radio"/>
-				<mu-radio label="样式2" nativeValue="2" v-model="result.attr.btnStyle" class="demo-radio"/>
-				<mu-radio label="样式3" nativeValue="3" v-model="result.attr.btnStyle" v-show="(!/^(easy)$/.test(result.attr.style) && /^(list)$/.test(result.attr.type)) || !/^(list)$/.test(result.attr.type)" class="demo-radio"/>
-				<mu-radio label="样式4" nativeValue="4" v-model="result.attr.btnStyle" class="demo-radio"/>
-			</p>
-		</div>
 		<div class="demo-tip-setting">
 			<p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && (!/^(easy)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && !/^(list)$/.test(result.attr.type)">
-				<mu-checkbox :label="result.attr.type==='12'?'显示商品名(小图不显示名称)':'显示商品名'" v-model="result.attr.display.name" class="demo-checkbox"/>
+				<mu-checkbox :label="result.attr.type==='arrange12'?'显示商品名(小图不显示名称)':'显示商品名'" v-model="result.attr.display.text" class="demo-checkbox"/>
 			</p>
 			<p v-show="/^(big)$/.test(result.attr.type)">
 				<mu-checkbox label="显示简介" v-model="result.attr.display.info" class="demo-checkbox"/>
 			</p>
 			<p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && !/^(list)$/.test(result.attr.type)">
 				<mu-checkbox label="显示价格" v-model="result.attr.display.price" class="demo-checkbox"/>
+			</p>
+		</div>
+		<div class="demo-tip-setting" v-show="(((!/^(sale)$/.test(result.attr.style) && /^(small)$/.test(result.attr.type)) || (!/^(easy)$/.test(result.attr.style) && /^(big)$/.test(result.attr.type))) && (!/^(easy)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type))) || (!/^(easy)$/.test(result.attr.style) && /^(arrange12)$/.test(result.attr.type)) || /^(list)$/.test(result.attr.type)">
+			<mu-checkbox label="显示购买按钮" v-model="result.attr.display.btn" class="demo-checkbox"/>
+			<p v-show="result.attr.display.btn && !/^(sale)$/.test(result.attr.style)">
+				<mu-radio label="样式1" nativeValue="1" v-model="result.attr.btn" class="demo-radio"/>
+				<mu-radio label="样式2" nativeValue="2" v-model="result.attr.btn" class="demo-radio"/>
+				<mu-radio label="样式3" nativeValue="3" v-model="result.attr.btn" v-show="(!/^(easy)$/.test(result.attr.style) && /^(list)$/.test(result.attr.type)) || !/^(list)$/.test(result.attr.type)" class="demo-radio"/>
+				<mu-radio label="样式4" nativeValue="4" v-model="result.attr.btn" class="demo-radio"/>
 			</p>
 		</div>
 	</div>
@@ -93,8 +93,8 @@ export default {
 			},0);
 		},
 		btnChange(){
-			if(/^(3)$/.test(this.result.attr.btnStyle) && /^(list)$/.test(this.result.attr.type))
-				this.result.attr.btnStyle='1';
+			if(/^(3)$/.test(this.result.attr.btn) && /^(list)$/.test(this.result.attr.type))
+				this.result.attr.btn='1';
 		}
 	}
 }

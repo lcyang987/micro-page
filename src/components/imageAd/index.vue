@@ -30,27 +30,19 @@
 export default {
   	name: 'imageAd',
 	props: ["result","index","data"],
-	data(){
-		return {
-			imgs:{
-				carousel:require('assets/images/carousel.jpg'),
-				separate:require('assets/images/separate.jpg')
-			}
-		}
-	},
 	computed:{
 		cpdcarousel(){
 			var img='';
 			if(this.result.attr.list[0] && this.result.attr.list[0].img)
 				img=this.result.attr.list[0].img;
 			else
-				img=this.imgs.carousel;
+				img=require('assets/images/carousel.jpg');
 			return img
 		},
 		cpdSeparate(){
 			var img='';
 			if(!this.result.attr.list[0] || !this.result.attr.list[0].img)
-				img=this.imgs.separate;
+				img=require('assets/images/separate.jpg');
 			return img
 		}
 	}
