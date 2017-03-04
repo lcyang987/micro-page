@@ -174,6 +174,17 @@ export default {
 		}
 	},
 	"goods":{
+		"originData":{
+			"text":"",
+			"img":"",
+			"info":"",
+			"price":"",
+			"link":{
+				"id":"",
+				"text":"",
+				"url":""
+			}
+		},
 		"type": "goods",
 		"attr":{
 			"type":"big",
@@ -185,17 +196,7 @@ export default {
 				"price":true
 			},
 			"btn":"1",
-			"list":[{
-				"text":"",
-				"img":"",
-				"info":"",
-				"price":"",
-				"link":{
-					"id":"",
-					"text":"",
-					"url":""
-				}
-			}]
+			"list":[]
 		}
 	},
 }

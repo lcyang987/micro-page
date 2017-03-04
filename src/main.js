@@ -55,30 +55,37 @@ const store = new Vuex.Store({
 			link:null
 		}
 	},
+	actions:{
+		ajax(vuex,opt){
+			vuex.commit('vueResource',opt)
+		}
+	},
 	mutations: {
-		//  sidebarTop (state) {
-		//    state.sidebar.top+=10
-		//  },
-//		  showSidebar(state,opt){		  	
-//		  	state.index.active=opt.i;
-//		  	state.sidebar.isHidden=false;
-//		  	state.sidebar.top=opt.list.querySelector('[item="'+opt.i+'"]').offsetTop
-//		  	var eles=opt.list.children;		  
-//		  	for(var ii=0;ii<eles.length;ii++){
-//							if(ii!=eles[ii].getAttribute('item')){
-//					  			if(opt.ower.isMove===true){
-//					  				opt.ower.refreshData();
-//					  				opt.ower.isMove=false;
-//					  				return;
-//					  			}
-//					  		}
-//						}
-//		  }
+		vueResource(state,opt){
+	    	vue.$http[opt.method](opt.url,{params:opt.data,emulateJSON:true}).then(
+	    		function(response){
+	    			if(response.data.success){
+	    				var data=response.data.data;
+	    				var dialog=vue.$store.state.dialog;
+	    				dialog.state=true;
+	    				dialog.title=data.title;
+	    				dialog.data=data.list;
+	    				dialog.timer=setTimeout(()=>{
+	    					dialog.loading=true;
+	    				},500);
+	    			}else{
+	    				
+	    			}
+	    		},
+	    		function(response){
+	    			
+	    		}
+	    	);
+		}
 	}
-
 })
 /* eslint-disable no-new */
-new Vue({
+const vue=new Vue({
 	el: '#app',
 	router,
 	store,

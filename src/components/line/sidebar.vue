@@ -17,7 +17,7 @@
 <script>
 export default {
   	name: 'lineSidebar',
-	props: ["result"],
+	props: ["result"]
 }
 </script>
 

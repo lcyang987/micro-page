@@ -21,26 +21,13 @@ export default {
 	methods:{
 		click(item){			
   			this.$store.state.dialog.link=item;
-	    	var _this=this;
-	    	this.$http.get('picNav.txt',{a:1,b:2},{emulateJSON:true}).then(
-	    		function(response){
-	    			if(response.data.success){
-	    				var data=response.data.data;
-	    				var dialog=_this.$store.state.dialog;
-	    				dialog.state=true;
-	    				dialog.title=data.title;
-	    				dialog.data=data.list;
-	    				dialog.timer=setTimeout(()=>{
-	    					dialog.loading=true;
-	    				},500);
-	    			}else{
-	    				
-	    			}
-	    		},
-	    		function(response){
-	    			
-	    		}
-	    	);
+			this.$store.dispatch('ajax',{
+				url:'picNav.txt',
+				method:'get',
+				data:{
+					a:'lhb',
+				}
+			});
 		}
 	}
 }

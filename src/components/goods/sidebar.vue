@@ -3,7 +3,7 @@
 		<div class="demo-tip-setting">
 			<p>
 				选择商品：
-				<mu-float-button icon="add" mini class="demo-float-button"/>
+				<mu-float-button icon="add" mini class="demo-float-button" @click="click"/>
 			</p>
 			<p>
 				列表样式：
@@ -15,6 +15,7 @@
 				<mu-radio label="列表" nativeValue="list" v-model="result.attr.type" class="demo-radio" @change="change"/>
 			</p>
 		</div>
+		
 		<div class="demo-tip-setting">
 			<p>
 				<mu-radio label="卡片" nativeValue="card" v-model="result.attr.style" class="demo-radio"/>
@@ -27,7 +28,7 @@
 			<p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && (!/^(easy)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && !/^(list)$/.test(result.attr.type)">
 				<mu-checkbox :label="result.attr.type==='arrange12'?'显示商品名(小图不显示名称)':'显示商品名'" v-model="result.attr.display.text" class="demo-checkbox"/>
 			</p>
-			<p v-show="/^(big)$/.test(result.attr.type)">
+			<p v-show="/^(big)$/.test(result.attr.type) && /^(card)$/.test(result.attr.style)">
 				<mu-checkbox label="显示简介" v-model="result.attr.display.info" class="demo-checkbox"/>
 			</p>
 			<p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && !/^(list)$/.test(result.attr.type)">
@@ -55,32 +56,6 @@ export default {
 		originData
 	},
 	methods:{
-		click(item){			
-  			this.$store.state.dialog.link=item;
-	    	var _this=this;
-	    	this.$http.get('picNav.txt',{a:1,b:2},{emulateJSON:true}).then(
-	    		function(response){
-	    			if(response.data.success){
-	    				var data=response.data.data;
-	    				var dialog=_this.$store.state.dialog;
-	    				dialog.state=true;
-	    				dialog.title=data.title;
-	    				dialog.data=data.list;
-	    				dialog.timer=setTimeout(()=>{
-	    					dialog.loading=true;
-	    				},500);
-	    			}else{
-	    				
-	    			}
-	    		},
-	    		function(response){
-	    			
-	    		}
-	    	);
-		},
-		push(){
-			this.result.attr.list.push(_.cloneDeep(originData.imageAd.attr.list[0]));
-		},
 		remove(i){
 			this.result.attr.list.splice(i,1);
 		},
@@ -95,6 +70,18 @@ export default {
 		btnChange(){
 			if(/^(3)$/.test(this.result.attr.btn) && /^(list)$/.test(this.result.attr.type))
 				this.result.attr.btn='1';
+		},
+		click(item){
+			console.log(this.result)
+			this.result.attr.list.push(_.cloneDeep(this.result.originData));
+  			this.$store.state.dialog.link=this.result.attr.list[this.result.attr.list.length-1];
+			this.$store.dispatch('ajax',{
+				url:'picNav.txt',
+				method:'get',
+				data:{
+					a:'lhb',
+				}
+			});
 		}
 	}
 }

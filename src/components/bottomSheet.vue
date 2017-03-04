@@ -46,24 +46,13 @@ export default {
     	if(!item.id)
     		return;
   		this.$store.state.dialog.link=this.link;
-    	var _this=this;
-    	this.$http.get(item.url,{a:1,b:2},{emulateJSON:true}).then(
-    		function(response){
-    			if(response.data.success){
-    				var data=response.data.data;
-    				var dialog=_this.$store.state.dialog;
-    				[dialog.state,dialog.title,dialog.data]=[true,data.title,data.list];
-    				dialog.timer=setTimeout(()=>{
-							dialog.loading=true;
-    				},500);
-    			}else{
-    				
-    			}
-    		},
-    		function(response){
-    			
-    		}
-    	);
+		this.$store.dispatch('ajax',{
+			url:item.url,
+			method:'get',
+			data:{
+				a:'lhb',
+			}
+		});
   	},
     closeBottomSheet () {
       this.bottomSheet = false

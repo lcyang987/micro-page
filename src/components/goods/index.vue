@@ -1,7 +1,7 @@
 <template>
 	<div class="goods" v-if="result.attr.list">
-		<template v-for="item,i of list">
-			<div :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]" >
+		<template v-if="result.attr.style!=='falls'">
+			<div v-for="item,i of list" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]">
 				<div class="goodsBox" :class="result.attr.style">
 					<div class="imgBox">
 						<img :src="item.img||require('assets/images/p'+(i+1)+'.jpg')"/>
@@ -9,9 +9,39 @@
 					<div class="other">
 						<h4 :class="{show:result.attr.display.text}" v-text="item.text||'此处显示商品名称'"></h4>
 						<p :class="{show:result.attr.display.info}" v-text="item.info||'此处显示商品简介'"></p>
-						<b :class="{show:result.attr.display.price}" v-text="item.price||'￥9999.00'"></b>
+						<b v-if="result.attr.display.text || (result.attr.type==='big' && result.attr.display.info) || result.attr.display.price" :class="{show:result.attr.display.price}" v-text="item.price||'￥9999.00'"></b>
 						<span :class="['btn'+result.attr.btn,{show:result.attr.display.btn}]"></span>
 						<strong class="sale'}">我要<br/>抢购</strong>
+					</div>
+				</div>
+			</div>
+		</template>
+		<template v-else>
+			<div class="fallsLayout">
+				<div v-for="item,i of list" v-if="i%2==0" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]">
+					<div class="goodsBox" :class="result.attr.style">
+						<div class="imgBox">
+							<img :src="item.img||require('assets/images/p'+(i+1)+'.jpg')"/>
+						</div>
+						<div class="other">
+							<h4 :class="{show:result.attr.display.text}" v-text="item.text||'此处显示商品名称'"></h4>
+							<b v-if="result.attr.display.text || result.attr.display.price" :class="{show:result.attr.display.price}" v-text="item.price||'￥9999.00'"></b>
+							<span :class="['btn'+result.attr.btn,{show:result.attr.display.btn}]"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="fallsLayout">
+				<div v-for="item,i of list" v-if="i%2==1" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]">
+					<div class="goodsBox" :class="result.attr.style">
+						<div class="imgBox">
+							<img :src="item.img||require('assets/images/p'+(i+1)+'.jpg')"/>
+						</div>
+						<div class="other">
+							<h4 :class="{show:result.attr.display.text}" v-text="item.text||'此处显示商品名称'"></h4>
+							<b v-if="result.attr.display.text || result.attr.display.price" :class="{show:result.attr.display.price}" v-text="item.price||'￥9999.00'"></b>
+							<span :class="['btn'+result.attr.btn,{show:result.attr.display.btn}]"></span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -25,7 +55,7 @@ export default {
 	props: ["result","index","data"],
 	computed:{
 		list(){
-			if(this.result.attr.list[0].img){
+			if(this.result.attr.list.length&&this.result.attr.list[0].img){
 				return this.result.attr.list
 			}else{
 				if(this.result.attr.type==='small')
@@ -46,15 +76,69 @@ export default {
 		padding-bottom:10px;
 		h4,p{
 			margin:0;
+			font-size:12px;
 		}
 		>div{			
 			padding:5px;
 		}
+		.fallsLayout{
+			float:left;
+			width:50%;
+			padding:0 5px;
+			.small{
+				width:100%;
+				border:1px solid #e5e5e5;
+				margin:5px 0;
+				.falls{
+					padding:5px;
+				}
+			}
+		}
 		.big{
-			.goodsBox{
+			.goodsBox.card{
 				.other{
 					p.show{
 						display:block !important;
+					}
+				}
+			}
+			.goodsBox.easy{
+				border:none;
+				.other{
+					position:relative;
+					h4.show{
+						display:block !important;
+						position:absolute;
+						padding:0;
+						width:95%;
+						font-size:12px;
+						background:rgba(0,0,0,0.4);
+						right:8px;
+						bottom:8px;
+						color:white;
+						padding:2px 3px;
+						border-radius:3px;
+						& + p + b{
+							background:none !important;
+						}
+					}
+					b{
+						display:none;
+					}
+					b.show{
+						display:block !important;
+						position:absolute;
+						padding:0;
+						font-size:12px;
+						background:rgba(0,0,0,0.4);
+						right:8px;
+						bottom:8px;
+						color:white;
+						padding:2px 3px;
+						border-radius:3px;
+					}
+					span{
+						display:none;
 					}
 				}
 			}
@@ -91,13 +175,14 @@ export default {
 					}
 					b{
 						display:block;
-						padding-bottom:11px;
+						padding:9px 0;
 						text-indent:5px;
+						visibility:visible;
 					}
 					strong{
 						display:block;
 						position:absolute;
-						padding:3px 8px;
+						padding:4px 8px;
 						background:red;
 						color:white;
 						bottom:0;
@@ -189,7 +274,11 @@ export default {
 				}
 				b{
 					display:block;
+					visibility:visible;
 				}
+			}
+			.easy{
+				padding-bottom:5px;
 			}
 		}
 		.small,.arrange12{
@@ -234,11 +323,14 @@ export default {
 				}
 				.show{
 					display:block;
+					visibility:visible;
 				}
 				p{
 					display:none !important;
 				}
 				b{
+					display:block;
+					visibility:hidden;
 					color:#ff6600;
 				}
 				span{
@@ -253,8 +345,8 @@ export default {
 					&.btn2{
 						width:20px;
 						height:20px;
-						bottom:10px;
-						right:10px;
+						bottom:8px;
+						right:8px;
 						background-position-y:-24px;
 					}
 					&.btn3{
