@@ -32,6 +32,10 @@ export default {
 		h3{
 			font-weight:normal;
 		}
+		img{
+			width:100%;
+			height:100%;
+		}
 		.content{
 			text-align:center;
 		}
@@ -58,49 +62,45 @@ export default {
 		}
 		.prominent{		
 			.imgBox{
-				width:33%;
+				width:105px;
+				height:105px;
 				float:left;
-				img{
-					width:100%;
-					display:block;
-				}
 			}	
 			.keep:nth-child(1){
-				width:66.5%;
-				margin-right:0.5%;
+				width:212px;
+				height:212px;
+				margin-right:2px;
 			}
 			.keep:nth-child(2){
-				margin-bottom:0.5%
+				margin-bottom:2px
 			}
 			.clear:nth-child(1){
-				width:66.5%;
-				margin-left:0.5%;
-				img{
-					width:100%;
-				}
+				width:212px;
+				height:212px;
+				margin-left:1px;
+			}
+			.clear{
+				width:106px;
+				height:106px;
 			}
 		}
 		.column{
 			.keep{
-				width:33%;
+				width:105px;
+				height:105px;
 				float:left;
-				margin-left:0.5%;
-				img{
-					width:100%;
-				}
+				margin-left:2px;
 			}
 			.keep:nth-child(1){
 				margin-left:0;
 			}
 			.clear{
-				width:33%;
+				width:105px;
+				height:105px;
 				float:left;
-				img{
-					width:100%;
-				}
 			}
 			.clear:nth-child(1){
-				margin-left:0.5%;
+				margin-left:2px;
 			}
 		}
 	}

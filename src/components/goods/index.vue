@@ -1,10 +1,11 @@
 <template>
 	<div class="goods" v-if="result.attr.list">
 		<template v-if="result.attr.style!=='falls'">
-			<div v-for="item,i of list" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]">
+			<div v-for="item,i of list" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]" v-if="item instanceof Object===false || item.img">
 				<div class="goodsBox" :class="result.attr.style">
 					<div class="imgBox">
-						<img :src="item.img||require('assets/images/p'+(i+1)+'.jpg')"/>
+						<img v-if="list instanceof Array" :src="item.img" alt="暂无图片"/>
+						<img v-else :src="item.img||require('assets/images/p'+(i+1)+'.jpg')"/>
 					</div>
 					<div class="other">
 						<h4 :class="{show:result.attr.display.text}" v-text="item.text||'此处显示商品名称'"></h4>
@@ -18,28 +19,30 @@
 		</template>
 		<template v-else>
 			<div class="fallsLayout">
-				<div v-for="item,i of list" v-if="i%2==0" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]">
+				<div v-for="item,i of list" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]" v-if="(item instanceof Object===false || item.img) && i%2==0">
 					<div class="goodsBox" :class="result.attr.style">
 						<div class="imgBox">
-							<img :src="item.img||require('assets/images/p'+(i+1)+'.jpg')"/>
+							<img v-if="list instanceof Array" :src="item.img" alt="暂无图片"/>
+							<img v-else :src="item.img||require('assets/images/p'+(i+1)+'.jpg')"/>
 						</div>
 						<div class="other">
 							<h4 :class="{show:result.attr.display.text}" v-text="item.text||'此处显示商品名称'"></h4>
-							<b v-if="result.attr.display.text || result.attr.display.price" :class="{show:result.attr.display.price}" v-text="item.price||'￥9999.00'"></b>
+							<b v-if="result.attr.display.text || (result.attr.type==='big' && result.attr.display.info) || result.attr.display.price" :class="{show:result.attr.display.price}" v-text="item.price||'￥9999.00'"></b>
 							<span :class="['btn'+result.attr.btn,{show:result.attr.display.btn}]"></span>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="fallsLayout">
-				<div v-for="item,i of list" v-if="i%2==1" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]">
+				<div v-for="item,i of list" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]" v-if="(item instanceof Object===false || item.img) && i%2==1">
 					<div class="goodsBox" :class="result.attr.style">
 						<div class="imgBox">
-							<img :src="item.img||require('assets/images/p'+(i+1)+'.jpg')"/>
+							<img v-if="list instanceof Array" :src="item.img" alt="暂无图片"/>
+							<img v-else :src="item.img||require('assets/images/p'+(i+1)+'.jpg')"/>
 						</div>
 						<div class="other">
 							<h4 :class="{show:result.attr.display.text}" v-text="item.text||'此处显示商品名称'"></h4>
-							<b v-if="result.attr.display.text || result.attr.display.price" :class="{show:result.attr.display.price}" v-text="item.price||'￥9999.00'"></b>
+							<b v-if="result.attr.display.text || (result.attr.type==='big' && result.attr.display.info) || result.attr.display.price" :class="{show:result.attr.display.price}" v-text="item.price||'￥9999.00'"></b>
 							<span :class="['btn'+result.attr.btn,{show:result.attr.display.btn}]"></span>
 						</div>
 					</div>
@@ -73,7 +76,6 @@ export default {
 	.goods{
 		overflow:hidden;
 		padding:5px;
-		padding-bottom:10px;
 		h4,p{
 			margin:0;
 			font-size:12px;
@@ -89,6 +91,9 @@ export default {
 				width:100%;
 				border:1px solid #e5e5e5;
 				margin:5px 0;
+				img{
+					height:auto;
+				}
 				.falls{
 					padding:5px;
 				}
@@ -146,6 +151,9 @@ export default {
 		.small{
 			width:50%;
 			float:left;
+			img{
+				height:133px;
+			}
 			.goodsBox.easy{
 				.other{
 					position:relative;
@@ -198,6 +206,9 @@ export default {
 				width:50%;
 				float:left;
 				.goodsBox{
+					img{
+						height:133px;
+					}
 					.other{
 						h4{
 							display:none;
@@ -250,6 +261,7 @@ export default {
 				}
 			}
 			&.ibig{
+				clear:both;
 				.easy{
 					.other{
 						h4.show{

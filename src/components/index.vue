@@ -167,7 +167,7 @@ export default {
 		margin:0 auto;
 		margin-top:20px;*/
 		position:absolute;
-		top:100px;
+		top:20px;
 		left:calc(~'50% - 160px');
 		
 		box-shadow: 0 0 0 1px #c5c5c5;

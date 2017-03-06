@@ -1,10 +1,15 @@
 <template>
 	<div class="goodsSidebar" v-if="result" >
-		<div class="demo-tip-setting">
+		<div>
 			<p>
 				选择商品：
-				<mu-float-button icon="add" mini class="demo-float-button" @click="click"/>
 			</p>
+			<mu-chip v-for="item,i in result.attr.list" @delete="remove(i)" showDelete v-if="item.img">
+				<mu-avatar :size="32" :src="item.img" />
+			</mu-chip>
+			<mu-float-button icon="add" mini class="demo-float-button" @click="click"/>
+		</div>
+		<div class="demo-tip-setting">
 			<p>
 				列表样式：
 			</p>
@@ -57,7 +62,7 @@ export default {
 	},
 	methods:{
 		remove(i){
-			this.result.attr.list.splice(i,1);
+	    	this.result.attr.list.splice(i,1);
 		},
 		change(){
 			if(/falls|sale/.test(this.result.attr.style))

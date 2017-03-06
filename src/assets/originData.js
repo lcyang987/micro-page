@@ -127,18 +127,19 @@ export default {
 	},
 	"imageAd":{
 		"type": "imageAd",
+		"originData":{
+			"text":"",
+			"img":"",
+			"link":{
+				"id":"",
+				"text":"",
+				"url":""
+			}
+		},
 		"attr":{
 			"type":"carousel",
 			"separate":"big",
-			"list":[{
-				"text":"",
-				"img":"",
-				"link":{
-					"id":"",
-					"text":"",
-					"url":""
-				}
-			}]
+			"list":[]
 		}
 	},
 	"showcase":{

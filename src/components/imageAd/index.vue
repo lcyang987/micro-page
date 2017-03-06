@@ -1,11 +1,11 @@
 <template>
-	<div class="imageAd" v-if="result.attr.list">
-		<div v-if="/^(carousel)$/.test(result.attr.type)">
+	<div class="imageAd">
+		<div v-if="/^(carousel)$/.test(result.attr.type)" :class="result.attr.carousel">
 			<div class="imgBox carousel">
-				<img :src="cpdcarousel" />
-				
-				<div v-if="result.attr.list[0]">
+				<img v-if="!result.attr.list.length" :src="cpdcarousel" />
+				<div v-else>
 					<div v-if="result.attr.list[0].img">
+						<img :src="result.attr.list[0].img" />
 						<p v-show="result.attr.list[0].text" v-text="result.attr.list[0].text"></p>
 						<div class="pointer">
 							<span v-for="item of result.attr.list"></span>
@@ -15,8 +15,8 @@
 			</div>
 		</div>
 		<div v-if="/^(separate)$/.test(result.attr.type)" :class="result.attr.separate">
-			<img :src="cpdSeparate" />
-			<template v-for="item of result.attr.list">
+			<img v-if="!result.attr.list.length" :src="cpdSeparate" />
+			<template v-else v-for="item of result.attr.list">
 				<div class="imgBox">
 					<img v-show="item.img" :src="item.img" />
 					<p v-show="item.img,item.text" v-text="item.text"></p>
@@ -33,7 +33,7 @@ export default {
 	computed:{
 		cpdcarousel(){
 			var img='';
-			if(this.result.attr.list[0] && this.result.attr.list[0].img)
+			if(this.result.attr.list.length && this.result.attr.list[0].img)
 				img=this.result.attr.list[0].img;
 			else
 				img=require('assets/images/carousel.jpg');
@@ -41,7 +41,7 @@ export default {
 		},
 		cpdSeparate(){
 			var img='';
-			if(!this.result.attr.list[0] || !this.result.attr.list[0].img)
+			if(!this.result.attr.list.length || !this.result.attr.list[0].img)
 				img=require('assets/images/separate.jpg');
 			return img
 		}
@@ -72,6 +72,7 @@ export default {
 			}
 			img{
 				width:100%;
+				height:160px;
 				text-align:center;
 			}
 		}

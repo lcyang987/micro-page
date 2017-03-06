@@ -14,7 +14,7 @@
 				<mu-radio label="小图" nativeValue="small" v-model="result.attr.separate" class="demo-radio"/>
 			</p>
 		</div>
-		<section v-for="(item,i) of result.attr.list">
+		<section v-for="(item,i) of result.attr.list" v-if="result.attr.list.length">
 			<div>
 				<img width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
 				<mu-raised-button @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
@@ -50,10 +50,10 @@ export default {
 			});
 		},
 		insert(i){
-			this.result.attr.list.splice(i+1,0,_.cloneDeep(originData.imageAd.attr.list[0]));
+			this.result.attr.list.splice(i+1,0,_.cloneDeep(originData.imageAd.originData));
 		},
 		push(){
-			this.result.attr.list.push(_.cloneDeep(originData.imageAd.attr.list[0]));
+			this.result.attr.list.push(_.cloneDeep(originData.imageAd.originData));
 		},
 		remove(i){
 			this.result.attr.list.splice(i,1);

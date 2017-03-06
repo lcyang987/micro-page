@@ -35,6 +35,7 @@ export default {
 			}
 			img{
 				width:100%;
+				height:80px;
 				border:none;
 			}
 		}
