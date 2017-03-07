@@ -9,13 +9,10 @@ import Vuex from 'vuex'
 import originData from 'assets/originData.js';
 import regionData from 'assets/regionData.js';
 import data from 'assets/data.js';
-//Vue.use(actionsComponent)
 import actionsComponent from 'components/actions';
 Vue.component('actionsComponent', actionsComponent)
 import dialogComponent from 'components/dialog';
 Vue.component('dialogComponent', dialogComponent)
-import dropdownComponent from 'components/dropdown';
-Vue.component('dropdownComponent', dropdownComponent)
 import bottomSheetComponent from 'components/bottomSheet';
 Vue.component('bottomSheetComponent', bottomSheetComponent)
 Vue.use(Vuex)

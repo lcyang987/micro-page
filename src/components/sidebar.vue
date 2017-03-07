@@ -47,15 +47,12 @@ export default {
 		border:1px solid #c5c5c5;
 		position:absolute;
 		left:105%;
-		/*right:-100%;*/
-		/*width:90%;*/
 		min-width:100%;
 		padding:3% 5%;
-		margin-top:-1px;
+	    margin-top:65px;
 		margin-right:-12px;
 	    border-radius: 5px;
 	    border: 1px solid #d1d1d1;
-		/*top:0;*/
 		&:before{
 			content:'';
 			position:absolute;

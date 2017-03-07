@@ -1,9 +1,9 @@
 <template>
 	<div class="design">
-		<section ref="item">
+		<section ref="item" class="dataList">
 			<template v-for="(item,i) in $store.state.index.data" v-if="$store.state.index.state">
 				<div class="item" @mousedown="mousedown" @mouseenter="mouseenter(item,i)" @mouseleave="mouseleave" :class="{active:i===active}" :active="$store.state.index.active===i">
-					<component :is="item.type+'Component'" data="$store.state.index.data" :item="i" :result="item" :index="i"></component>
+					<component :is="item.type+'Component'" :result="item"></component>
 				</div>
 			</template>
 		</section>
@@ -162,10 +162,36 @@ export default {
 </style>
 <style lang="less" scoped>
 	.design{
+		&:before{
+			content:'';
+			display:block;
+			width:320px;
+			height:64px;
+			background: url(~assets/images/titlebar.png);			
+		}
 		width:320px;
-		/*position:relative;
-		margin:0 auto;
-		margin-top:20px;*/
+		.dataList{
+		    padding-bottom: 11px;
+		    min-height: 200px;
+			box-shadow:0 1px 0 1px #c5c5c5;
+			position:relative;
+			&:before{
+				content:'';
+				border:8px solid transparent;
+				border-bottom-color:#c5c5c5;
+				position:absolute;
+				bottom:0;
+				left:calc(~'50% - 8px');
+			}
+			&:after{
+				content:'';
+				border:6px solid transparent;
+				border-bottom-color:white;
+				position:absolute;
+				bottom:-2px;
+				left:calc(~'50% - 6px');
+			}
+		}
 		position:absolute;
 		top:20px;
 		left:calc(~'50% - 160px');

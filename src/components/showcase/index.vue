@@ -12,13 +12,13 @@
 			<h4 v-text="result.attr.contentTitle" v-show="result.attr.contentTitle"></h4>
 			<article v-text="result.attr.contentDescription" v-show="result.attr.contentDescription"></article>	
 		</div>		
-		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
+		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
 <script>
 export default {
   	name: 'showCase',
-	props: ["result","index","data"]
+	props: ["result"]
 }
 </script>
 

@@ -49,13 +49,13 @@
 				</div>
 			</div>
 		</template>
-		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
+		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
 <script>
 export default {
-  	name: 'goods',
-	props: ["result","index","data"],
+	name: 'goods',
+	props: ["result"],
 	computed:{
 		list(){
 			if(this.result.attr.list.length&&this.result.attr.list[0].img){

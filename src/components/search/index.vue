@@ -1,13 +1,13 @@
 <template>
 	<div class="search" :style="{backgroundColor:result.attr.backgroundColor}">
 		<input type="text" :placeholder="result.attr.placeholder"  />
-		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
+		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
 <script>
 export default {
   	name: 'search',
-	props: ["result","index","data"]
+	props: ["result"]
 }
 </script>
 

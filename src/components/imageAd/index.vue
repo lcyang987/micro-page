@@ -23,13 +23,13 @@
 				</div>
 			</template>
 		</div>
-		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
+		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
 <script>
 export default {
   	name: 'imageAd',
-	props: ["result","index","data"],
+	props: ["result"],
 	computed:{
 		cpdcarousel(){
 			var img='';

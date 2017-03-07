@@ -33,7 +33,7 @@
 import _ from 'lodash';
 import originData from 'assets/originData.js';
 export default {
-  	name: 'imageAdSidebar',
+  name: 'imageAdSidebar',
 	props: ["result","active"],
 	components:{
 		originData

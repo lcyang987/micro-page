@@ -16,7 +16,7 @@
 <script>
 export default {
   	name: 'actions',
-	props: ["result","index","data"],
+	props: ["result"],
 	data(){
 		return {
 			dialog: false

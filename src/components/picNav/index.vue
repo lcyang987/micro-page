@@ -8,13 +8,13 @@
 				</div>
 			</template>
 		</div>
-		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
+		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
 <script>
 export default {
   	name: 'picNav',
-	props: ["result","index","data"]	
+	props: ["result"]	
 }
 </script>
 

@@ -1,13 +1,13 @@
 <template>
 	<div class="line">
 		<div :class="[result.attr.type,{padding:result.attr.padding}]" :style="{'border-bottom-color':result.attr.color}"></div>
-		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
+		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
 <script>
 export default {
   	name: 'line',
-	props: ["result","index","data"]
+	props: ["result"]
 }
 </script>
 

@@ -15,13 +15,13 @@
 			<span v-text="result.attr.wechat.author"></span>
 			<a :href="result.attr.wechat.textNav.link.url" v-text="result.attr.wechat.textNav.text"></a>
 		</div>
-		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
+		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
 <script>
 export default {
   	name: 'title',
-	props: ["result","index","data"],	
+	props: ["result"],	
 	computed:{
 		title(){
 			return this.result.attr.title || '点击编辑『标题』';

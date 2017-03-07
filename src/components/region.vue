@@ -8,17 +8,26 @@
 </template>
 <script>
 import _ from 'lodash';
-//import originData from 'assets/originData.js';
-//import regionData from 'assets/regionData.js';
 export default {
   	name: 'region',
   	methods:{
   		click(item){
 			if(item.type){
-				if(/sidebar/.test(this.$parent.$el.className) && this.$store.state.index.active>=0){
-					this.$store.state.index.data.splice(this.$store.state.index.active+1,0,_.cloneDeep(this.$store.state.region.originData[item.type]));
+				var state=this.$store.state;
+				state.sidebar.isHidden=false;
+				state.sidebar.isRegion=false;
+				if(/sidebar/.test(this.$parent.$el.className) && state.index.active>=0){
+					state.index.data.splice(state.index.active+1,0,_.cloneDeep(state.region.originData[item.type]));
+					state.index.active+=1;
+					setTimeout(()=>{
+						state.sidebar.top=this.$parent.$parent.$refs.item.querySelectorAll('.item')[state.index.active].offsetTop;
+					},0);
 				}else{
-					this.$store.state.index.data.push(_.cloneDeep(this.$store.state.region.originData[item.type]));
+					state.index.data.push(_.cloneDeep(state.region.originData[item.type]));
+					state.index.active=state.index.data.length-1;
+					setTimeout(()=>{
+						state.sidebar.top=this.$parent.$refs.item.querySelectorAll('.item')[state.index.active].offsetTop;
+					},0);
 				}
 			}
   		}

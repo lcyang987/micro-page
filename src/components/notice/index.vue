@@ -1,14 +1,14 @@
 <template>
 	<div class="notice">
 		<p v-text="text" ></p>
-		<actionsComponent :data="data" :result="result" :index="index"></actionsComponent>
+		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
 <script>
 
 export default {
   	name: 'white',
-	props: ["result","index","data"],
+	props: ["result"],
 	computed:{
 		text(){
 			let text="公告：";

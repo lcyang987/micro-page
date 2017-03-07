@@ -12,8 +12,10 @@
 		</div>
 		<div v-show="/^(normal)$/.test(result.attr.type)">
 			<div>
-				<mu-text-field hintText="" labelFloat label="副标题" fullWidth v-model="result.attr.normal.subtitle"/>
-				<mu-date-picker autoOk v-on:change="subtitleChange" mode="landscape" hintText="日期"/>
+				<mu-text-field hintText="" labelFloat label="副标题" fullWidth v-model="result.attr.normal.subtitle" style="width:65%"/>
+				<mu-raised-button class="demo-raised-button" label="日期">
+					<mu-date-picker autoOk v-on:change="subtitleChange" mode="landscape" class="subtitleDate"/>
+				</mu-raised-button>
 			</div>
 			<div class="demo-tip-setting">
 				<p>
@@ -29,7 +31,7 @@
 				<p>
 					背景颜色：
 					<input type="color" style="width:210px;height:24px;" v-model="result.attr.normal.backgroundColor">
-				</p>				
+				</p>
 			</div>
 			<mu-raised-button fullWidth v-if="!result.attr.normal.textNav.isShow" class="demo-raised-button push" label="添加一个文本导航" icon="add" primary v-on:click="show"/>
 			<div v-if="result.attr.normal.textNav.isShow" class="textNav">
@@ -135,5 +137,14 @@ button.hide{
 	position:absolute;
 	top:-10px;
 	right:-10px;
+}
+.subtitleDate{
+    top: 0;
+    left: 0;
+    position: absolute;
+    opacity: 0;
+   	input{
+    	cursor: pointer !important;
+    }
 }
 </style>
