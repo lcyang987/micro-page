@@ -1,1 +1,6 @@
-export default [{"originData":{"text":"","img":"","info":"","price":"","link":{"id":"","text":"","url":""}},"type":"goods","attr":{"type":"small","style":"card","display":{"btn":true,"text":true,"info":true,"price":true},"btn":"1","list":[]}}]
+export default [{
+	"type": "notice",
+	"attr": {
+		"content": "阿萨德aaa"
+	}
+}]

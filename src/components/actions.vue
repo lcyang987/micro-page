@@ -26,7 +26,8 @@ export default {
 		addClick(){
 			let sidebar=this.$store.state.sidebar;
 			let index=this.$store.state.index;
-			[sidebar.isHidden,sidebar.isRegion,index.active,sidebar.top]=[false,true,this.index,this.$refs.actions.parentNode.parentNode.offsetTop];
+			let active=parseInt(this.$refs.actions.parentNode.parentNode.getAttribute('index'));
+			[sidebar.isHidden,sidebar.isRegion,index.active,sidebar.top]=[false,true,active,this.$refs.actions.parentNode.parentNode.offsetTop];
 		},
 	    open(){
 	      this.dialog = true
@@ -37,7 +38,8 @@ export default {
 	    confirm(){
 			let sidebar=this.$store.state.sidebar;
 			let index=this.$store.state.index;
-			index.data.splice(this.index,1);
+			let active=parseInt(this.$refs.actions.parentNode.parentNode.getAttribute('index'));
+			index.data.splice(active,1);
 			[sidebar.isHidden,index.isDelete,index.active,this.dialog]=[true,true,null,false];
 	    }
 	}

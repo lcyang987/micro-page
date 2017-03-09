@@ -18,7 +18,7 @@
 				<mu-text-field labelFloat label="内容标题" hintText="" v-model="result.attr.contentTitle"/>
 			</p>
 			<p>
-		  		<mu-text-field labelFloat label="内容说明" hintText="50字以内" multiLine :rows="3" :rowsMax="6" :maxLength="50" v-model="result.attr.contentDescription"/>
+		  		<mu-text-field :errorText="errorTxt" @textOverflow="testOverflow" labelFloat label="内容说明" hintText="50字以内" multiLine :rows="3" :rowsMax="6" :maxLength="50" v-model="result.attr.contentDescription"/>
 			</p>
 		</div>
 		<section v-for="(item,i) of result.attr.list">
@@ -42,7 +42,15 @@ export default {
 	components:{
 		originData
 	},
+	data(){
+		return {
+			errorTxt:''
+		}
+	},
 	methods:{
+		testOverflow(isOverflow){
+			this.errorTxt=isOverflow?'超过啦！':'';
+		},
 		click(item){			
   			this.$store.state.dialog.link=item;
 			this.$store.dispatch('ajax',{
@@ -62,6 +70,15 @@ export default {
 		remove(i){
 			this.result.attr.list.splice(i,1);
 		}
+	},
+	mounted(){
+		if(!this.result.attr.contentDescription)
+			return;
+		let old=this.result.attr.contentDescription;
+		this.result.attr.contentDescription=old.slice(0,-1)+' '+old.slice(-1);
+		setTimeout(()=>{
+			this.result.attr.contentDescription=old;
+		},0);
 	}
 }
 </script>

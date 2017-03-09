@@ -2,7 +2,7 @@
 	<div class="design">
 		<section ref="item" class="dataList">
 			<template v-for="(item,i) in $store.state.index.data" v-if="$store.state.index.state">
-				<div class="item" @mousedown="mousedown" @mouseenter="mouseenter(item,i)" @mouseleave="mouseleave" :class="{active:i===active}" :active="$store.state.index.active===i">
+				<div class="item" :index="i" @mousedown="mousedown" @mouseenter="mouseenter(item,i)" @mouseleave="mouseleave" :class="{active:i===active}" :active="$store.state.index.active===i">
 					<component :is="item.type+'Component'" :result="item"></component>
 				</div>
 			</template>
@@ -51,8 +51,13 @@ export default {
 	},
   	methods:{
   		returnData(){
-  			console.log(JSON.stringify(this.$store.state.index.data))
-  			console.log(JSON.stringify(this.$store.state.dialog))
+  			const arr=_.cloneDeep(this.$store.state.index.data);
+  			for(let i of arr){
+  				delete i.originData;
+  			}
+  			console.log(JSON.stringify(arr));
+//			console.log(this.$store.state.index.data)
+//			console.log(JSON.stringify(this.$store.state.dialog))
   		},
   		mousedown(ev){
   			this.isMove=true;
