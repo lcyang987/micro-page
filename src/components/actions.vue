@@ -47,27 +47,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+	@import '~assets/css/dragDrop.css'
+</style>
 <style lang="less" scoped>
-	.active{
-		.actions{
-			display:block;
-		}
-		.hover{
-			display:block;
-		}
-		.modal{			
-			width:100%;
-			height:100%;
-			background:gray;
-			opacity:0.1;
-	    position: absolute;
-	    left: 0;
-	    top: 0;
-		}
-	}
 	.actions{
-		/*width:calc(~'100% - 4px');
-		height:calc(~'100% - 4px');*/
 		width:100%;
 		height:100%;
 		ul{
@@ -76,6 +60,7 @@ export default {
 		    right: 0;
 			margin:0;
 			padding:0;
+			z-index:999;
 			li{
 				list-style: none;
 				float:left;

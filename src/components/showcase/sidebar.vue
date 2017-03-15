@@ -75,7 +75,8 @@ export default {
 		if(!this.result.attr.contentDescription)
 			return;
 		let old=this.result.attr.contentDescription;
-		this.result.attr.contentDescription=old.slice(0,-1)+' '+old.slice(-1);
+//		this.result.attr.contentDescription=old.slice(0,-1)+' '+old.slice(-1);
+		this.result.attr.contentDescription=old+' ';
 		setTimeout(()=>{
 			this.result.attr.contentDescription=old;
 		},0);

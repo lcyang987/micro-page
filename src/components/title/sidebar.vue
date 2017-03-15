@@ -65,7 +65,7 @@
 				</p>
 			</div>
 			<div v-if="/^(other)$/.test(result.attr.wechat.type)" class="textNav">
-				<mu-raised-button v-if="result.attr.wechat.textNav.link.id" style="width:69%;float:left" class="demo-raised-button" :label="result.attr.wechat.textNav.link.text" :href="result.attr.wechat.textNav.link.url" target="_blank" primary />
+				<mu-raised-button v-if="result.attr.wechat.textNav.link.id" style="width:65%;float:left" class="demo-raised-button" :label="result.attr.wechat.textNav.link.text" :href="result.attr.wechat.textNav.link.url" target="_blank" primary />
 				<bottomSheetComponent v-if="result.attr.wechat.textNav.link" :width="result.attr.wechat.textNav.link.id?'31%':'100%'" :link="result.attr.wechat.textNav.link"></bottomSheetComponent>
 			</div>
 		</div>
@@ -95,56 +95,57 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
-em{
-	color:red
-}
-.time{
-	position:relative;
-	display:inline-block;
-	padding-right:8px;
-	&:hover{
-		input{
-			display:block;
-		}
+.titleSidebar{	
+	em{
+		color:red
 	}
-	input{
-		display:none;
-		position:absolute;
-		top:-3px;
-		left:34px;
-		
+	.time{
+		position:relative;
+		display:inline-block;
+		padding-right:8px;
 		&:hover{
 			input{
 				display:block;
 			}
 		}
+		input{
+			display:none;
+			position:absolute;
+			top:-3px;
+			left:34px;			
+			&:hover{
+				input{
+					display:block;
+				}
+			}
+		}
 	}
-}
-.linkBlock{
-    width: 214px;
-    display: inline-block;
-    vertical-align: top;
-}
-span{
-	display:inline-block;
-	width:70px;
-	text-align:right;
-}
-.textNav{
-	position:relative;
-}
-button.hide{
-	position:absolute;
-	top:-10px;
-	right:-10px;
-}
-.subtitleDate{
-    top: 0;
-    left: 0;
-    position: absolute;
-    opacity: 0;
-   	input{
-    	cursor: pointer !important;
-    }
+	.linkBlock{
+	    width: 214px;
+	    display: inline-block;
+	    vertical-align: top;
+	}
+	span{
+		display:inline-block;
+		width:70px;
+		text-align:right;
+	}
+	.textNav{
+		position:relative;
+	}
+	button.hide{
+		position:absolute;
+		top:-10px;
+		right:-10px;
+	}
+	.subtitleDate{
+	    top: 0;
+	    left: 0;
+	    position: absolute;
+	    opacity: 0;
+	   	input{
+	    	cursor: pointer !important;
+	    }
+	}
 }
 </style>

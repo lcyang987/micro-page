@@ -1,8 +1,7 @@
 <template>
 	<div class="title" :style="{backgroundColor:backgroundColor,textAlign: textAlign}">
-	<!--<div class="title" :class="{normal:result.attr.type==='normal'}">-->
 		<div>
-			<h3 class="text" v-text="title"></h3>
+			<h3 v-text="title"></h3>
 			<a v-show="/^(normal)$/.test(result.attr.type)">
 				<span v-show="result.attr.normal.textNav.isShow" v-text="'- ' + this.result.attr.normal.textNav.text"></span>
 			</a>
@@ -37,10 +36,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" scoped>
+<style lang="less">
 	.title{
-		padding:10px;
-		.text{
+		/*padding:10px;*/
+		padding:.1rem;
+		h3{
 		    font-size: 18px;
 		    line-height: 22px;
 	    	margin:0;

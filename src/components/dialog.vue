@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	.dialog{
 		max-width:900px;
 	}

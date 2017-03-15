@@ -21,7 +21,8 @@ export default {
 		if(!this.result.attr.content)
 			return;
 		let old=this.result.attr.content;
-		this.result.attr.content=old.slice(0,-1)+' '+old.slice(-1);
+//		this.result.attr.content=old.slice(0,-1)+' '+old.slice(-1);
+		this.result.attr.content=old+' ';
 		setTimeout(()=>{
 			this.result.attr.content=old;
 		},0);

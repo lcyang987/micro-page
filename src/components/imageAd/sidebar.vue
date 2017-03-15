@@ -65,7 +65,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 	section{
-		clear:both;
+		&:before{
+			content:'';
+			clear:both;
+			display:block;
+		}
+		&:after{
+			content:'';
+			clear:both;
+			display:block;
+		}
 		position:relative;
 		>div{
 			width:50%;

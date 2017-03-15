@@ -11,7 +11,7 @@
 		<div class="content">
 			<h4 v-text="result.attr.contentTitle" v-show="result.attr.contentTitle"></h4>
 			<article v-text="result.attr.contentDescription" v-show="result.attr.contentDescription"></article>	
-		</div>		
+		</div>
 		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" scoped>
+<style lang="less">
 	.showCase{
 		h3,h4,article{
 			margin:0;
@@ -62,45 +62,62 @@ export default {
 		}
 		.prominent{		
 			.imgBox{
-				width:105px;
-				height:105px;
+				/*width:105px;
+				height:105px;*/
+				width:1.05rem;
+				height:1.05rem;
 				float:left;
 			}	
 			.keep:nth-child(1){
-				width:212px;
-				height:212px;
-				margin-right:2px;
+				/*width:212px;
+				height:212px;*/
+				width:2.12rem;
+				height:2.12rem;
+				/*margin-right:2px;*/
+				margin-right:.02rem;
 			}
 			.keep:nth-child(2){
-				margin-bottom:2px
+				/*margin-bottom:2px*/
+				margin-bottom:.02rem;
 			}
 			.clear:nth-child(1){
-				width:212px;
-				height:212px;
-				margin-left:1px;
+				/*width:212px;
+				height:212px;*/
+				/*margin-left:1px;*/
+				width:2.12rem;
+				height:2.12rem;
+				margin-left:.01rem;
 			}
 			.clear{
-				width:106px;
-				height:106px;
+				/*width:106px;
+				height:106px;*/
+				width:1.06rem;
+				height:1.06rem;
 			}
 		}
 		.column{
 			.keep{
-				width:105px;
-				height:105px;
+				/*width:105px;
+				height:105px;*/
+				/*margin-left:2px;*/
+				width:1.05rem;
+				height:1.05rem;
+				margin-left:.02rem;
 				float:left;
-				margin-left:2px;
 			}
 			.keep:nth-child(1){
 				margin-left:0;
 			}
 			.clear{
-				width:105px;
-				height:105px;
+				/*width:105px;
+				height:105px;*/
+				width:1.05rem;
+				height:1.05rem;
 				float:left;
 			}
 			.clear:nth-child(1){
-				margin-left:2px;
+				/*margin-left:2px;*/
+				margin-left:.02rem;
 			}
 		}
 	}

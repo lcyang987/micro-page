@@ -55,8 +55,8 @@ export default {
   			for(let i of arr){
   				delete i.originData;
   			}
-  			console.log(JSON.stringify(arr));
-//			console.log(this.$store.state.index.data)
+//			console.log(JSON.stringify(arr));
+			console.log(this.$store.state.index.data)
 //			console.log(JSON.stringify(this.$store.state.dialog))
   		},
   		mousedown(ev){
@@ -162,11 +162,9 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-	@import '~assets/css/dragDrop.css'
-</style>
 <style lang="less" scoped>
 	.design{
+		box-shadow: 0 0 0 1px #c5c5c5;
 		&:before{
 			content:'';
 			display:block;
@@ -174,7 +172,16 @@ export default {
 			height:64px;
 			background: url(~assets/images/titlebar.png);			
 		}
-		width:320px;
+		top:20px;
+	}
+</style>
+<style lang="less">
+	.design{
+		/*width:320px;*/
+		width:3.2rem;
+		/*left:calc(~'50% - 160px');*/
+		left:calc(~'50% - 1.6rem');
+		position:absolute;
 		.dataList{
 		    padding-bottom: 11px;
 		    min-height: 200px;
@@ -197,18 +204,31 @@ export default {
 				left:calc(~'50% - 6px');
 			}
 		}
-		position:absolute;
-		top:20px;
-		left:calc(~'50% - 160px');
-		
-		box-shadow: 0 0 0 1px #c5c5c5;
 		section{
-			width:320px;
+			width:100%;
 		}
 		.item{
-			width:320px;
+			width:100%;
 			position:relative;
 			background:white;
+		}
+		.active{
+			.actions{
+				display:block;
+			}
+			.hover{
+				display:block;
+			}
+			.modal{
+				width:100%;
+				height:100%;
+				background:gray;
+				opacity:0.1;
+			    position: absolute;
+			    z-index:998;
+			    left: 0;
+			    top: 0;
+			}
 		}
 	}
 </style>

@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .demo-table-settings{
   width: 200px;
   overflow: hidden;

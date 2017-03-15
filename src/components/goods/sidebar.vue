@@ -81,7 +81,7 @@ export default {
 			this.result.attr.list.push(_.cloneDeep(this.result.originData));
   			this.$store.state.dialog.link=this.result.attr.list[this.result.attr.list.length-1];
 			this.$store.dispatch('ajax',{
-				url:'picNav.txt',
+				url:'goods.txt',
 				method:'get',
 				data:{
 					a:'lhb',
@@ -94,31 +94,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
-	section{
-		clear:both;
-		position:relative;
-		>div{
-			width:50%;
-			float:left;
-			margin-bottom:10px;
-			img{
-				vertical-align:bottom;
-				text-align:center;
-				line-height:120px;
-			}
-		}
-		>div:nth-child(1){
-			margin-top:2px;
-		}
-		.insert,.remove{
-    		top: -10px;
-			position:absolute;
-		}
-		.insert{
-			right: 35px;
-		}
-		.remove{
-			right: -10px;
-		}
-	}
+
 </style>

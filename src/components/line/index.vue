@@ -12,20 +12,24 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" scoped>
+<style lang="less">
 	.line{
 		padding:10px 0;
+		.solid,.dashed,.dotted{
+			border-bottom-width:1px;
+		}
 		.solid{
-			border-bottom:1px solid black;
+			border-bottom-style:solid;
 		}
 		.dashed{
-			border-bottom:1px dashed red;
+			border-bottom-style:dashed;
 		}
 		.dotted{
-			border-bottom:1px dotted blue;
+			border-bottom-style:dotted;
 		}
 		.padding{
-			margin:0 10px;
+			/*margin:0 10px;*/			
+			margin:0 .1rem;
 		}
 	}
 </style>

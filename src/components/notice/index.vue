@@ -19,7 +19,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" scoped>
+<style lang="less">
 	.notice{
 		padding:10px;
 		overflow:hidden;
@@ -29,6 +29,7 @@ export default {
 			padding:0;
 			white-space:nowrap;
 			color:#f90;
+			float:left;
 		}
 	}
 </style>

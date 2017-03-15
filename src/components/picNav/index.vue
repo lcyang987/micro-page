@@ -19,7 +19,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="less" scoped>
+<style lang="less">
 	.picNav{
 		min-height:50px;
 		div{
@@ -35,7 +35,8 @@ export default {
 			}
 			img{
 				width:100%;
-				height:80px;
+				/*height:80px;*/
+				height:.8rem;
 				border:none;
 			}
 		}
