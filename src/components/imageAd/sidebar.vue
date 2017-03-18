@@ -14,19 +14,22 @@
 				<mu-radio label="小图" nativeValue="small" v-model="result.attr.separate" class="demo-radio"/>
 			</p>
 		</div>
-		<section v-for="(item,i) of result.attr.list" v-if="result.attr.list.length">
-			<div>
-				<img width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
-				<mu-raised-button @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
-			</div>
-			<div>
-				<mu-text-field labelFloat label="导航名称" hintText="" v-model="item.text" style="width:100%"/>
-				<mu-raised-button v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
-				<bottomSheetComponent :width="'100%'" :link="item.link"></bottomSheetComponent>
-			</div>
-			<mu-icon-button class="remove" icon="close" v-on:click="remove(i)"/>
-		</section>
-		<mu-raised-button fullWidth v-show="!result.attr.list.length || (result.attr.list && result.attr.list.length<10 && result.attr.list[result.attr.list.length-1] && result.attr.list[result.attr.list.length-1].img)" class="demo-raised-button push" label="添加一个图片广告" icon="add" primary v-on:click="push"/>
+		<div ref="items" class="list">
+			<section class="item" v-for="(item,i) of result.attr.list" v-if="result.attr.list.length" @mousedown="mousedown(i)">
+				<div>
+					<img draggable="false" width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
+					<mu-raised-button @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
+				</div>
+				<div>
+					<mu-text-field labelFloat label="导航名称" hintText="" v-model="item.text" style="width:100%"/>
+					<mu-raised-button draggable="false" v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
+					<bottomSheetComponent :width="'100%'" :link="item.link"></bottomSheetComponent>
+				</div>
+				<mu-icon-button v-if="result.attr.list.length<10" class="insert" icon="add" v-on:click="insert(i)"/>
+				<mu-icon-button class="remove" icon="close" v-on:click="remove(i)"/>
+			</section>
+		</div>
+		<mu-raised-button fullWidth v-if="result.attr.list.length<10" class="demo-raised-button push" label="添加一个图片广告" icon="add" primary v-on:click="push"/>
 	</div>
 </template>
 <script>
@@ -49,6 +52,15 @@ export default {
 				}
 			});
 		},
+		mousedown(i){
+			this.$store.commit('dragDrop',{
+				oEvent:event,
+				items:this.$refs.items,
+				obj:this.$refs.items.children[i],
+				data:this.result.attr.list,
+				active:i
+			});
+		},
 		insert(i){
 			this.result.attr.list.splice(i+1,0,_.cloneDeep(originData.imageAd.originData));
 		},
@@ -64,6 +76,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
+	.list{
+		position:relative;
+	}
 	section{
 		&:before{
 			content:'';
@@ -90,7 +105,7 @@ export default {
 			margin-top:2px;
 		}
 		.insert,.remove{
-    		top: -10px;
+    		top: -5px;
 			position:absolute;
 		}
 		.insert{

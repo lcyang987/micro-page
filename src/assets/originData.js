@@ -14,6 +14,14 @@ export default {
 		}
 	},
 	"title":{
+		"validator":{
+			"normal":{
+				"link":true
+			},
+			"wechat":{
+				"link":true
+			}
+		},
 		"type": "title",
 		"attr":{
 			"title":"",
@@ -48,6 +56,9 @@ export default {
 		}
 	},
 	"notice":{
+		"validator":{
+			"content":true
+		},
 		"type": "notice",
 		"attr":{
 			"content":""
@@ -61,6 +72,9 @@ export default {
 		}
 	},
 	"textNav":{
+		"validator":{
+			"list":true
+		},
 		"type": "textNav",
 		"attr":{
 			"list":[{
@@ -88,6 +102,9 @@ export default {
 		}
 	},
 	"picNav":{
+		"validator":{
+			"list":true
+		},
 		"type": "picNav",
 		"attr":{
 			"list":[{
@@ -126,6 +143,9 @@ export default {
 		}
 	},
 	"imageAd":{
+		"validator":{
+			"list":true
+		},
 		"type": "imageAd",
 		"originData":{
 			"text":"",
@@ -143,6 +163,9 @@ export default {
 		}
 	},
 	"showcase":{
+		"validator":{
+			"list":true
+		},
 		"type": "showcase",
 		"attr":{
 			"title":"",
@@ -175,16 +198,19 @@ export default {
 		}
 	},
 	"goods":{
+		"validator":{
+			"list":true
+		},
 		"originData":{
 			"text":"",
 			"img":"",
 			"info":"",
 			"price":"",
-			"link":{
-				"id":"",
-				"text":"",
-				"url":""
-			}
+//			"link":{
+//				"id":"",
+//				"text":"",
+//				"url":""
+//			}
 		},
 		"type": "goods",
 		"attr":{
@@ -199,5 +225,5 @@ export default {
 			"btn":"1",
 			"list":[]
 		}
-	},
+	}
 }

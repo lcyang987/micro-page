@@ -21,16 +21,18 @@
 		  		<mu-text-field :errorText="errorTxt" @textOverflow="testOverflow" labelFloat label="内容说明" hintText="50字以内" multiLine :rows="3" :rowsMax="6" :maxLength="50" v-model="result.attr.contentDescription"/>
 			</p>
 		</div>
-		<section v-for="(item,i) of result.attr.list">
-			<div>
-				<img width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
-				<mu-raised-button @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
-			</div>
-			<div>
-				<mu-raised-button v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
-				<bottomSheetComponent :width="'100%'" :link="item.link"></bottomSheetComponent>
-			</div>
-		</section>
+		<div ref="items" class="list">
+			<section class="item" v-for="(item,i) of result.attr.list" @mousedown="mousedown(i)">
+				<div>
+					<img draggable="false" width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
+					<mu-raised-button @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
+				</div>
+				<div>
+					<mu-raised-button draggable="false" v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
+					<bottomSheetComponent :width="'100%'" :link="item.link"></bottomSheetComponent>
+				</div>
+			</section>
+		</div>
 	</div>
 </template>
 <script>
@@ -61,6 +63,15 @@ export default {
 				}
 			});
 		},
+		mousedown(i){
+			this.$store.commit('dragDrop',{
+				oEvent:event,
+				items:this.$refs.items,
+				obj:this.$refs.items.children[i],
+				data:this.result.attr.list,
+				active:i
+			});
+		},
 		insert(i){
 			this.result.attr.list.splice(i+1,0,_.cloneDeep(originData.imageAd.attr.list[0]));
 		},
@@ -86,13 +97,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
+	.list{
+		position:relative;
+	}
 	section{
-		clear:both;
+		&:before{
+			content:'';
+			clear:both;
+			display:block;
+		}
+		&:after{
+			content:'';
+			clear:both;
+			display:block;
+		}
 		position:relative;
 		>div{
 			width:50%;
 			float:left;
-			margin-bottom:10px;
 			img{
 				vertical-align:bottom;
 				text-align:center;

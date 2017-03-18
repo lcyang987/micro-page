@@ -1,13 +1,13 @@
 <template>
-	<div class="picNavSidebar" v-if="result" >
-		<section v-for="(item,i) of result.attr.list">
+	<div ref="items" class="picNavSidebar list" v-if="result" >
+		<section class="item" v-for="(item,i) of result.attr.list" @mousedown="mousedown(i)">
 			<div>
-				<img width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
+				<img draggable="false" width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
 				<mu-raised-button @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
 			</div>
 			<div>
 				<mu-text-field labelFloat label="导航名称" hintText="" v-model="item.text" style="width:100%"/>
-				<mu-raised-button v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
+				<mu-raised-button draggable="false" v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
 				<bottomSheetComponent :width="'100%'" :link="item.link"></bottomSheetComponent>
 			</div>
 		</section>
@@ -28,6 +28,15 @@ export default {
 					a:'lhb',
 				}
 			});
+		},
+		mousedown(i){
+			this.$store.commit('dragDrop',{
+				oEvent:event,
+				items:this.$refs.items,
+				obj:this.$refs.items.children[i],
+				data:this.result.attr.list,
+				active:i
+			});
 		}
 	}
 }
@@ -35,6 +44,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
+	.list{
+		position:relative;
+	}
 	section{
 		&:before{
 			content:'';
@@ -49,7 +61,6 @@ export default {
 		>div{
 			width:50%;
 			float:left;
-			margin-bottom:10px;
 			img{
 				vertical-align:bottom;
 				text-align:center;

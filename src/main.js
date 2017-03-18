@@ -58,6 +58,75 @@ const store = new Vuex.Store({
 		}
 	},
 	mutations: {
+		dragDrop(state,opt){
+			var downScrollTop=document.body.scrollTop;
+			var item=opt.items.querySelectorAll(".item");
+			var mouseDown={
+				x:opt.oEvent.clientX+document.body.scrollLeft,
+				y:opt.oEvent.clientY+document.body.scrollTop
+			}
+			var disY=opt.oEvent.clientY-opt.obj.offsetTop;
+			var placeholder=document.createElement('div');
+			var moveY=opt.oEvent.clientY;
+			var directionTop;
+			opt.items.insertBefore(placeholder,opt.obj);
+			placeholder.style.height=Math.floor(opt.obj.offsetHeight)+'px';
+			[opt.obj.style.position,opt.obj.style.top,opt.obj.style.zIndex]=['absolute',opt.oEvent.clientY-disY+'px','123'];
+			document.body.style.userSelect='none';
+			var elementsFor=()=>{
+	  			for(var i=0;i<item.length;i++){
+	  				if(item[i]!=opt.obj)
+					if(i+1==opt.active || i-1==opt.active)
+					if(i>opt.active){
+						if(!directionTop && item[i].offsetTop+item[i].offsetHeight/2<opt.obj.offsetTop+opt.obj.offsetHeight){
+							opt.data.splice(opt.active+2,0,opt.data[opt.active]);
+							opt.data.splice(opt.active,1);
+							elementsChange(i);
+							directionTop=!directionTop;
+						}
+					}else{
+						if(directionTop && item[i].offsetTop+item[i].offsetHeight/2>opt.obj.offsetTop){
+							opt.data.splice(opt.active-1,0,opt.data[opt.active]);
+							opt.data.splice(opt.active+1,1);
+							elementsChange(i);
+						}
+					}
+	  			}
+			}
+			var elementsChange=(i)=>{
+				var nowStyle=opt.obj.getAttribute('style');
+				opt.obj.removeAttribute('style');
+				opt.active=i;
+				opt.obj=item[i];
+				opt.obj.style=nowStyle;
+				opt.items.insertBefore(placeholder,opt.obj);
+			}
+			window.onscroll=()=>{
+				disY-=document.body.scrollTop-downScrollTop;
+				directionTop=document.body.scrollTop<downScrollTop;
+	  			opt.obj.style.top=moveY-disY+'px';
+	  			elementsFor();
+				downScrollTop=document.body.scrollTop;
+	  			return false;
+			}
+			window.onmousemove=ev=>{
+	  			directionTop=moveY>event.clientY;
+	  			moveY=event.clientY;
+	  			opt.obj.style.top=moveY-disY+'px';
+	  			elementsFor();
+				var mouseMove={
+					y:event.clientY+document.body.scrollTop
+				}
+				if(Math.abs(mouseDown.y-mouseMove.y)>5)
+	  				return false;
+			}
+			window.onmouseup=ev=>{
+				opt.obj.removeAttribute('style');
+				opt.items.removeChild(placeholder);
+				document.body.style.userSelect='';
+				window.onmousemove=window.onmouseup=window.onscroll=null;
+			}
+		},
 		vueResource(state,opt){
 	    	vue.$http[opt.method](opt.url,{params:opt.data,emulateJSON:true}).then(
 	    		function(response){

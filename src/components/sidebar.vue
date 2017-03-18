@@ -84,7 +84,8 @@ export default {
 <style lang="less">
 	.sidebar{
 		section{
-			margin-bottom:8px;
+			padding:8px 0;
+			background:white;
 		}
 	}
 	.demo-tip-setting p{

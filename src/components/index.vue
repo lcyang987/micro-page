@@ -10,6 +10,7 @@
 		<regionComponent></regionComponent>
 		<sidebarComponent v-if="$store.state.index.active !== null" ref="sidebar" :result="$store.state.index.data[$store.state.index.active]"></sidebarComponent>
 		<div v-on:click="returnData" style="text-align:center">return data</div>
+		<mu-popup position="top" :overlay="false" popupClass="demo-popup-top" :open="topPopup">{{topPopupText}}</mu-popup>
 		<dialogComponent></dialogComponent>
 	</div>
 </template>
@@ -32,7 +33,10 @@ export default {
   	data(){
   		return {
   			active:null,
-  			isMove:false
+  			isMove:false,
+			topPopup: false,
+			topPopupText:'',
+			timer:null
   		}
   	},
 	components: {
@@ -51,13 +55,58 @@ export default {
 	},
   	methods:{
   		returnData(){
-  			const arr=_.cloneDeep(this.$store.state.index.data);
-  			for(let i of arr){
-  				delete i.originData;
-  			}
-//			console.log(JSON.stringify(arr));
-			console.log(this.$store.state.index.data)
-//			console.log(JSON.stringify(this.$store.state.dialog))
+//			const arr=_.cloneDeep(this.$store.state.index.data);
+//			for(let i of arr){
+//				delete i.originData;
+//			}
+//			console.log(this.$store.state.index.data);
+			var _this=this;
+			var item=this.$refs.item.querySelectorAll('.item');
+			var state=this.$store.state;
+			var data=this.$store.state.index.data;
+			var validateSuccess=true;
+			function setState(i){
+				state.index.active=i;
+				state.sidebar.isHidden=false;
+				state.sidebar.isRegion=false;
+				state.sidebar.top=item[state.index.active].offsetTop;
+				_this.topPopupText='『'+_.result(_.find(_this.$store.state.region.regionData, { 'type': state.index.data[state.index.active].type }), 'text')+'』参数不完整';
+				_this.open('top');
+				validateSuccess=false;
+			}
+			for(let i=0;i<data.length;i++){
+				if(!validateSuccess)
+					break;
+				if(data[i].validator)
+				for(let validate in data[i].validator){
+					if(data[i].attr[validate].constructor===String){
+						if(!data[i].attr[validate]){
+							setState(i);
+						}
+					}else if(data[i].attr[validate].constructor===Array){
+						if(!data[i].attr[validate].length){
+							setState(i);
+						}else{
+							var list=data[i].attr[validate];
+							(function deep(obj){
+								for(let attr in obj){
+									if(obj[attr].constructor===Object){
+										deep(obj[attr]);
+									}else{
+										if(!obj[attr]){
+											if(!validateSuccess)
+												break;
+											setState(i);
+										}
+									}
+								}
+							})(list);
+						}
+					}
+				}
+			}
+			if(validateSuccess)
+				console.log('true',JSON.stringify(this.$store.state.index.data));
   		},
   		mousedown(ev){
   			this.isMove=true;
@@ -121,6 +170,7 @@ export default {
 	  			obj.style.top=moveY-disY+'px';
 	  			elementsFor();
 				downScrollTop=document.body.scrollTop;
+	  			return false;
 			}
 			window.onmousemove=ev=>{
 	  			var oEvent=ev || window.event;
@@ -128,6 +178,7 @@ export default {
 	  			moveY=oEvent.clientY;
 	  			obj.style.top=moveY-disY+'px';
 	  			elementsFor();
+	  			return false;
 			}
 			window.onmouseup=ev=>{
 	  			var oEvent=ev || window.event;
@@ -156,7 +207,14 @@ export default {
   		mouseleave(item,i){
   			if(!this.isMove)
   				this.active=null;
-  		}
+  		},
+    	open (position) {
+			this[position + 'Popup'] = true
+			clearInterval(this.timer);
+			this.timer=setTimeout(() => {
+				this.topPopup = false
+			}, 2000)
+    	}
 	}
 }
 </script>
@@ -231,4 +289,17 @@ export default {
 			}
 		}
 	}
+</style>
+<style lang="css">
+.demo-popup-top {
+  background:#03a9f4 !important;
+  color:white !important;
+  width: 100%;
+  height: 48px;
+  line-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 375px;
+}
 </style>

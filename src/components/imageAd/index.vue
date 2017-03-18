@@ -4,14 +4,14 @@
 			<div class="imgBox carousel">
 				<img v-if="!result.attr.list.length" :src="cpdcarousel" />
 				<div v-else>
-					<ul v-if="result.attr.list[0].img" :style="{width:result.attr.list.length*3.2+'rem'}">
+					<ul :style="{width:result.attr.list.length*3.2+'rem'}">
 						<!--<li v-for="item of result.attr.list">
 							<img :src="item.img" />
 							<p v-show="item.text" v-text="item.text"></p>
 						</li>-->
 						<li>
-							<img :src="result.attr.list[0].img" />
-							<p v-show="result.attr.list[0].text" v-text="result.attr.list[0].text"></p>
+							<img :src="result.attr.list[0].img" :class="{noImg:!result.attr.list[0].img}" />
+							<p v-text="result.attr.list[0].text || '请设置导航名称'"></p>
 						</li>
 					</ul>
 					<div class="pointer">
@@ -24,7 +24,7 @@
 			<img v-if="!result.attr.list.length" :src="cpdSeparate" />
 			<template v-else v-for="item of result.attr.list">
 				<div class="imgBox">
-					<img v-show="item.img" :src="item.img" />
+					<img :src="item.img" :class="{noImg:!item.img}" />
 					<p v-show="item.img,item.text" v-text="item.text"></p>
 				</div>
 			</template>
@@ -69,6 +69,9 @@ export default {
 		img{
 			width:100%;
 			margin:0 auto;
+			&.noImg{
+				height:100px;
+			}
 		}
 	}
 	.small{
@@ -125,10 +128,16 @@ export default {
 .imageAd{
 	min-height:50px;
 	.carousel{
-		li{
-			position:relative;
-			width:3.2rem;
-			float:left;
+		ul{
+			min-height:100px;
+			li{
+				position:relative;
+				width:3.2rem;
+				float:left;
+				.noImg{
+					height:100px;
+				}
+			}	
 		}
 		.pointer{
 			width:100%;
