@@ -14,12 +14,21 @@ export default {
 		}
 	},
 	"title":{
-		"validator":{
+		"require":{
+			"title":true,
 			"normal":{
-				"link":true
+				"link":true,
+				"textNav":{
+					"text":true,
+					"link":true
+				}
 			},
 			"wechat":{
-				"link":true
+				"link":true,
+				"textNav":{
+					"text":true,
+					"link":true
+				}
 			}
 		},
 		"type": "title",

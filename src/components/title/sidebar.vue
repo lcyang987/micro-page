@@ -1,7 +1,7 @@
 <template>
 	<div class="titleSidebar" v-if="result" :class="">
 		<div>
-			<mu-text-field hintText="" labelFloat label="标题名" fullWidth v-model="result.attr.title"/>
+			<mu-text-field v-listInputValidator="{'require':result.require.title,'value':result.attr.title}" hintText="" labelFloat label="标题名" fullWidth v-model="result.attr.title"/>
 		</div>
 		<div class="demo-tip-setting">
 			<p>
@@ -36,10 +36,10 @@
 			<mu-raised-button fullWidth v-if="!result.attr.normal.textNav.isShow" class="demo-raised-button push" label="添加一个文本导航" icon="add" primary v-on:click="show"/>
 			<div v-if="result.attr.normal.textNav.isShow" class="textNav">
 				<div>
-					<mu-text-field fullWidth hintText="导航名称" v-model="result.attr.normal.textNav.text"/>
+					<mu-text-field v-listInputValidator="{'require':result.require.normal.textNav.text,'value':result.attr.normal.textNav.text}" fullWidth hintText="导航名称" v-model="result.attr.normal.textNav.text"/>
 				</div>
 				<mu-raised-button v-if="result.attr.normal.textNav.link.id" style="width:59%;float:left" class="demo-raised-button" :label="result.attr.normal.textNav.link.text" :href="result.attr.normal.textNav.link.url" target="_blank" primary />
-				<bottomSheetComponent v-if="result.attr.normal.textNav.link" :width="result.attr.normal.textNav.link.id?'31%':'100%'" :link="result.attr.normal.textNav.link"></bottomSheetComponent>
+				<bottomSheetComponent v-linkValidator="{'require':result.require.normal.textNav.link,'value':result.attr.normal.textNav.link}" v-if="result.attr.normal.textNav.link" :width="result.attr.normal.textNav.link.id?'31%':'100%'" :link="result.attr.normal.textNav.link"></bottomSheetComponent>
   				<mu-icon-button tooltipPosition="top-center" tooltip="关闭" class="hide" icon="close" v-on:click="hide"/>
 			</div>
 		</div>
@@ -66,7 +66,7 @@
 			</div>
 			<div v-if="/^(other)$/.test(result.attr.wechat.type)" class="textNav">
 				<mu-raised-button v-if="result.attr.wechat.textNav.link.id" style="width:65%;float:left" class="demo-raised-button" :label="result.attr.wechat.textNav.link.text" :href="result.attr.wechat.textNav.link.url" target="_blank" primary />
-				<bottomSheetComponent v-if="result.attr.wechat.textNav.link" :width="result.attr.wechat.textNav.link.id?'31%':'100%'" :link="result.attr.wechat.textNav.link"></bottomSheetComponent>
+				<bottomSheetComponent v-linkValidator="{'require':result.require.wechat.textNav.link,'value':result.attr.wechat.textNav.link}" v-if="result.attr.wechat.textNav.link" :width="result.attr.wechat.textNav.link.id?'31%':'100%'" :link="result.attr.wechat.textNav.link"></bottomSheetComponent>
 			</div>
 		</div>
 	</div>
