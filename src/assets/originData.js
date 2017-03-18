@@ -56,8 +56,14 @@ export default {
 		}
 	},
 	"notice":{
-		"validator":{
+		"require":{
 			"content":true
+		},
+		"validator":{
+			"content":{
+				"min":1,
+				"max":50,
+			}
 		},
 		"type": "notice",
 		"attr":{
@@ -72,8 +78,19 @@ export default {
 		}
 	},
 	"textNav":{
+		"require":{
+			"list":{
+				"text":true,
+				"link":true
+			}
+		},
 		"validator":{
-			"list":true
+			"list":{
+				"text":{
+					"min":1,
+					"max":18,
+				}
+			}
 		},
 		"type": "textNav",
 		"attr":{
@@ -102,8 +119,20 @@ export default {
 		}
 	},
 	"picNav":{
+		"require":{
+			"list":{
+				"text":true,
+				"link":true,
+				"img":true
+			}
+		},
 		"validator":{
-			"list":true
+			"list":{
+				"text":{
+					"min":1,
+					"max":18,
+				}
+			}
 		},
 		"type": "picNav",
 		"attr":{
@@ -143,8 +172,20 @@ export default {
 		}
 	},
 	"imageAd":{
+		"require":{
+			"list":{
+				"text":true,
+				"link":true,
+				"img":true
+			}
+		},
 		"validator":{
-			"list":true
+			"list":{
+				"text":{
+					"min":1,
+					"max":18,
+				}
+			}
 		},
 		"type": "imageAd",
 		"originData":{
@@ -163,8 +204,18 @@ export default {
 		}
 	},
 	"showcase":{
+		"require":{
+			"title":true,
+			"list":{
+				"link":true,
+				"img":true
+			}
+		},
 		"validator":{
-			"list":true
+			"contentDescription":{
+				"min":1,
+				"max":50
+			}
 		},
 		"type": "showcase",
 		"attr":{

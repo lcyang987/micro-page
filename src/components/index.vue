@@ -64,49 +64,84 @@ export default {
 			var item=this.$refs.item.querySelectorAll('.item');
 			var state=this.$store.state;
 			var data=this.$store.state.index.data;
-			var validateSuccess=true;
-			function setState(i){
+			this.$store.state.index.validateSuccess=true;
+			this.$store.state.index.isValidate=true;
+//			function setState(i){
+//				state.index.active=i;
+//				state.sidebar.isHidden=true;
+//				this.$store.state.index.validateSuccess=false;
+//				state.index.isValidate=true;
+//				setTimeout(()=>{
+//					state.sidebar.isHidden=false;
+//					state.sidebar.isRegion=false;
+//					state.sidebar.top=item[state.index.active].offsetTop;
+//					_this.topPopupText='『'+_.result(_.find(_this.$store.state.region.regionData, { 'type': state.index.data[state.index.active].type }), 'text')+'』参数不完整';
+//					_this.open('top');
+//				},0);
+//			}
+//			for(let i=0;i<data.length;i++){
+//				if(!this.$store.state.index.validateSuccess)
+//					break;
+//				if(data[i].require)
+//				for(let validate in data[i].require){
+//					if(data[i].attr[validate].constructor===String){
+//						if(!data[i].attr[validate]){
+//							setState(i);
+//						}
+//					}else if(data[i].attr[validate].constructor===Array){
+//						if(!data[i].attr[validate].length){
+//							setState(i);
+//						}else{
+//							var list=data[i].attr[validate];
+//							(function deep(obj){
+//								for(let attr in obj){
+//									if(obj[attr].constructor===Object){
+//										deep(obj[attr]);
+//									}else{
+//										if(!obj[attr]){
+//											if(!validateSuccess)
+//												break;
+//											setState(i);
+//										}
+//									}
+//								}
+//							})(list);
+//						}
+//					}
+//				}
+//			}
+//			if(this.$store.state.index.validateSuccess)
+//				console.log('true',JSON.stringify(this.$store.state.index.data));
+			(function deep(data,i){
 				state.index.active=i;
-				state.sidebar.isHidden=false;
-				state.sidebar.isRegion=false;
-				state.sidebar.top=item[state.index.active].offsetTop;
-				_this.topPopupText='『'+_.result(_.find(_this.$store.state.region.regionData, { 'type': state.index.data[state.index.active].type }), 'text')+'』参数不完整';
-				_this.open('top');
-				validateSuccess=false;
-			}
-			for(let i=0;i<data.length;i++){
-				if(!validateSuccess)
-					break;
-				if(data[i].validator)
-				for(let validate in data[i].validator){
-					if(data[i].attr[validate].constructor===String){
-						if(!data[i].attr[validate]){
-							setState(i);
+				state.sidebar.isHidden=true;
+				setTimeout(()=>{
+					state.sidebar.isHidden=false;
+					state.sidebar.isRegion=false;
+					state.sidebar.top=item[state.index.active].offsetTop;
+					if(data[i].attr.list && !data[i].attr.list.length){						
+						_this.topPopupText='『'+_.result(_.find(_this.$store.state.region.regionData, { 'type': state.index.data[state.index.active].type }), 'text')+'』参数不完整';
+						_this.open('top');
+						_this.$store.state.index.isValidate=true;
+						return false;
+					};
+					setTimeout(()=>{
+						if(!_this.$store.state.index.validateSuccess){							
+							_this.topPopupText='『'+_.result(_.find(_this.$store.state.region.regionData, { 'type': state.index.data[state.index.active].type }), 'text')+'』参数不完整';
+							_this.open('top');
+							_this.$store.state.index.isValidate=true;
+							return false;
 						}
-					}else if(data[i].attr[validate].constructor===Array){
-						if(!data[i].attr[validate].length){
-							setState(i);
-						}else{
-							var list=data[i].attr[validate];
-							(function deep(obj){
-								for(let attr in obj){
-									if(obj[attr].constructor===Object){
-										deep(obj[attr]);
-									}else{
-										if(!obj[attr]){
-											if(!validateSuccess)
-												break;
-											setState(i);
-										}
-									}
-								}
-							})(list);
+						if(i<data.length-1)
+							deep(data,++i);
+						else{
+							state.index.active=null;
+							state.sidebar.isHidden=true;
+							console.log('true',JSON.stringify(_this.$store.state.index.data));//通过验证输出数组
 						}
-					}
-				}
-			}
-			if(validateSuccess)
-				console.log('true',JSON.stringify(this.$store.state.index.data));
+					},0)
+				},0)
+			})(data,0);
   		},
   		mousedown(ev){
   			this.isMove=true;
@@ -114,6 +149,7 @@ export default {
   			if(this.$store.state.index.active==this.active)
   				isActive=true;
 			var state=this.$store.state;
+			state.index.isValidate=false;
 			var downScrollTop=document.body.scrollTop;
 			var oEvent=ev || window.event;
 			var item=this.$refs.item.querySelectorAll('.item');

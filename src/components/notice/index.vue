@@ -1,6 +1,6 @@
 <template>
 	<div class="notice">
-		<p v-text="text" ></p>
+		<p v-text="text"></p>
 		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>

@@ -2,7 +2,7 @@
 	<div class="showcaseSidebar" v-if="result" >
 		<div class="demo-tip-setting">
 			<p>
-				<mu-text-field labelFloat label="橱窗标题" hintText="" v-model="result.attr.title"/>
+				<mu-text-field v-listInputValidator="{'require':result.require.title,'value':result.attr.title}" labelFloat label="橱窗标题" hintText="" v-model="result.attr.title"/>
 			</p>
 			<p>
 				显示方式：
@@ -18,18 +18,18 @@
 				<mu-text-field labelFloat label="内容标题" hintText="" v-model="result.attr.contentTitle"/>
 			</p>
 			<p>
-		  		<mu-text-field :errorText="errorTxt" @textOverflow="testOverflow" labelFloat label="内容说明" hintText="50字以内" multiLine :rows="3" :rowsMax="6" :maxLength="50" v-model="result.attr.contentDescription"/>
+		  		<mu-text-field v-inputValidator="{'require':result.require.contentDescription,'value':result.attr.contentDescription,'validator':result.validator.contentDescription}" :errorText="errorTxt" @textOverflow="testOverflow" labelFloat label="内容说明" hintText="50字以内" multiLine :rows="3" :rowsMax="6" :maxLength="result.validator.contentDescription.max" v-model="result.attr.contentDescription"/>
 			</p>
 		</div>
 		<div ref="items" class="list">
 			<section class="item" v-for="(item,i) of result.attr.list" @mousedown="mousedown(i)">
 				<div>
 					<img draggable="false" width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
-					<mu-raised-button @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
+					<mu-raised-button v-imgValidator="{'require':result.require.list.img,'value':item.img}" @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
 				</div>
 				<div>
 					<mu-raised-button draggable="false" v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
-					<bottomSheetComponent :width="'100%'" :link="item.link"></bottomSheetComponent>
+					<bottomSheetComponent v-linkValidator="{'require':result.require.list.link,'value':item.link}" :width="'100%'" :link="item.link"></bottomSheetComponent>
 				</div>
 			</section>
 		</div>

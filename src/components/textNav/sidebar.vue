@@ -2,9 +2,9 @@
 	<div class="textNavSidebar" v-if="result" >
 		<div ref="items" class="list">
 			<section class="item" v-for="(item,i) of result.attr.list" @mousedown="mousedown(i)">
-				<mu-text-field labelFloat label="导航名称" hintText="" v-model="item.text"/>
+				<mu-text-field v-listInputValidator="{'require':result.require.list.text,'value':item.text,'validator':result.validator.list.text}" labelFloat label="导航名称" hintText="" v-model="item.text"/>
 				<mu-raised-button draggable="false" v-if="item.link.id" style="width:59%;float:left" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
-				<bottomSheetComponent :width="item.link.id?'31%':'90%'" :link="item.link"></bottomSheetComponent>
+				<bottomSheetComponent v-linkValidator="{'require':result.require.list.link,'value':item.link}" :width="item.link.id?'31%':'90%'" :link="item.link"></bottomSheetComponent>
 				<mu-icon-button class="insert" icon="add" v-on:click="insert(i)"/>
 				<mu-icon-button class="remove" icon="close" v-on:click="remove(i)"/>
 			</section>

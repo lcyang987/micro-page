@@ -3,12 +3,12 @@
 		<section class="item" v-for="(item,i) of result.attr.list" @mousedown="mousedown(i)">
 			<div>
 				<img draggable="false" width="120" height="120" :src="item.img" :alt="item.img?'':'暂无图片'" />
-				<mu-raised-button @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
+				<mu-raised-button v-imgValidator="{'require':result.require.list.img,'value':item.img}" @click="click(item)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
 			</div>
 			<div>
-				<mu-text-field labelFloat label="导航名称" hintText="" v-model="item.text" style="width:100%"/>
+				<mu-text-field v-listInputValidator="{'require':result.require.list.text,'value':item.text,'validator':result.validator.list.text}" labelFloat label="导航名称" hintText="" v-model="item.text" style="width:100%"/>
 				<mu-raised-button draggable="false" v-if="item.link.id" style="width:100%" class="demo-raised-button" :label="item.link.text" :href="item.link.url" target="_blank" primary />
-				<bottomSheetComponent :width="'100%'" :link="item.link"></bottomSheetComponent>
+				<bottomSheetComponent v-linkValidator="{'require':result.require.list.link,'value':item.link}" :width="'100%'" :link="item.link"></bottomSheetComponent>
 			</div>
 		</section>
 	</div>

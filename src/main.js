@@ -18,6 +18,58 @@ Vue.component('bottomSheetComponent', bottomSheetComponent)
 Vue.use(Vuex)
 Vue.use(MuseUI)
 import VueResource from 'vue-resource';
+Vue.directive('inputValidator', {
+  inserted: function (el,binding) {
+    if(vue.$store.state.index.validateSuccess){
+  	let json=binding.value;
+  	if((json.require&&!json.value) || (json.validator&&json.value&&((json.validator.min && json.value.length<json.validator.min) || (json.validator.max && json.value.length>json.validator.max)))){
+		el.querySelectorAll('textarea')[1].focus();
+		vue.$store.state.index.validateSuccess=false;
+	}
+   }
+  }
+})
+Vue.directive('listInputValidator', {
+  inserted: function (el,binding) {
+    if(vue.$store.state.index.validateSuccess){
+  	let json=binding.value;
+  	if((json.require&&!json.value) || (json.validator&&json.value&&((json.validator.min && json.value.length<json.validator.min) || (json.validator.max && json.value.length>json.validator.max)))){
+		el.querySelector('input').focus();
+		vue.$store.state.index.validateSuccess=false;
+	}
+   }
+  }
+})
+Vue.directive('linkValidator', {
+  inserted: function (el,binding) {
+  	let json=binding.value;
+    if(vue.$store.state.index.validateSuccess){
+	  	for(var item in json.value){
+	  		if(!json.value[item]){
+				el.querySelector('button').style.boxShadow='0 0 7px red';
+				el.querySelector('button').addEventListener('mouseover',function(){
+					this.style.boxShadow='';
+				},false);
+				vue.$store.state.index.validateSuccess=false;
+			}
+	  	}
+  	}
+  }
+})
+Vue.directive('imgValidator', {
+  inserted: function (el,binding) {
+  	let json=binding.value;
+    if(vue.$store.state.index.validateSuccess){
+  		if(!json.value){
+			el.style.boxShadow='0 0 7px red';
+			el.addEventListener('mouseover',function(){
+				this.style.boxShadow='';
+			},false);
+			vue.$store.state.index.validateSuccess=false;
+		}
+  	}
+  }
+})
 
 //开启debug模式
 Vue.config.debug = true;
@@ -36,7 +88,8 @@ const store = new Vuex.Store({
 			active: null,
 			state: true,
 			notEdit:false,
-			isDelete:false
+			isDelete:false,
+			validateSuccess:false
 		},
 		region: {
 			regionData,

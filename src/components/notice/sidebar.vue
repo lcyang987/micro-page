@@ -1,6 +1,6 @@
 <template>
 	<div class="noticeSidebar">
-  		<mu-text-field labelFloat :errorText="errorTxt" @textOverflow="testOverflow" v-model="result.attr.content" label="公告" fullWidth multiLine :rows="3" :rowsMax="6" :maxLength="50"/>
+  		<mu-text-field v-inputValidator="{'require':result.require.content,'value':result.attr.content,'validator':result.validator.content}" labelFloat :errorText="errorTxt" @textOverflow="testOverflow" v-model="result.attr.content" label="公告" fullWidth multiLine :rows="3" :rowsMax="6" :maxLength="parseInt(result.validator.content.max)"/>
 	</div>
 </template>
 <script>
