@@ -1,0 +1,1 @@
+export default [{'require': {'list': {'text': true, 'link': true}}, 'validator': {'list': {'text': {'min': 1, 'max': 18}}}, 'type': 'textNav', 'attr': {'list': [{'text': '', 'link': {'id': '', 'text': '', 'url': ''}}, {'text': '', 'link': {'id': '', 'text': '', 'url': ''}}, {'text': '', 'link': {'id': '', 'text': '', 'url': ''}}]}}]

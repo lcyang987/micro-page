@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from 'components/index'
 
 Vue.use(Router)
 
@@ -8,8 +7,26 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: index
+      component: require('common/Index'),
+      children: [{
+        path: '/',
+        // component: require('page/empty'),
+        redirect: 'HomePage'
+      }, {
+        path: 'HomePage',
+        component: require('page/HomePage'),
+        children: [{
+          path: 'micropage',
+          component: require('micropage')
+        }]
+      }, {
+        path: 'CustomPage',
+        component: require('page/CustomPage'),
+        children: [{
+          path: 'micropage',
+          component: require('micropage')
+        }]
+      }]
     }
   ]
 })
