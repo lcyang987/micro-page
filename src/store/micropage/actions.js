@@ -59,7 +59,7 @@ export default {
             })
           }
         }
-        var target = _.min(arr, 'distance')
+        var target = _.minBy(arr, 'distance')
         if (Math.abs(target.disX) > opt.obj.offsetWidth || Math.abs(target.disY) > opt.obj.offsetHeight) {
           return false
         }
@@ -424,35 +424,48 @@ export default {
             return false
           }
           if (i < data.length - 1) { deep(data, ++i) } else {
+            var json = {}
             state.index.active = null
             state.sidebar.isHidden = true
             state.sidebar.isDisplay = true
-            if (!state.index.name) {
-              validateFailure(true, '请输入模板名称')
-              opt.obj.$refs.templateName.$el.querySelector('input').focus()
-              return false
-            } else if (opt.obj.$refs.templateName.value.length > opt.obj.$refs.templateName.maxLength) {
-              validateFailure(true, '模板名称过长')
-              opt.obj.$refs.templateName.$el.querySelector('input').focus()
-              return false
-            }
-            if (!state.index.introduction) {
-              validateFailure(true, '请输入模板描述')
-              opt.obj.$refs.templateIntroduction.$el.querySelector('input').focus()
-              return false
-            } else if (opt.obj.$refs.templateIntroduction.value.length > opt.obj.$refs.templateIntroduction.maxLength) {
-              validateFailure(true, '模板描述过长')
-              opt.obj.$refs.templateIntroduction.$el.querySelector('input').focus()
-              return false
-            }
-            const json = {
-              businessNo: urlParams.businessNo,
-              configJson: JSON.stringify(state.index.data),
-              isDraft: opt.obj.$route.query.isDraft,
-              pageType: opt.obj.$route.query.pageType,
-              productIds: '',
-              name: state.index.name,
-              introduction: state.index.introduction
+            if (opt.obj.$refs.templateName) {
+              if (!state.index.name) {
+                validateFailure(true, '请输入模板名称')
+                opt.obj.$refs.templateName.$el.querySelector('input').focus()
+                return false
+              } else if (opt.obj.$refs.templateName.value.length > opt.obj.$refs.templateName.maxLength) {
+                validateFailure(true, '模板名称过长')
+                opt.obj.$refs.templateName.$el.querySelector('input').focus()
+                return false
+              }
+              if (!state.index.introduction) {
+                validateFailure(true, '请输入模板描述')
+                opt.obj.$refs.templateIntroduction.$el.querySelector('input').focus()
+                return false
+              } else if (opt.obj.$refs.templateIntroduction.value.length > opt.obj.$refs.templateIntroduction.maxLength) {
+                validateFailure(true, '模板描述过长')
+                opt.obj.$refs.templateIntroduction.$el.querySelector('input').focus()
+                return false
+              }
+              json = {
+                businessNo: urlParams.businessNo,
+                configJson: JSON.stringify(state.index.data),
+                isDraft: opt.obj.$route.query.isDraft,
+                pageType: opt.obj.$route.query.pageType,
+                productIds: '',
+                name: state.index.name,
+                introduction: state.index.introduction
+              }
+            } else {
+              json = {
+                businessNo: urlParams.businessNo,
+                configJson: JSON.stringify(state.index.data),
+                pageType: opt.obj.$route.query.pageType,
+                id: state.index.id,
+                productIds: '',
+                status: state.index.status,
+                displayPosition: state.index.displayPosition
+              }
             }
             if (opt.obj.$route.query.id) {
               json.id = opt.obj.$route.query.id
@@ -483,12 +496,14 @@ export default {
             axios.post(opt.url, querystring.stringify(json)).then(({data}) => {
               state.index.fullLoading = false
               if (data.success) {
-                opt.obj.$router.history.go(-1)
+                if (opt.obj.$route.query.pageType !== 'PUBLIC_ADVERT') {
+                  opt.obj.$router.history.go(-1)
+                  dispatch('searchSubmitForm', opt.obj.$route.query.filename)
+                }
                 vm.$message({
                   type: 'success',
                   message: '保存成功！'
                 })
-                dispatch('searchSubmitForm', opt.obj.$route.query.filename)
               } else {
                 if (/^NOT_LOGGED_IN$|^401$/.test(data.errCode)) {
                   dispatch('toLogin')
@@ -516,7 +531,7 @@ export default {
     commit(types.CLEARINDEXDATA)
   },
   setIndexData ({commit, dispatch}, {obj, form, url}) {
-    if (form.pageNo) {
+    if (form.pageNo || form.pageType === 'PUBLIC_ADVERT') {
       axios.post(url, querystring.stringify(form)).then(({data}) => {
         if (data.success) {
           if (data.result) {
@@ -529,6 +544,8 @@ export default {
                 message: '缺少数据,请联系管理员m-data'
               })
             }
+          } else if (form.pageType === 'PUBLIC_ADVERT') {
+            commit(types.SETINDEXMEPTYDATA, data.result)
           }
         } else {
           if (/^NOT_LOGGED_IN$|^401$/.test(data.errCode)) {
@@ -540,7 +557,9 @@ export default {
             })
           }
           setTimeout(() => {
-            obj.$router.history.go(-1)
+            if (obj.$route.query.pageType !== 'PUBLIC_ADVERT') {
+              obj.$router.history.go(-1)
+            }
           }, 100)
         }
       })

@@ -7,7 +7,7 @@
 					<ul :style="{width:result.attr.list.length*320+'px'}">
 		        <template v-for="item, i of result.attr.list">
 						<li>
-							<img :src="item.img" :class="{noImg:!item.img}" />
+							<img :src="item.img.replace(/\/w\/\d+\/h\/\d+$/, '') + '/w/640/h/640'" :class="{noImg:!item.img}" />
 							<p v-show="!i && item.text" v-text="item.text"></p>
 						</li>
     			  </template>
@@ -22,7 +22,7 @@
 			<img v-if="!result.attr.list.length" :src="result.attr.separate === 'big' ? cpdSeparate : cpdSeparateSmall" />
 			<template v-else v-for="item of result.attr.list">
 				<div class="imgBox">
-					<img :src="item.img" :class="{noImg:!item.img}" />
+					<img :src="item.img.replace(/\/w\/\d+\/h\/\d+$/, '') + '/w/640/h/640'" :class="{noImg:!item.img}" />
 					<p v-show="item.img,item.text" v-text="item.text"></p>
 				</div>
 			</template>

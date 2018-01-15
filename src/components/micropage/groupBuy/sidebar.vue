@@ -13,7 +13,7 @@
       <div ref="items" class="product-list" style="display:inline">
         <div v-for="item,i in result.attr.list" @mousedown="mousedown(i)" class="item" :class="{move:result.attr.mode === 'move'}">
     			<mu-chip @delete="remove(i)" class="product" showDelete v-if="item.img" @click="open(item.url)" :disabled="result.attr.mode === 'move'">
-			      <mu-avatar imgClass="productImg" ref="productImg" :size="40" :src="item.img"/>
+			      <mu-avatar imgClass="productImg" ref="productImg" :size="40" :src="item.img + '/w/640/h/640'"/>
             <mu-avatar style="margin-left:6px;margin-right:-6px" v-show="result.attr.mode === 'move'" :size="20" icon="swap_horiz"/>
     			</mu-chip>
         </div>

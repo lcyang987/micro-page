@@ -49,6 +49,7 @@ export default {
     addClick () {
       let active = parseInt(this.$refs.actions.parentNode.parentNode.getAttribute('index'));
       [this.sidebar.isHidden, this.sidebar.isRegion, this.index.active, this.sidebar.top] = [false, true, active, this.$refs.actions.parentNode.parentNode.offsetTop]
+      this.$parent.$parent.dblclick(this.index.active)
     },
     // open () {
     //   this.dialog = true

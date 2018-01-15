@@ -4,7 +4,8 @@
 		<div :class="result.attr.type">
 			<template v-for="item,i of result.attr.list">
 				<div class="imgBox" :class="{keep:/^(keep)$/.test(result.attr.space),clear:/^(clear)$/.test(result.attr.space)}">
-					<img :src="item.img || require('assets/micropage/images/p'+(i+1)+'.jpg')" :class="{visibility:!item.img}"/>
+					<img v-if="item.img" :src="item.img.replace(/\/w\/\d+\/h\/\d+$/, '') + '/w/450/h/450'" />
+					<img v-else :src="require('assets/micropage/images/p'+(i+1)+'.jpg')" class="visibility" />
 				</div>
 			</template>
 		</div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="modal" v-loading.fullscreen.lock="index.fullLoading"></div>
-    <div class="fixedMicropage" @click="modalClose">
+    <div class="fixedMicropage" @click="modalClose" ref="fixedMicropage">
       <div class="design" @click.stop>
     		<section ref="item" class="dataList">
           <div v-if="!index.isLoad" style="text-align:center;padding:30px 0px">
@@ -10,7 +10,7 @@
     			<template v-for="(item,i) in index.data" v-if="index.state">
     				<div class="item" :index="i" @mousedown="indexDragDrop({
                 _this:_self
-            })" @mouseenter="mouseenter(item,i)" @mouseleave="mouseleave" :class="{active:i===index.current}" :active="index.active===i">
+            })" @mouseenter="mouseenter(item,i)" @dblclick="dblclick(i)" @mouseleave="mouseleave" :class="{active:i===index.current}" :active="index.active===i">
     					<component :is="item.type+'Component'" :result="item"></component>
     				</div>
     			</template>
@@ -21,16 +21,40 @@
       </div>
   		<sidebarComponent @click.stop.native v-if="index.active !== null" ref="sidebar" :result="index.data[index.active]" :active="index.active"></sidebarComponent>
       <div class="operations" @click.stop @mouseenter="templateShow" @mouseleave="templateLeave">
-    		<div class="template" ref="template">
-  		    <!-- <mu-text-field v-model="result.attr.content" v-inputValidator="{'require':result.require.content,'value':result.attr.content,'validator':result.validator.content}" labelFloat :errorText="errorTxt" @textOverflow="testOverflow" label="公告" fullWidth multiLine :rows="3" :rowsMax="6" :maxLength="parseInt(result.validator.content.max)"/> -->
-          <mu-text-field ref="templateName" label="模板名称" @blur="blur" :errorText="nameErrorTxt" @textOverflow="testNameOverflow" :maxLength="20" labelFloat v-model="index.name" :disabled="!index.isLoad"/>
-          <mu-text-field ref="templateIntroduction" label="模板描述" @blur="blur" :errorText="introductionErrorTxt" @textOverflow="testIntroductionOverflow" :maxLength="40" labelFloat v-model="index.introduction" :disabled="!index.isLoad"/>
-        </div>
-        <div style="display:flex;position:relative;z-index:99">
-          <mu-raised-button @click="publishClick" label="发布" style="flex-grow:1" secondary :disabled="!index.isLoad || index.validateTime"></mu-raised-button>
-          <mu-raised-button @click="draftClick" label="草稿" style="flex-grow:1" primary :disabled="!index.isLoad || index.validateTime" v-if="index.isDraft !== 'n'"></mu-raised-button>
-          <mu-raised-button :label="index.editTime? index.oneClick? '确认不保存' :'不保存关闭' : '关闭'" @click="closeClick" style="flex-grow:1"/></mu-raised-button>
-        </div>
+        <template v-if="$route.query.pageType === 'PUBLIC_ADVERT'">
+      		<div class="template detail-template" ref="template">
+            <div class="demo-tip-setting">
+              <p>
+                开启状态：
+              </p>
+              <p>
+                <mu-radio label="启用" name="status" nativeValue="y" v-model="index.status" class="demo-radio"/>
+                <mu-radio label="禁用" name="status" nativeValue="n" v-model="index.status" class="demo-radio"/>
+              </p>
+              <p>
+                出现位置：
+              </p>
+              <p>
+                <mu-radio label="头部" name="displayPosition" nativeValue="TOP" v-model="index.displayPosition" class="demo-radio"/>
+                <mu-radio label="底部" name="displayPosition" nativeValue="BOTTOM" v-model="index.displayPosition" class="demo-radio"/>
+              </p>
+            </div>
+          </div>
+          <div class="operations-btns">
+            <mu-raised-button @click="saveClick" label="保存" style="flex-grow:1" secondary :disabled="!index.isLoad || index.validateTime"></mu-raised-button>
+          </div>
+        </template>
+        <template v-else>
+      		<div class="template" ref="template">
+            <mu-text-field ref="templateName" label="模板名称" @blur="blur" :errorText="nameErrorTxt" @textOverflow="testNameOverflow" :maxLength="20" labelFloat v-model="index.name" :disabled="!index.isLoad"/>
+            <mu-text-field ref="templateIntroduction" label="模板描述" @blur="blur" :errorText="introductionErrorTxt" @textOverflow="testIntroductionOverflow" :maxLength="40" labelFloat v-model="index.introduction" :disabled="!index.isLoad"/>
+          </div>
+          <div class="operations-btns">
+            <mu-raised-button @click="publishClick" label="发布" style="flex-grow:1" secondary :disabled="!index.isLoad || index.validateTime"></mu-raised-button>
+            <mu-raised-button @click="draftClick" label="草稿" style="flex-grow:1" primary :disabled="!index.isLoad || index.validateTime" v-if="index.isDraft !== 'n'"></mu-raised-button>
+            <mu-raised-button :label="index.editTime? index.oneClick? '确认不保存' :'不保存关闭' : '关闭'" @click="closeClick" style="flex-grow:1"/></mu-raised-button>
+          </div>
+        </template>
       </div>
     </div>
 	</div>
@@ -50,13 +74,15 @@ import showcaseComponent from './showcase'
 import goodsComponent from './goods'
 import groupBuyComponent from './groupBuy'
 import {mapGetters, mapActions} from 'vuex'
+import urlParams from 'assets/urlParams'
 export default {
   name: 'index',
   data () {
     return {
       isFocus: false,
       nameErrorTxt: '',
-      introductionErrorTxt: ''
+      introductionErrorTxt: '',
+      urlParams
     }
   },
   computed: {
@@ -98,7 +124,7 @@ export default {
     },
     templateLeave () {
       this.isFocus = false
-      if (document.activeElement === this.$refs.templateName.$el.querySelector('input') || document.activeElement === this.$refs.templateIntroduction.$el.querySelector('input')) {
+      if ((this.$refs.templateName && document.activeElement === this.$refs.templateName.$el.querySelector('input')) || (this.$refs.templateIntroduction && document.activeElement === this.$refs.templateIntroduction.$el.querySelector('input'))) {
       } else {
         this.templateHide()
       }
@@ -130,14 +156,24 @@ export default {
         url: 'micropage/savePageDraft.json'
       })
     },
+    saveClick () {
+      this.validateData({
+        obj: this,
+        url: 'micropage/saveAdvert.json'
+      })
+    },
     mouseenter (item, i) {
       if (!this.index.isMove) { this.index.current = i }
+    },
+    dblclick (i) {
+      var top = this.$refs.item.children[i].offsetTop - this.$refs.fixedMicropage.scrollTop
+      this.$refs.fixedMicropage.scrollTop = this.$refs.fixedMicropage.scrollTop + top
     },
     mouseleave (item, i) {
       if (!this.index.isMove) { this.index.current = null }
     },
     modalClose () {
-      if (!this.index.dontClose) { this.close() }
+      if (!this.index.dontClose && this.$route.query.pageType !== 'PUBLIC_ADVERT') { this.close() }
     },
     closeClick () {
       if (!this.index.editTime) {
@@ -160,10 +196,11 @@ export default {
     this.clearIndexData()
   },
   created () {
+    var url = this.$route.query.pageType === 'PUBLIC_ADVERT' ? 'micropage/queryPageByBusinessNo.json' : 'micropage/queryPageConfigByPageNo.json'
     this.setIndexData({
       obj: this,
       form: this.$route.query,
-      url: 'micropage/queryPageConfigByPageNo.json'
+      url: url
     })
   },
   mounted () {
@@ -176,7 +213,11 @@ export default {
     modal.style.left = fixedMicropage.style.left = centerBox.offsetLeft + 'px'
     modal.style.height = fixedMicropage.style.height = 'calc(100% - ' + centerBox.offsetTop + 'px)'
     // operations.style.left = 'calc(40% - 22px)'
-    operations.style.left = 'calc(40% - 37px)'
+    if (this.urlParams.isIframe) {
+      operations.style.left = 'calc(40% - 158px)'
+    } else {
+      operations.style.left = 'calc(40% - 37px)'
+    }
   },
   watch: {
     'index.data': {
@@ -252,6 +293,23 @@ export default {
     border: 2px solid #c5c5c5;
     border-radius: 15px 15px 0 0;
   }
+  .detail-template{
+    height: 174px;
+    p{
+      display: flex;
+      align-items: center;
+      padding-left: 20px;
+    }
+    .demo-tip-setting .mu-radio {
+      margin-left: 32px;
+    }
+    .demo-tip-setting .mu-radio:first-child{
+      margin-left: 0;
+    }
+    .demo-tip-setting .mu-switch {
+      margin-left: 8px;
+    }
+  }
 </style>
 <style lang="less">
 	.design{
@@ -326,5 +384,10 @@ export default {
 ul, li{
   margin:0;
   padding:0;
+}
+.operations-btns{
+  display: flex;
+  position: relative;
+  z-index: 99;
 }
 </style>

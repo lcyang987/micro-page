@@ -75,7 +75,7 @@
       正在读取[ {{nowTeam || '全部'}} ]数据...
     </mu-sub-header>
     <mu-grid-tile v-show="dialog.loading" class="picList" v-for="item, i in dialog.data" :key="i">
-      <img :src="item.realThumbnailUrl"/>
+      <img :src="item.realSourceUrl + '/w/160/h/160'"/>
       <!-- <img :src="item.realSourceUrl"/> -->
       <mu-text-field ref="picText" class="picText" hintTextClass="hintText" underlineFocusClass="underline" style="width:90px" v-show="item.isLcyEdit" slot="title" hintText="图片名称" v-model="item.pictureName" inputClass="picNameInput"/>
       <span v-show="!item.isLcyEdit" slot="title">{{item.pictureName}}</span>
@@ -373,7 +373,7 @@ export default {
     beforeClick (item) {
       this.picSelect({
         item: item,
-        newUrl: item.realSourceUrl + this.dialog.picSize
+        newUrl: item.realSourceUrl // + this.dialog.picSize
       })
     },
     beforeUpload (file) {

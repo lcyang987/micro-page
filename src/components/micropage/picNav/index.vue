@@ -3,7 +3,7 @@
 		<div>
 			<template v-for="item of result.attr.list">
 				<div class="imgBox">
-					<img :class="{visibility:!item.img}" :src="item.img" />
+					<img :class="{visibility:!item.img}" :src="item.img ? item.img.replace(/\/w\/\d+\/h\/\d+$/, '') + '/w/160/h/160' : ''" />
 					<span v-text="item.text"></span>
 				</div>
 			</template>

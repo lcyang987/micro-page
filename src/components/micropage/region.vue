@@ -5,7 +5,8 @@
 			<li v-for="item in region.data" :class="{isTrue:item.type && !item.isDev, isLoading:!index.isLoad}" v-text="item.text" v-on:click="regionClick({
         item:item,
         obj:_self
-      })"></li>
+      });
+      toTop()"></li>
 		</ul>
 	</section>
 </template>
@@ -17,9 +18,18 @@ export default {
     'index',
     'region'
   ]),
-  methods: mapActions([
-    'regionClick'
-  ])
+  methods: {
+    ...mapActions([
+      'regionClick'
+    ]),
+    toTop () {
+      if (/sidebar/.test(this.$parent.$el.className)) {
+        setTimeout(() => {
+          this.$parent.$parent.dblclick(this.index.active)
+        }, 0)
+      }
+    }
+  }
 }
 </script>
 

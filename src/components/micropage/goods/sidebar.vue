@@ -13,7 +13,7 @@
       <div ref="items" class="product-list" style="display:inline">
         <div v-for="item,i in result.attr.list" @mousedown="mousedown(i)" class="item" :class="{move:result.attr.mode === 'move'}">
     			<mu-chip @delete="remove(i)" class="product" showDelete v-if="item.img" @click="open(item.url)" :disabled="result.attr.mode === 'move'">
-			      <mu-avatar imgClass="productImg" ref="productImg" :size="40" :src="item.img"/>
+			      <mu-avatar imgClass="productImg" ref="productImg" :size="40" :src="item.img + '/w/640/h/640'"/>
             <mu-avatar style="margin-left:6px;margin-right:-6px" v-show="result.attr.mode === 'move'" :size="20" icon="swap_horiz"/>
     			</mu-chip>
         </div>
@@ -38,7 +38,7 @@
 		<div class="demo-tip-setting">
 			<p>
 				<mu-radio label="卡片" nativeValue="card" v-model="result.attr.style" class="demo-radio"/>
-				<mu-radio label="瀑布" nativeValue="falls" v-model="result.attr.style" v-show="/^(small)$/.test(result.attr.type)" class="demo-radio"/>
+				<!-- <mu-radio label="瀑布" nativeValue="falls" v-model="result.attr.style" v-show="/^(small)$/.test(result.attr.type)" class="demo-radio"/> -->
 				<mu-radio label="极简" nativeValue="easy" v-model="result.attr.style" @change="btnChange" class="demo-radio"/>
 				<mu-radio label="促销" nativeValue="sale" v-model="result.attr.style" v-show="/^(small)$/.test(result.attr.type)" class="demo-radio"/>
 			</p>
@@ -49,6 +49,9 @@
 			</p>
 			<p v-show="/^(big)$/.test(result.attr.type) && /^(card)$/.test(result.attr.style)">
 				<mu-checkbox label="显示简介" v-model="result.attr.display.info" class="demo-checkbox"/>
+			</p>
+			<p v-if="typeof(result.attr.display.specification) !== 'undefined'" v-show="(/^(big)$/.test(result.attr.type) && !/^(easy)$/.test(result.attr.style)) || (/^(arrange12)$/.test(result.attr.type) &&  /^(card)$/.test(result.attr.style)) || (/^(small)$/.test(result.attr.type) &&  /^(card)$/.test(result.attr.style)) || /^(list)$/.test(result.attr.type)">
+				<mu-checkbox label="显示规格" v-model="result.attr.display.specification" class="demo-checkbox"/>
 			</p>
 			<!-- <p v-show="(!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)) && !/^(list)$/.test(result.attr.type)"> -->
 			<p v-show="!/^(sale)$/.test(result.attr.style) || !/^(small)$/.test(result.attr.type)">
@@ -104,7 +107,7 @@ export default {
           name: 'list',
           num: -1
         },
-        searchField: 'productName'
+        searchField: 'name'
       })
     },
     mousedown (i) {
@@ -123,8 +126,10 @@ export default {
       window.open(url)
     },
     setProductImg () {
-      for (var i = 0; i < this.$refs.productImg.length; i++) {
-        this.$refs.productImg[i].$el.querySelector('img').setAttribute('draggable', false)
+      if (this.$refs.productImg) {
+        for (var i = 0; i < this.$refs.productImg.length; i++) {
+          this.$refs.productImg[i].$el.querySelector('img').setAttribute('draggable', false)
+        }
       }
     }
   },

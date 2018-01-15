@@ -3,11 +3,11 @@
     <el-form-item label="模板名称">
       <el-input v-model="form.nameFuzzy"></el-input>
     </el-form-item>
-    <searchComponent :filename="filename"></searchComponent>
+    <searchComponent :filename="filename" :resetName="resetName"></searchComponent>
 	</el-form>
 </template>
 <script>
 export default{
-  props: ['filename', 'form']
+  props: ['filename', 'form', 'resetName']
 }
 </script>

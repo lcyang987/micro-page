@@ -10,7 +10,6 @@ export default new Router({
       component: require('common/Index'),
       children: [{
         path: '/',
-        // component: require('page/empty'),
         redirect: 'HomePage'
       }, {
         path: 'HomePage',
@@ -22,6 +21,13 @@ export default new Router({
       }, {
         path: 'CustomPage',
         component: require('page/CustomPage'),
+        children: [{
+          path: 'micropage',
+          component: require('micropage')
+        }]
+      }, {
+        path: 'AdvertPage',
+        component: require('page/AdvertPage'),
         children: [{
           path: 'micropage',
           component: require('micropage')

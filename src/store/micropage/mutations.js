@@ -27,7 +27,7 @@ const mutations = {
     state.dialog.search.count = data.count
     state.dialog.title = data.title
     state.dialog.data = data.result
-    state.dialog.picSize = state.dialog.search.picSize
+    // state.dialog.picSize = state.dialog.search.picSize
     // for (var obj of state.dialog.data) {
     //   obj.isLcyEdit = false
     // }
@@ -71,13 +71,23 @@ const mutations = {
   },
   [types.SETINDEXDATA] (state, data) {
     state.index.timer = setTimeout(() => {
-      // state.index.data = JSON.parse(data.configJson)
-      // state.index.data = data.configJson
+      // single
+      state.index.id = data.id
+      state.index.status = data.status
+      state.index.displayPosition = data.displayPosition
+      // common
       state.index.name = data.name
       state.index.introduction = data.introduction
       state.index.isDraft = data.isDraft
       state.index.isLoad = true
     }, 0)
+  },
+  [types.SETINDEXMEPTYDATA] (state, data) {
+    state.index.data = []
+    state.index.id = ''
+    state.index.status = 'y'
+    state.index.displayPosition = 'TOP'
+    state.index.isLoad = true
   },
   [types.REMOVEOTHERID] (state, newConfigJson) {
     state.index.data = newConfigJson

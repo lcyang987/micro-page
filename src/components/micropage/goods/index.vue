@@ -4,12 +4,16 @@
 			<div v-for="item,i of list" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]" v-if="item instanceof Object===false || item.img">
 				<div class="goodsBox" :class="result.attr.style">
 					<div class="imgBox">
-						<img v-if="list instanceof Array" :src="item.img" alt="暂无图片"/>
-						<img v-else :src="item.img||require('assets/micropage/images/p'+(i+1)+'.jpg')"/>
+            <template v-if="list instanceof Array">
+              <img v-if="item.img" :src="item.img + '/w/640/h/640'" />
+  						<div v-if="item.totalStock === 0" class="soldOut"></div>
+            </template>
+            <img v-else :src="require('assets/micropage/images/p'+(i+1)+'.jpg')" />
 					</div>
 					<div class="other">
-						<h4 :class="{'m-show':result.attr.display.text}" v-text="item.text||'此处显示商品名称'"></h4>
+						<h4 :class="{'m-show':result.attr.display.text}" v-text="item.text ? item.text.length > 35 ? item.text.substring(0, 35) + '...' : item.text : '此处显示商品名称'"></h4>
 						<p :class="{'m-show':result.attr.display.info}" v-text="item.info||'此处显示商品简介'"></p>
+						<i v-if="typeof(result.attr.display.specification) !== 'undefined'" :class="{'m-show':result.attr.display.specification}" v-text="item.specification ? '规格:' + item.specification : '此处显示规格'"></i>
             <div class="price" v-if="result.attr.display.text || (result.attr.type==='big' && result.attr.display.info) || result.attr.display.price" :class="{'m-show':result.attr.display.price}">
               <b class="currency">￥</b><b class="int" v-text="item.price ? ('' + item.price).split('.')[0] : '99'"></b><b class="decimal" v-text="item.price ? ('' + item.price).split('.')[1] ? '.' + ('' + item.price).split('.')[1] : '' : '.00'"></b>
             </div>
@@ -20,20 +24,22 @@
 				</div>
 			</div>
 		</template>
-		<template v-else>
+		<!-- <template v-else>
 			<div class="fallsLayout">
 				<div v-for="item,i of list" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]" v-if="(item instanceof Object===false || item.img) && i%2==0">
 					<div class="goodsBox" :class="result.attr.style">
 						<div class="imgBox">
-							<img v-if="list instanceof Array" :src="item.img" alt="暂无图片"/>
-							<img v-else :src="item.img||require('assets/micropage/images/p'+(i+1)+'.jpg')"/>
+              <template v-if="list instanceof Array">
+                <img v-if="item.img" :src="item.img + '/w/640/h/640'" />
+    						<div v-if="item.totalStock === 0" class="soldOut"></div>
+              </template>
+              <img v-else :src="require('assets/micropage/images/p'+(i+1)+'.jpg')" />
 						</div>
 						<div class="other">
 							<h4 :class="{'m-show':result.attr.display.text}" v-text="item.text||'此处显示商品名称'"></h4>
               <div class="price" v-if="result.attr.display.text || (result.attr.type==='big' && result.attr.display.info) || result.attr.display.price" :class="{'m-show':result.attr.display.price}">
                 <b class="currency">￥</b><b class="int" v-text="item.price ? ('' + item.price).split('.')[0] : '99'"></b><b class="decimal" v-text="item.price ? ('' + item.price).split('.')[1] ? '.' + ('' + item.price).split('.')[1] : '' : '.00'"></b>
               </div>
-							<!-- <b v-if="result.attr.display.text || (result.attr.type==='big' && result.attr.display.info) || result.attr.display.price" :class="{'m-show':result.attr.display.price}" v-text="result.attr.display.price && item.price? '￥' + item.price : '￥9999.00'"></b> -->
 							<span :class="['btn'+result.attr.btn,{'m-show':result.attr.display.btn}]"></span>
 						</div>
 					</div>
@@ -43,21 +49,23 @@
 				<div v-for="item,i of list" :class="[result.attr.type,{ismall:/^arrange12$/.test(result.attr.type) && i%3!==0},{ibig:/^arrange12$/.test(result.attr.type) && i%3===0}]" v-if="(item instanceof Object===false || item.img) && i%2==1">
 					<div class="goodsBox" :class="result.attr.style">
 						<div class="imgBox">
-							<img v-if="list instanceof Array" :src="item.img" alt="暂无图片"/>
-							<img v-else :src="item.img||require('assets/micropage/images/p'+(i+1)+'.jpg')"/>
+              <template v-if="list instanceof Array">
+                <img v-if="item.img" :src="item.img + '/w/640/h/640'" />
+    						<div v-if="item.totalStock === 0" class="soldOut"></div>
+              </template>
+              <img v-else :src="require('assets/micropage/images/p'+(i+1)+'.jpg')" />
 						</div>
 						<div class="other">
 							<h4 :class="{'m-show':result.attr.display.text}" v-text="item.text||'此处显示商品名称'"></h4>
               <div class="price" v-if="result.attr.display.text || (result.attr.type==='big' && result.attr.display.info) || result.attr.display.price" :class="{'m-show':result.attr.display.price}">
                 <b class="currency">￥</b><b class="int" v-text="item.price ? ('' + item.price).split('.')[0] : '99'"></b><b class="decimal" v-text="item.price ? ('' + item.price).split('.')[1] ? '.' + ('' + item.price).split('.')[1] : '' : '.00'"></b>
               </div>
-							<!-- <b v-if="result.attr.display.text || (result.attr.type==='big' && result.attr.display.info) || result.attr.display.price" :class="{'m-show':result.attr.display.price}" v-text="result.attr.display.price && item.price? '￥' + item.price : '￥9999.00'"></b> -->
 							<span :class="['btn'+result.attr.btn,{'m-show':result.attr.display.btn}]"></span>
 						</div>
 					</div>
 				</div>
 			</div>
-		</template>
+		</template> -->
 		<actionsComponent :result="result"></actionsComponent>
 	</div>
 </template>
@@ -93,7 +101,25 @@ export default {
     &.noTopWhite{
       margin-top:-4px;
     }
+    .imgBox{
+      position: relative;
+      .soldOut{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.9;
+        background-image: url('~assets/micropage/images/sold_out.png');
+        background-size: contain;
+      }
+    }
     .other{
+      i{
+        font-size: 12px;
+        font-style:normal;
+        color: #999;
+      }
       .price{
         display:inline;
         b{
@@ -285,7 +311,7 @@ export default {
 						width:100%;
 						background:rgba(0,0,0,0.4);
 						color:white;
-						& + p + .price{
+						& + p + i +.price{
 							background:none !important;
 						}
 					}
@@ -462,7 +488,7 @@ export default {
 							// & + p + b{
 							// 	background:none !important;
 							// }
-							& + p + .price{
+							& + p + i + .price{
 								background:none !important;
 							}
 						}

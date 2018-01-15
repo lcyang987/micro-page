@@ -1,3 +1,4 @@
+import urlParams from '../urlParams'
 export default {
   'white': {
     'type': 'white',
@@ -308,7 +309,9 @@ export default {
       'img': '', // 图片地址
       'url': '', // 链接地址
       'info': '', // 描述
-      'price': '' // 价格
+      'price': '', // 价格
+      'totalStock': '', // 库存
+      'specification': '' // 商品规格
     },
     'type': 'goods',
     'attr': {
@@ -320,6 +323,7 @@ export default {
         'btn': true, // 购物车按钮
         'text': true, // 商品名称
         'info': true, // 商品简介
+        'specification': urlParams.goods.specification, // 商品规格 // 根据url配置来选择是否提供此属性
         'price': true // 商品价格
       },
       'btn': '1', // 购物车按钮图标 类型"1": 购物车, 类型"2": +, 类型"3"： buy, 类型"4": 订购

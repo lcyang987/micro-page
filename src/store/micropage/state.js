@@ -8,6 +8,8 @@ export default {
     data: [],
     name: '',
     introduction: '',
+    status: '',
+    displayPosition: '',
     active: null,
     current: null,
     isMove: false,

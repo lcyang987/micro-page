@@ -25,7 +25,7 @@ export default {
         extraForm: {
           shopAlias: urlParams.businessNo
         },
-        searchField: 'productName'
+        searchField: 'name'
       }, {
         id: 2,
         title: '商品分组列表',

@@ -68,7 +68,7 @@ Vue.directive('linkValidator', {
 Vue.directive('imgValidator', {
   inserted: function (el, binding) {
     let json = binding.value
-    if (store.state.micropage.index.validateSuccess) {
+    if (json.require && store.state.micropage.index.validateSuccess) {
       if (!json.value) {
         el.style.boxShadow = '0 0 7px red'
         el.addEventListener('mouseover', function () {

@@ -9,6 +9,7 @@
         <mu-th tooltip="序号" width="60" style="padding:0 15px">序号</mu-th>
         <mu-th tooltip="文本名称">名称</mu-th>
         <mu-th tooltip="价格" v-if="dialog.data && dialog.data[0] && dialog.data[0].price">价格</mu-th>
+        <mu-th tooltip="库存" v-if="dialog.data && dialog.data[0] && dialog.data[0].totalStock">库存</mu-th>
         <mu-th tooltip="图片" v-if="dialog.data && dialog.data[0] && dialog.data[0].img">图片</mu-th>
         <mu-th tooltip="创建时间" v-if="dialog.data && dialog.data[0] && dialog.data[0].time">创建时间</mu-th>
         <mu-th tooltip="操作按钮" style="width:170px;text-align:center">操作</mu-th>
@@ -24,7 +25,8 @@
             <b v-else>{{item.text}}</b>
           </mu-td>
           <mu-td v-if="item.price">￥{{item.price}}</mu-td>
-          <mu-td v-if="item.img"><img width="120" height="120" :src="item.img"/></mu-td>
+          <mu-td v-if="item.totalStock">{{item.totalStock}}</mu-td>
+          <mu-td v-if="item.img"><img width="120" height="120" :src="item.img + '/w/640/h/640'"/></mu-td>
           <mu-td v-if="item.time">{{item.time || '暂无'}}</mu-td>
           <mu-td style="width:170px;text-align:right"><mu-raised-button label="选取" class="demo-raised-button" primary @click="click(item)"/></mu-td>
         </mu-tr>
@@ -79,15 +81,15 @@ export default {
       }
       if ((num === 0 || num) && this.dialog.destination.attr) {
         for (let i in destination[num][this.dialog.destination.attr]) {
-          if (item[i]) { destination[num][this.dialog.destination.attr][i] = item[i] }
+          if (item[i] || item[i] === 0) { destination[num][this.dialog.destination.attr][i] = item[i] }
         }
       } else if (num === 0 || num) {
         for (let i in destination[num]) {
-          if (item[i]) { destination[num][i] = item[i] }
+          if (item[i] || item[i] === 0) { destination[num][i] = item[i] }
         }
       } else {
         for (let i in destination) {
-          if (item[i]) { destination[i] = item[i] }
+          if (item[i] || item[i] === 0) { destination[i] = item[i] }
         }
       }
       setTimeout(() => {

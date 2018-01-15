@@ -71,7 +71,12 @@ const mutations = {
       state[filename].AddTree.show = true
     }, 0)
   },
-  [types.SEARCHSETORIGINFORM] (state, filename) {
+  [types.SEARCHSETORIGINFORM] (state, {filename, resetName}) {
+    if (resetName) {
+      resetName.forEach((name) => {
+        state[filename].searchForm.form[name] = ''
+      })
+    }
     state[filename].searchForm.originForm = Object.assign({}, state[filename].searchForm.form)
     delete state[filename].searchForm.originForm.count
     delete state[filename].searchForm.originForm.currentPage

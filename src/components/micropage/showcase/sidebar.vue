@@ -36,7 +36,7 @@
 		<div ref="items" class="list">
 			<section class="item" v-for="(item,i) of result.attr.list" @mousedown="mousedown(i)">
 				<div>
-					<img draggable="false" width="120" height="120" :src="item.img" :alt="item.img?'': i === 0 ? result.attr.type === 'column' ? '尺寸:220x220' : '尺寸:450x450' : '尺寸:220x220'" />
+					<img draggable="false" width="120" height="120" :src="item.img.replace(/\/w\/\d+\/h\/\d+$/, '') + '/w/450/h/450'" :alt="item.img?'': i === 0 ? result.attr.type === 'column' ? '尺寸:220x220' : '尺寸:450x450' : '尺寸:220x220'" />
 					<mu-raised-button v-imgValidator="{'require':result.require.list.img,'value':item.img}" @click="click(i)" style="width:120px;" :label="item.img?'修改图片':'选择图片'"></mu-raised-button>
 				</div>
 				<div>
@@ -70,7 +70,7 @@ export default {
       this.initSearchForm({
         url: 'picture/pictureList.json',
         type: 'pic',
-        picSize: '/w/450/h/450',
+        // picSize: '/w/450/h/450',
         count: 0,
         form: {
           // bussId: '7928d9adbaed48918c4b268a324ec99f',

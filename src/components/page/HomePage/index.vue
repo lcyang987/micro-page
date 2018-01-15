@@ -6,7 +6,7 @@
       <el-tab-pane label="草稿" name="y">{{fileJson.keyword}}-草稿</el-tab-pane>
     </el-tabs>
 		<div class="content-body">
-			<vSearch :filename="fileJson.filename" :form="fileJson.searchForm.form"></vSearch>
+			<vSearch :filename="fileJson.filename" :form="fileJson.searchForm.form" :resetName="['isDraft']"></vSearch>
       <router-link append :to="{ path: 'micropage', query: {
         pageType: fileJson.searchForm.form.pageType,
         filename: fileJson.filename
@@ -161,7 +161,9 @@ export default {
     ]),
     tabClick (tab, event) {
       this.activeName !== '0' ? this.fileJson.searchForm.form.isDraft = this.activeName : this.fileJson.searchForm.form.isDraft = ''
-      this.searchSetOriginForm(this.fileJson.filename)
+      this.searchSetOriginForm({
+        filename: this.fileJson.filename
+      })
       this.searchBtnClick(this.fileJson.filename)
     },
     addRowClass (row, index) {

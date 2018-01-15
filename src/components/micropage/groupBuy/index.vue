@@ -3,8 +3,8 @@
 		<div v-for="item, i of list" :class="result.attr.type" v-if="item instanceof Object === false || item.img">
 			<div class="groupBuyBox">
 				<div class="imgBox">
-					<img v-if="list instanceof Array" :src="item.img" alt="暂无图片"/>
-					<img v-else :src="item.img || require('assets/micropage/images/p' + (i + 1) + '.jpg')"/>
+					<img v-if="list instanceof Array" :src="item.img + '/w/640/h/640'"/>
+          <img v-else :src="require('assets/micropage/images/p'+(i+1)+'.jpg')" />
           <div v-if="result.attr.type !== 'big'" class="activity">
             <span v-text="item.groupPeople ? item.groupPeople + '人团': '9人团'"></span>
           </div>

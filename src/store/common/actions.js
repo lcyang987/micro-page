@@ -74,8 +74,8 @@ export default {
   refreshTree ({commit}, opt) {
     commit(types.REFRESHTREE, opt)
   },
-  searchSetOriginForm ({commit, dispatch, getters}, filename) { // 设置源form
-    commit(types.SEARCHSETORIGINFORM, filename)
+  searchSetOriginForm ({commit, dispatch, getters}, opt) { // 设置源form
+    commit(types.SEARCHSETORIGINFORM, opt)
   },
   searchSubmitForm ({commit, dispatch, getters}, filename) {
     commit(types.TABLELOADINGSTART, filename)

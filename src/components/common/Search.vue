@@ -7,14 +7,17 @@
 <script>
 import {mapActions} from 'vuex'
 export default{
-  props: ['filename'],
+  props: ['filename', 'resetName'],
   methods: mapActions([
     'searchBtnClick',
     'searchFormReset',
     'searchSetOriginForm'
   ]),
   mounted () {
-    this.searchSetOriginForm(this.filename)
+    this.searchSetOriginForm({
+      filename: this.filename,
+      resetName: this.resetName
+    })
     this.searchBtnClick(this.filename)
   }
 }
